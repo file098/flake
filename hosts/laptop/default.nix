@@ -7,6 +7,7 @@
     [(import ../../modules/programs/games.nix)] ++
     [(import ../../modules/desktop/gnome.nix)];
 
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
@@ -56,7 +57,14 @@
     home = "/home/file0";
     description = "Filippo";
     extraGroups = [ "networkmanager" "wheel" "openrazer" "docker" "audio" ];
-    shell = pkgs.zsh;
   };
 
+  environment.systemPackages = with pkgs; [
+    ifuse
+    libimobiledevice
+    openrazer-daemon
+    powertop
+    python311
+    python310Packages.pip 
+  ];
 }

@@ -8,7 +8,6 @@
   home = {
     username = "${user}";
     homeDirectory = "/home/${user}";
-
     packages = with pkgs; [
       # Terminal
       btop              # Resource Manager
@@ -24,6 +23,7 @@
       firefox           # Browser
       # File Management
       rsync             # Syncer $ rsync -r dir1/ dir2/
+      zip
       unzip             # Zip files
       unrar             # Rar files
       # General configuration
@@ -35,7 +35,6 @@
       wget             # Downloader
       zsh              # Shell
       nodejs
-  
     ];
     stateVersion = "22.05";
   };
