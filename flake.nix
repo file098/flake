@@ -3,36 +3,38 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+    
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     }; 
+
+    nixgl = {                                                             #OpenGL 
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = { self, nixpkgs, home-manager }:
+  outputs = inputs @ { self, nixpkgs, home-manager, nixgl }:
     let 
       system = "x86_64-linux";
+      user = "file0";
+
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
       };
+
       lib = nixpkgs.lib;
-    in {
-      nixosConfigurations = {
-        file0 = lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./configuration.nix
-	          ./hardware-configuration.nix
-            ./nvidia.nix
-            home-manager.nixosModules.home-manager {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.file0 = import ./home.nix;
-            }
-          ];
-        };  
-      };
+    in 
+    {
+      nixosConfigurations = (                                               # NixOS configurations
+        import ./hosts {                                                    # Imports ./hosts/default.nix
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs home-manager user;            # Also inherit home-manager so it does not need to be defined here.
+        }
+      );
       # homeConfigurations.file0 = home-manager.lib.homeManagerConfiguration {
       #     inherit system pkgs;
       #     username = "file0";
