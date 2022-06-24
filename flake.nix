@@ -32,7 +32,7 @@
       nixosConfigurations = (                                               # NixOS configurations
         import ./hosts {                                                    # Imports ./hosts/default.nix
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager user;            # Also inherit home-manager so it does not need to be defined here.
+          inherit inputs system nixpkgs home-manager user;            # Also inherit home-manager so it does not need to be defined here.
         }
       );
       # homeConfigurations.file0 = home-manager.lib.homeManagerConfiguration {
