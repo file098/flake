@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  home.stateVersion = "22.05";
+  
   home.packages = with pkgs; [
     auto-cpufreq
     afetch

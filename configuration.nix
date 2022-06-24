@@ -6,7 +6,6 @@ with pkgs;
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./nvidia.nix
-      ./home.nix
       #<home-manager/nixos>
       #(import "${home-manager}/nixos")
     ];
