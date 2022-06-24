@@ -1,19 +1,19 @@
 { lib, inputs, system, home-manager, user, ... }:
 
 {
-  file0 = lib.nixosSystem {
+  laptop = lib.nixosSystem {                                # Laptop profile
     inherit system;
-    specialArgs = { inherit user inputs; };
+    specialArgs = { inherit inputs user; };
     modules = [
+      ./laptop
       ./configuration.nix
-      ./blade/hardware-configuration.nix
-      ./blade/nvidia.nix
+
       home-manager.nixosModules.home-manager {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = { inherit user; };
         home-manager.users.${user} = {
-            imports = [( import ./blade/home.nix)] ;
+          imports = [(import ./home.nix)] ++ [(import ./laptop/home.nix)];
         };
       }
     ];
