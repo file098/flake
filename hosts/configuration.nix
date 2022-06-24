@@ -11,22 +11,6 @@ with pkgs;
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  #########
-  # Network 
-  #########
-
-  services.openssh = {
-    enable = true;
-    ports = [ 
-      22
-      2242
-    ];
-    logLevel = "VERBOSE";
-  };
-
-  services.fail2ban = {
-    enable = true;
-  };
 
   ########
   # Locale 
@@ -96,30 +80,12 @@ with pkgs;
   hardware.bluetooth = {
     enable = true;
   };
-
-  # Workaround until this hits unstable:
-  # https://github.com/NixOS/nixpkgs/issues/113628
-  systemd.services.bluetooth.serviceConfig.ExecStart = [
-    ""
-    "${pkgs.bluez}/libexec/bluetooth/bluetoothd -f /etc/bluetooth/main.conf"
-  ];
-
-  services.blueman.enable = true;
   
   programs = {
     zsh.enable = true;
     steam.enable = true;
   };
-  
-  users.users.file0 = {
-    isNormalUser = true;
-    home = "/home/file0";
-    description = "Filippo";
-    extraGroups = [ "networkmanager" "wheel" "openrazer" "docker" "audio" ];
-    shell = pkgs.zsh;
-  };
 
-  hardware.openrazer.enable = true;
 
   #################
   # SYSTEM PACKAGES

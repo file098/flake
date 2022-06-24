@@ -35,13 +35,6 @@
           inherit inputs system nixpkgs home-manager user;            # Also inherit home-manager so it does not need to be defined here.
         }
       );
-      # homeConfigurations.file0 = home-manager.lib.homeManagerConfiguration {
-      #     inherit system pkgs;
-      #     username = "file0";
-      #     stateVersion = "22.05";
-      #     homeDirectory = "/home/file0";
-      #     configuration = import ./home.nix;      
-      # }; 
     };
    
 }

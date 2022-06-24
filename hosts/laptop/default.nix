@@ -4,6 +4,7 @@
   imports =                                 # For now, if applying to other system, swap files
     [(import ./hardware-configuration.nix)] ++   
     [(import ./nvidia.nix )] ++          # Current system hardware config @ /etc/nixos/hardware-configuration.nix
+    [(import ../../modules/programs/games.nix)] ++
     [(import ../../modules/desktop/gnome.nix)];
 
   boot.loader = {
@@ -34,3 +35,28 @@
 
   networking.hostName = "blade"; # Define your hostname.
   networking.networkmanager.enable = true;
+
+  services.openssh = {
+    enable = true;
+    ports = [ 
+      22
+      2242
+    ];
+    logLevel = "VERBOSE";
+  };
+
+  services.fail2ban = {
+    enable = true;
+  };
+
+  hardware.openrazer.enable = true;
+
+  users.users.file0 = {
+    isNormalUser = true;
+    home = "/home/file0";
+    description = "Filippo";
+    extraGroups = [ "networkmanager" "wheel" "openrazer" "docker" "audio" ];
+    shell = pkgs.zsh;
+  };
+
+}

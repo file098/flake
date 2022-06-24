@@ -1,23 +1,30 @@
 #
 #  Home-manager configuration for laptop
 #
-
-{ pkgs, ... }:
+{ config, lib, pkgs, user, ... }:
 
 {
-  home = {                                # Specific packages for laptop
-    packages = with pkgs; [
-      # Applications
-      libreoffice                         # Office packages
 
-      # Display
-      #light                              # xorg.xbacklight not supported. Other option is just use xrandr.
-
-      # Power Management
-      #auto-cpufreq                       # Power management
-      #tlp                                # Power management
-    ];
-  };
+  imports = 
+    [(import ../../modules/programs/alacritty.nix)] ++
+    [(import ../../modules/programs/neovim.nix)] ++
+    [(import ../../modules/programs/zsh.nix)];
+    
+  home.packages = with pkgs; [
+    discord
+    libreoffice
+    lollypop          
+    nodePackages.typescript
+    razergenie
+    spotify
+    tdesktop
+    transmission-gtk
+    vscode
+    wally-cli
+    whatsapp-for-linux
+    yapf
+    youtube-dl
+  ];
 
   programs = {
     alacritty.settings.font.size = 16;
