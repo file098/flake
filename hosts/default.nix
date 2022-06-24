@@ -5,7 +5,7 @@
     inherit system;
     specialArgs = { inherit user inputs; };
     modules = [
-      ./blade/configuration.nix
+      ./configuration.nix
       ./blade/hardware-configuration.nix
       ./blade/nvidia.nix
       home-manager.nixosModules.home-manager {

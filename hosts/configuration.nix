@@ -3,21 +3,12 @@
 with pkgs;
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
       ./hardware-configuration.nix
       ./nvidia.nix
-      #<home-manager/nixos>
-      #(import "${home-manager}/nixos")
     ];
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "steam"
-    "steam-original"
-    "steam-runtime"
-  ];
-
-  system.autoUpgrade.enable = true;
 
   ############
   # Bootloader
