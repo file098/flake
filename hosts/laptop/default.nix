@@ -5,6 +5,7 @@
     [(import ./hardware-configuration.nix)] ++   
     [(import ./nvidia.nix )] ++          # Current system hardware config @ /etc/nixos/hardware-configuration.nix
     [(import ../../modules/programs/games.nix)] ++
+    [(import ../../modules/programs/virtualbox.nix)] ++
     [(import ../../modules/desktop/gnome.nix)];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -67,4 +68,5 @@
     python311
     python310Packages.pip 
   ];
+
 }

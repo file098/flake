@@ -8,10 +8,10 @@
           selection.save_to_clipboard = true;
           window = {
             decorations = "none";
-            opacity = 0.9;
+            opacity = 0.98;
             padding = {
-              x = 5;
-              y = 5;
+              x = 15;
+              y = 15;
             };
           };
         };
