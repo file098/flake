@@ -4,7 +4,7 @@ with pkgs;
 {
   users.users.${user} = {                   # System User
     isNormalUser = true;
-    extraGroups = [ "wheel" "video" "audio" "camera" "networkmanager" "lp" "scanner" "kvm" "libvirtd" "plex" ];
+    extraGroups = [ "wheel" "video" "audio" "camera" "networkmanager" ];
     shell = pkgs.zsh;                       # Default shell
   };
 
@@ -40,11 +40,6 @@ with pkgs;
   hardware.bluetooth = {
     enable = true;
   };
-  
-  # programs = {
-  #   zsh.enable = true;
-  #   steam.enable = true;
-  # };
 
   environment = {
     variables = {

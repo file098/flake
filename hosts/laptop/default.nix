@@ -5,7 +5,7 @@
     [(import ./hardware-configuration.nix)] ++   
     [(import ./nvidia.nix )] ++          # Current system hardware config @ /etc/nixos/hardware-configuration.nix
     [(import ../../modules/programs/games.nix)] ++
-    [(import ../../modules/programs/virtualbox.nix)] ++
+    # [(import ../../modules/programs/virtualbox.nix)] ++
     [(import ../../modules/desktop/gnome.nix)];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -57,7 +57,7 @@
     isNormalUser = true;
     home = "/home/file0";
     description = "Filippo";
-    extraGroups = [ "networkmanager" "wheel" "openrazer" "docker" "audio" ];
+    extraGroups = [ "networkmanager" "wheel" "openrazer" "docker" "audio" "plugdev" ];
   };
 
   environment.systemPackages = with pkgs; [

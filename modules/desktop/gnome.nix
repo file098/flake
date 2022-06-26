@@ -5,27 +5,32 @@
   services.xserver.desktopManager.gnome.enable = true;
 
   environment.systemPackages = with pkgs; [
+    # Extentions 
     gnomeExtensions.dash-to-dock
     gnomeExtensions.tray-icons-reloaded
     gnomeExtensions.sound-output-device-chooser
     gnomeExtensions.pop-shell
+    #Gnome packages
     pkgs.gnome3.gnome-tweaks
     gparted
     baobab
   ];
 
-
+  # Excluded Gnome Bloat
   environment.gnome.excludePackages = (with pkgs; [
     gnome-photos
     gnome-tour
-    gnome.cheese # webcam tool
+    # gnome-help
+    gnome.cheese
     gnome.gnome-music
-    gnome.epiphany # web browser
+    gnome.epiphany
+    gnome.gnome-weather
   ]);
 
-  #services.gnome = { 
+  # services.gnome = { 
   #  core-utilities.enable = false;
   #  tracker-miners.enable = false;
   #  tracker.enable = false;
-  #};
+  # };
+  
 }
