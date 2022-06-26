@@ -1,8 +1,10 @@
 { pkgs, ...}:
 
 {
+
   programs = {
     zsh = {
+      initExtra = "pfetch";
       enable = true;
       autocd = true;
       enableCompletion = true;

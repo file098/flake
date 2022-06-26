@@ -12,11 +12,15 @@
     [(import ../../modules/programs/zsh.nix)];
     
   home.packages = with pkgs; [
+    # Node
+    nodePackages.typescript
+    yarn
+    
     discord
     libreoffice
     lollypop          
-    nodePackages.typescript
     razergenie
+    soulseekqt
     spotify
     tdesktop
     transmission-gtk

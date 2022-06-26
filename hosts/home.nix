@@ -11,30 +11,30 @@
     packages = with pkgs; [
       # Terminal
       btop              # Resource Manager
-      pfetch            # Minimal fetch
-      ranger            # File Manager
       cpufrequtils
       cryptsetup
       nmap
+      pfetch            # Minimal fetch
+      ranger            # File Manager
       # Video/Audio
-      feh               # Image Viewer
       vlc               # Media Player
+      feh               # Image Viewer
       # Apps
       firefox           # Browser
       # File Management
       rsync             # Syncer $ rsync -r dir1/ dir2/
-      zip
-      unzip             # Zip files
       unrar             # Rar files
+      unzip             # Zip files
+      zip
       # General configuration
-      gotop
-      glxinfo
       git              # Repositories
+      glxinfo
+      gotop
       killall          # Stop Applications
       nano             # Text Editor
+      nodejs
       wget             # Downloader
       zsh              # Shell
-      nodejs
     ];
     stateVersion = "22.05";
   };

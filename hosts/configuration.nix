@@ -48,19 +48,19 @@ with pkgs;
       VISUAL = "nvim";
     };
     systemPackages = with pkgs; [           # Default packages install system-wide
-      git
-      killall
-      nano
-      pciutils
-      usbutils
-      wget
       alacritty
       binutils
       gcc
+      git
       htop
+      killall
+      nano
       neofetch
-      os-prober
       neovim
+      os-prober
+      pciutils
+      usbutils
+      wget
     ];
   };
 

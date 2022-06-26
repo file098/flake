@@ -65,8 +65,8 @@
     libimobiledevice
     openrazer-daemon
     powertop
-    python311
     python310Packages.pip 
+    python311
   ];
 
 }
