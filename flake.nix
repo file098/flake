@@ -3,21 +3,21 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
-    
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-    }; 
+    };
 
-    nixgl = {                                                             #OpenGL 
+    nixgl = { # OpenGL
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, nixgl }:
-    let 
+  outputs = inputs@{ self, nixpkgs, home-manager, nixgl }:
+    let
       system = "x86_64-linux";
       user = "file0";
 
@@ -27,14 +27,13 @@
       };
 
       lib = nixpkgs.lib;
-    in 
-    {
-      nixosConfigurations = (                                               # NixOS configurations
-        import ./hosts {                                                    # Imports ./hosts/default.nix
+    in {
+      nixosConfigurations = ( # NixOS configurations
+        import ./hosts { # Imports ./hosts/default.nix
           inherit (nixpkgs) lib;
-          inherit inputs system nixpkgs home-manager user;            # Also inherit home-manager so it does not need to be defined here.
-        }
-      );
+          inherit inputs system nixpkgs home-manager
+            user; # Also inherit home-manager so it does not need to be defined here.
+        });
     };
-   
+
 }

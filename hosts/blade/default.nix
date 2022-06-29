@@ -1,14 +1,15 @@
 { config, pkgs, user, ... }:
 
 {
-  imports =                                 # For now, if applying to other system, swap files
-    [(import ./hardware-configuration.nix)] ++   
-    [(import ./nvidia.nix )] ++          # Current system hardware config @ /etc/nixos/hardware-configuration.nix
-    [(import ../../modules/programs/games.nix)] ++
+  imports = # For now, if applying to other system, swap files
+    [ (import ./hardware-configuration.nix) ] ++ [ (import ./nvidia.nix) ]
+    ++ # Current system hardware config @ /etc/nixos/hardware-configuration.nix
+    [ (import ../../modules/programs/games.nix) ] ++
     # [(import ../../modules/programs/virtualbox.nix)] ++
-    [(import ../../modules/desktop/gnome.nix)];
+    [ (import ../../modules/desktop/gnome.nix) ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelParams = [ "quiet" "splash" "button.lid_init_state=open" ];
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
@@ -40,16 +41,11 @@
 
   services.openssh = {
     enable = true;
-    ports = [ 
-      22
-      2242
-    ];
+    ports = [ 2242 ];
     logLevel = "VERBOSE";
   };
 
-  services.fail2ban = {
-    enable = true;
-  };
+  services.fail2ban = { enable = true; };
 
   hardware.openrazer.enable = true;
 
@@ -57,7 +53,8 @@
     isNormalUser = true;
     home = "/home/file0";
     description = "Filippo";
-    extraGroups = [ "networkmanager" "wheel" "openrazer" "docker" "audio" "plugdev" ];
+    extraGroups =
+      [ "networkmanager" "wheel" "openrazer" "docker" "audio" "plugdev" ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -65,7 +62,7 @@
     libimobiledevice
     openrazer-daemon
     powertop
-    python310Packages.pip 
+    python310Packages.pip
     python311
   ];
 

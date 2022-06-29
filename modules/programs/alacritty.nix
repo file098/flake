@@ -4,19 +4,19 @@
   programs = {
     alacritty = {
       enable = true;
-        settings = {
-          selection.save_to_clipboard = true;
-          window = {
-            decorations = "none";
-            opacity = 0.98;
-            padding = {
-              x = 15;
-              y = 15;
-            };
+      settings = {
+        selection.save_to_clipboard = true;
+        window = {
+          decorations = "none";
+          opacity = 0.98;
+          padding = {
+            x = 15;
+            y = 15;
           };
+        };
         colors = {
-          primary = { 
-            foreground= "#bbc2cf";
+          primary = {
+            foreground = "#bbc2cf";
             background = "#1d2021";
           };
 
@@ -32,6 +32,6 @@
           };
         };
       };
-    }; 
+    };
   };
 }

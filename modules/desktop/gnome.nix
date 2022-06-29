@@ -1,6 +1,6 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 
-{  
+{
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
@@ -32,5 +32,5 @@
   #  tracker-miners.enable = false;
   #  tracker.enable = false;
   # };
-  
+
 }

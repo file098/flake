@@ -1,11 +1,10 @@
 { config, pkgs, lib, user, inputs, ... }:
 
-with pkgs;
-{
-  users.users.${user} = {                   # System User
+with pkgs; {
+  users.users.${user} = { # System User
     isNormalUser = true;
     extraGroups = [ "wheel" "video" "audio" "camera" "networkmanager" ];
-    shell = pkgs.zsh;                       # Default shell
+    shell = pkgs.zsh; # Default shell
   };
 
   # Set your time zone.
@@ -37,9 +36,7 @@ with pkgs;
     '';
   };
 
-  hardware.bluetooth = {
-    enable = true;
-  };
+  hardware.bluetooth = { enable = true; };
 
   environment = {
     variables = {
@@ -47,7 +44,7 @@ with pkgs;
       EDITOR = "nvim";
       VISUAL = "nvim";
     };
-    systemPackages = with pkgs; [           # Default packages install system-wide
+    systemPackages = with pkgs; [ # Default packages install system-wide
       alacritty
       binutils
       gcc
@@ -72,16 +69,16 @@ with pkgs;
     source-code-pro
   ];
 
-  nix = {                                   # Nix Package Manager settings
-    settings ={
-      auto-optimise-store = true;           # Optimise syslinks
+  nix = { # Nix Package Manager settings
+    settings = {
+      auto-optimise-store = true; # Optimise syslinks
     };
-    gc = {                                  # Automatic garbage collection
+    gc = { # Automatic garbage collection
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
-    package = pkgs.nixFlakes;               # Enable nixFlakes on system
+    package = pkgs.nixFlakes; # Enable nixFlakes on system
     registry.nixpkgs.flake = inputs.nixpkgs;
     extraOptions = ''
       experimental-features = nix-command flakes
@@ -89,7 +86,7 @@ with pkgs;
       keep-derivations      = true
     '';
   };
-  nixpkgs.config.allowUnfree = true;        # Allow proprietary software.
+  nixpkgs.config.allowUnfree = true; # Allow proprietary software.
 
   system.stateVersion = "22.05";
 }

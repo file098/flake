@@ -1,7 +1,7 @@
-{pkgs, user, ... }:   
+{ pkgs, user, ... }:
 
 {
-   virtualisation.virtualbox.host.enable = true;
-   # virtualisation.virtualbox.host.enableExtensionPack = true;
-   users.extraGroups.vboxusers.members = ["file0"];
+  virtualisation.virtualbox.host.enable = true;
+  # virtualisation.virtualbox.host.enableExtensionPack = true;
+  users.extraGroups.vboxusers.members = [ "file0" ];
 }
