@@ -28,4 +28,12 @@ in {
       }
     ];
   };
+  tower = lib.nixosSystem { # desktop pc profile
+    inherit system;
+    specialArgs = { inherit inputs user; };
+    modules = [
+      ./tower
+      ./configuration.nix
+    ];
+  };
 }
