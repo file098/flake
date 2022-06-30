@@ -20,7 +20,7 @@ with pkgs; {
   # Configure keymap in X11
   services.xserver = {
     layout = "us";
-    xkbVariant = "";
+    xkbVariant = "alt-intl";
   };
 
   # Enable CUPS to print documents.
@@ -47,6 +47,7 @@ with pkgs; {
     systemPackages = with pkgs; [ # Default packages install system-wide
       alacritty
       binutils
+      firefox
       gcc
       git
       htop

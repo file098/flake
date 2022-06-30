@@ -15,7 +15,7 @@ in {
     specialArgs = { inherit inputs user; };
     modules = [
       ./blade
-      ./configuration.nix
+      ./base-configuration.nix
 
       home-manager.nixosModules.home-manager
       {
@@ -33,7 +33,7 @@ in {
     specialArgs = { inherit inputs user; };
     modules = [
       ./tower
-      ./configuration.nix
+      ./base-configuration.nix
     ];
   };
 }

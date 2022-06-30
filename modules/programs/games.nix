@@ -1,4 +1,4 @@
-{ config, pkgs, nur, lib, ... }:
+{ config, lib, ... }:
 
 {
   programs = { # Needed to succesfully start Steam

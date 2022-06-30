@@ -5,7 +5,7 @@
     [ (import ./hardware-configuration.nix) ] ++ [ (import ./nvidia.nix) ]
     ++ # Current system hardware config @ /etc/nixos/hardware-configuration.nix
     [ (import ../../modules/programs/games.nix) ] ++
-    # [(import ../../modules/programs/virtualbox.nix)] ++
+    [ (import ../../services/ssh.nix)] ++
     [ (import ../../modules/desktop/gnome.nix) ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -36,16 +36,8 @@
     };
   };
 
-  networking.hostName = "blade"; # Define your hostname.
+  networking.hostName = "blade";
   networking.networkmanager.enable = true;
-
-  services.openssh = {
-    enable = true;
-    ports = [ 2242 ];
-    logLevel = "VERBOSE";
-  };
-
-  services.fail2ban = { enable = true; };
 
   hardware.openrazer.enable = true;
 
