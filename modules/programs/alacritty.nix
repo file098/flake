@@ -7,7 +7,7 @@
       settings = {
         selection.save_to_clipboard = true;
         window = {
-          decorations = "none";
+          decorations = "full";
           opacity = 0.98;
           padding = {
             x = 15;
