@@ -12,7 +12,7 @@
       enableAutosuggestions = true;
       oh-my-zsh = {
         enable = true;
-        theme = "gozilla";
+        theme = "lambda";
         plugins = [ "sudo" "git" "npm" "ng" "web-search" ];
       };
       shellAliases = {
