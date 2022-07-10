@@ -26,6 +26,7 @@
     transmission-gtk # torrent client
     vscode
     wally-cli # planck flash tool
+    webtorrent
     whatsapp-for-linux
     youtube-dl
   ];
