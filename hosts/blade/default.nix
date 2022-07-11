@@ -29,7 +29,7 @@
           insmod fat
           insmod search_fs_uuid
           insmod chain
-          search --fs-uuid --set=root F6AA-5190
+          search --fs-uuid --set=root FCFC-D67F
           chainloader /EFI/Microsoft/Boot/bootmgfw.efi
         }
       '';

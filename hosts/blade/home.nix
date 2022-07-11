@@ -12,6 +12,7 @@
   home.packages = with pkgs; [
     # Node
     nodePackages.typescript
+    nodePackages.webtorrent-cli
     yarn
 
     discord
@@ -26,7 +27,6 @@
     transmission-gtk # torrent client
     vscode
     wally-cli # planck flash tool
-    webtorrent
     whatsapp-for-linux
     youtube-dl
   ];
