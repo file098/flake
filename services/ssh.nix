@@ -1,9 +1,9 @@
-{ pkgs, ... }: 
+{ pkgs, ... }:
 
 {
 
   services = {
-    
+
     openssh = {
       enable = true;
       ports = [ 2242 ];

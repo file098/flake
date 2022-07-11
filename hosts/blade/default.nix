@@ -2,11 +2,10 @@
 
 {
   imports = # For now, if applying to other system, swap files
-    [ (import ./hardware-configuration.nix) ] ++
-    [ (import ./nvidia.nix) ] ++
-    [ (import ../../modules/programs/games.nix) ] ++
-    [ (import ../../services/ssh.nix)] ++
-    [ (import ../../modules/desktop/gnome.nix) ];
+    [ (import ./hardware-configuration.nix) ] ++ [ (import ./nvidia.nix) ]
+    ++ [ (import ../../modules/programs/games.nix) ]
+    ++ [ (import ../../services/ssh.nix) ]
+    ++ [ (import ../../modules/desktop/gnome.nix) ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelParams = [ "quiet" "splash" "button.lid_init_state=open" ];

@@ -1,10 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ (import ../../modules/desktop/gnome.nix) ] ++
-    [ (import ../../services/ssh.nix) ] ++
-    [ (import ./hardware-configuration.nix)];
+  imports = [ (import ../../modules/desktop/gnome.nix) ]
+    ++ [ (import ../../services/ssh.nix) ]
+    ++ [ (import ./hardware-configuration.nix) ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -31,10 +30,7 @@
   #   enableSSHSupport = true;
   # };
 
-  
-  environment.systemPackages = with pkgs; [
-    vscode
-  ];
+  environment.systemPackages = with pkgs; [ vscode ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
