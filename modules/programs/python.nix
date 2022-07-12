@@ -3,11 +3,11 @@
 let
   custom-python-packages = python-packages:
     with python-packages; [
-      # pandas
+      pandas
       # jupyter
       # matplotlib
       # virtualenvwrapper
-      python-language-server
+      # python-language-server
       pybluez
       # bluepy
       # seaborn
@@ -15,7 +15,7 @@ let
       fonttools
       pip
     ];
-  python-with-my-packages = pkgs.python3Full.withPackages custom-python-packages;
+  python-with-my-packages = pkgs.python310.withPackages custom-python-packages;
 in { 
     home.packages = with pkgs; [ 
         python-with-my-packages 

@@ -54,8 +54,6 @@
     openrazer-daemon
     polychromatic
     powertop
-    python310Packages.pip
-    python311
   ];
 
 }
