@@ -2,7 +2,8 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # stable.url = "github:NixOS/nixpkgs/nixos-22.05";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -27,12 +28,12 @@
       };
 
       lib = nixpkgs.lib;
+
     in {
       nixosConfigurations = ( # NixOS configurations
         import ./hosts { # Imports ./hosts/default.nix
           inherit (nixpkgs) lib;
-          inherit inputs system nixpkgs home-manager
-            user; # Also inherit home-manager so it does not need to be defined here.
+          inherit inputs system nixpkgs home-manager user;
         });
     };
 

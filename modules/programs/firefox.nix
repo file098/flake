@@ -1,4 +1,4 @@
-{ pkgs, nur, hdmiOn, ... }:
+{ pkgs, ... }:
 
 let
   # disable the annoying floating icon with camera and mic when on a call
@@ -54,9 +54,6 @@ let
     "extensions.webcompat.perform_injections" = true;
     "extensions.webcompat.perform_ua_overrides" = true;
 
-    # DPI settings
-    "layout.css.devPixelsPerPx" = if hdmiOn then "-1.0" else "1.25";
-
     "print.print_footerleft" = "";
     "print.print_footerright" = "";
     "print.print_headerleft" = "";
@@ -76,15 +73,17 @@ in {
   programs.firefox = {
     enable = true;
 
-    extensions = with nur.repos.rycee.firefox-addons; [
-      bitwarden
-      # auto-accepts cookies, use only with privacy-badger & ublock-origin
-      link-cleaner
-      privacy-badger
-      to-deepl
-      ublock-origin
-      unpaywall
-    ];
+    # enable nur packages
+
+    # extensions = with nur.repos.rycee.firefox-addons; [
+    #   bitwarden
+    #   # auto-accepts cookies, use only with privacy-badger & ublock-origin
+    #   link-cleaner
+    #   privacy-badger
+    #   to-deepl
+    #   ublock-origin
+    #   unpaywall
+    # ];
 
     package = pkgs.firefox-beta-bin;
 

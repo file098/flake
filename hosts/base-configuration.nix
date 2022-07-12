@@ -10,7 +10,6 @@ with pkgs; {
   # Set your time zone.
   time.timeZone = "Europe/Rome";
   time.hardwareClockInLocalTime = true;
-  i18n.defaultLocale = "en_US.utf8";
 
   hardware.keyboard.zsa.enable = true;
 
