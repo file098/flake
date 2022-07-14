@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, system, home-manager, user, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-unstable, system, home-manager, user, ... }:
 
 let
   system = "x86_64-linux"; # System architecture
@@ -9,14 +9,14 @@ let
   };
 
   lib = nixpkgs.lib;
+  lib-unstable = nixpkgs-unstable.lib;
 in {
-  blade = lib.nixosSystem { # blade profile
+  blade = lib-unstable.nixosSystem { # blade profile
     inherit system;
     specialArgs = { inherit inputs user; };
     modules = [
       ./blade
       ./base-configuration.nix
-
       home-manager.nixosModules.home-manager
       {
         home-manager.useGlobalPkgs = true;
@@ -28,7 +28,7 @@ in {
       }
     ];
   };
-  tower = lib.nixosSystem { # desktop pc profile
+  tower = lib.nixosSystem { # server profile
     inherit system;
     specialArgs = { inherit inputs user; };
     modules = [ 
@@ -40,7 +40,7 @@ in {
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = { inherit user; };
         home-manager.users.${user} = {
-          imports =  [ (import ./tower/home.nix) ];
+          imports = [ (import ./home.nix) ] ++ [ (import ./tower/home.nix) ];
         };
       }
     ];

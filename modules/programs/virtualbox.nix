@@ -1,4 +1,4 @@
-{ pkgs, user, ... }:
+{ ... }:
 
 {
   virtualisation.virtualbox.host.enable = true;

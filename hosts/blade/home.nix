@@ -1,4 +1,4 @@
-# Home-manager configuration for laptop
+# home-manager configuration for laptop
 #
 { config, lib, pkgs, user, ... }:
 
@@ -19,14 +19,15 @@
 
     discord
     fstl # 3D file view
-    nixfmt # nix file formatter
     libreoffice
     lollypop
+    nixfmt # nix file formatter
     razergenie # razer hardware support
     soulseekqt # file sharing
     spotify
     tdesktop # telegram
     transmission-gtk # torrent client
+    vlc # media player
     vscode
     wally-cli # planck flash tool
     whatsapp-for-linux

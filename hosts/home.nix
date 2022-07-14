@@ -1,5 +1,4 @@
-# General Home-manager configuration
-#
+# general Home-manager configuration
 
 { config, lib, pkgs, user, ... }:
 
@@ -16,7 +15,6 @@
       pfetch # Minimal fetch
       ranger # File Manager
       # Video/Audio
-      vlc # Media Player
       feh # Image Viewer
       # Apps
       firefox # Browser

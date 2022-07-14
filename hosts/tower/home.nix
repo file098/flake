@@ -1,6 +1,6 @@
 # Home-manager configuration for laptop
 #
-{ config, lib, pkgs, user, ... }:
+{ ... }:
 
 {
 
@@ -9,5 +9,5 @@
     ++ [ (import ../../modules/programs/git.nix) ]
     ++ [ (import ../../modules/programs/python.nix) ]
     ++ [ (import ../../modules/programs/zsh.nix) ];
-    
+
 }

@@ -1,7 +1,7 @@
 { config, pkgs, user, ... }:
 
 {
-  imports = # For now, if applying to other system, swap files
+  imports =
     [ (import ./hardware-configuration.nix) ] ++ [ (import ./nvidia.nix) ]
     ++ [ (import ../../modules/programs/games.nix) ]
     ++ [ (import ../../services/ssh.nix) ]
@@ -12,7 +12,7 @@
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi"; # ← use the same mount point here.
+      efiSysMountPoint = "/boot/efi";
     };
     grub = {
       efiSupport = true;
