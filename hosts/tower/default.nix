@@ -3,6 +3,7 @@
 {
   imports = [ (import ../../modules/desktop/gnome.nix) ]
     ++ [ (import ../../services/ssh.nix) ]
+    ++ [ (import ../../modules/programs/zsh.nix )]
     ++ [ (import ./hardware-configuration.nix) ];
 
   boot.loader.systemd-boot.enable = true;
