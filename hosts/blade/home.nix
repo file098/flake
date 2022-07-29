@@ -8,6 +8,7 @@
     ++ [ (import ../../modules/programs/neovim.nix) ]
     ++ [ (import ../../modules/programs/git.nix) ]
     # ++ [ (import ../../modules/programs/firefox.nix) ]
+    ++  [ (import ../../modules/desktop/bspwm.nix) ]
     ++ [ (import ../../modules/programs/python.nix) ]
     ++ [ (import ../../modules/programs/zsh.nix) ];
 
@@ -17,13 +18,14 @@
     nodePackages.webtorrent-cli
     yarn
 
+    brave
     discord
     fstl # 3D file view
     libreoffice
     lollypop
     nixfmt # nix file formatter
     razergenie # razer hardware support
-    soulseekqt # file sharing
+    nicotine-plus # file sharing
     spotify
     tdesktop # telegram
     transmission-gtk # torrent client

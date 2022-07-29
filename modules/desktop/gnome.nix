@@ -10,7 +10,7 @@
     gnomeExtensions.tray-icons-reloaded
     gnomeExtensions.sound-output-device-chooser
     gnomeExtensions.pop-shell
-    gnomeExtensions.desktop-cube
+    # gnomeExtensions.desktop-cube
     #Gnome packages
     pkgs.gnome3.gnome-tweaks
     gparted

@@ -3,20 +3,20 @@
 with lib;
 
 let
-  inherit (self.lib) mkEnableDefault;
-  cfg = config.blasting.desktops.gnome;
+  # inherit (self.lib) mkEnableDefault;
+  # cfg = config.blasting.desktops.gnome;
 in {
 
   imports = [
     self.modules.desktops.common
   ];
 
-  options.blasting.desktops.gnome = {
-    enable = mkEnableDefault "Enable the GNOME desktop (gnome, gdm, apps, ...)";
-    gsconnect = mkEnableDefault "Enable thee GSConnect extension";
-  };
+  # options.blasting.desktops.gnome = {
+  #   enable = mkEnableDefault "Enable the GNOME desktop (gnome, gdm, apps, ...)";
+  #   gsconnect = mkEnableDefault "Enable thee GSConnect extension";
+  # };
 
-  config = mkIf cfg.enable {
+  config = {
     environment.systemPackages = with pkgs; [
       gnome.baobab
       gnome.eog
@@ -28,8 +28,11 @@ in {
     ]
     ++ (with pkgs.gnomeExtensions; [
       appindicator
-      espresso
       sound-output-device-chooser
+      dash-to-dock
+      tray-icons-reloaded
+      pop-shell
+      desktop-cube
     ]
     ++ optional cfg.gsconnect pkgs.gnomeExtensions.gsconnect);
 
@@ -69,11 +72,8 @@ in {
       orca
     ];
 
-    programs.evince.enable = true;
-    programs.file-roller.enable = true;
     programs.gnome-disks.enable = true;
     programs.gnome-terminal.enable = true;
-    programs.seahorse.enable = true;
 
     qt5.platformTheme = "gnome";
   };
