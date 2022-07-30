@@ -1,11 +1,13 @@
 { config, pkgs, user, ... }:
 
 {
-  imports =
-    [ (import ./hardware-configuration.nix) ] ++ [ (import ./nvidia.nix) ]
+  imports = [ (import ./hardware-configuration.nix) ]
+    ++ [ (import ./nvidia.nix) ]
     ++ [ (import ../../modules/programs/games.nix) ]
-    ++ [ (import ../../services/ssh.nix) ];
-    # ++ [ (import ../../modules/desktop/gnome.nix) ];
+    ++ [ (import ../../services/ssh.nix) ]
+    ++ [ (import ../../services/openrazer.nix) ]
+    # ++ [ (import ../../modules/desktop/bspwm.nix) ];
+    ++ [ (import ../../modules/desktop/gnome.nix) ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelParams = [ "quiet" "splash" "button.lid_init_state=open" ];
@@ -38,8 +40,6 @@
   networking.hostName = "blade";
   networking.networkmanager.enable = true;
 
-  hardware.openrazer.enable = true;
-
   users.users.file0 = {
     isNormalUser = true;
     home = "/home/file0";
@@ -51,8 +51,6 @@
   environment.systemPackages = with pkgs; [
     ifuse
     libimobiledevice
-    openrazer-daemon
-    polychromatic
     powertop
   ];
 
