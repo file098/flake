@@ -2,6 +2,7 @@
 
 {
   imports = [
-    ./bspwm/bspwm.nix
+    # ./bspwm/bspwm.nix
+    ./gnome
   ];
 }

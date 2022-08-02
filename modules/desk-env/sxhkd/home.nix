@@ -5,13 +5,11 @@
     sxhkd ={
       enable = true;
       keybindings = {
-        "super + Return"                        = "kitty";
+        "super + Return"                        = "alacritty";
         "super + {_,shift + }e"                 = "{_,doas} thunar";
-	"super + {_,shift + }r"			= "{_,doas} leafpad";
-        "super + v"                             = "vivaldi";
-        "ctrl + alt + a"                        = "flameshot gui";
-        "Print"                                 = "flameshot screen -p $HOME/Pictures/flameshots";
-        "super + space"                         = "rofi -show drun -theme $HOME/.config/rofi/nord.rasi";
+      	"super + {_,shift + }r"		            	= "{_,doas} leafpad";
+        "super + w"                             = "firefox";
+        "super + space"                         = "rofi -show drun";
         "super + Escape"                        = "pkill -USR1 -x sxhkd";
         "super + alt + {q,r}"                   = "bspc {quit,wm -r}";
         "super + {_,shift + }q"                 = "bspc node -{c,k}";
