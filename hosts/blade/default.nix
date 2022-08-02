@@ -1,13 +1,15 @@
 { config, pkgs, user, ... }:
 
 {
-  imports = [ (import ./hardware-configuration.nix) ]
-    # ++ [ (import ./nvidia.nix) ]
-    ++ [ (import ../../modules/programs/games.nix) ]
-    ++ [ (import ../../services/ssh.nix) ]
-    ++ [ (import ../../services/openrazer.nix) ]
-    ++ [ (import ../../modules/desk-env) ]
-    ;
+  imports = [
+    ./hardware-configuration.nix
+    ./battery.nix
+    # t ./nvidia.nix) ]
+    ../../modules/programs/games.nix
+    ../../services/ssh.nix
+    ../../services/openrazer.nix
+    ../../modules/desk-env
+  ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelParams = [ "quiet" "splash" "button.lid_init_state=open" ];
