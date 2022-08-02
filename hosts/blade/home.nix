@@ -5,13 +5,13 @@
 {
 
   imports = [
+    ../../desktop/bspwm
+    ../../desktop/sxhkd
     ../../programs/alacritty.nix
     ../../programs/neovim.nix
     ../../programs/git.nix
     ../../programs/python.nix
     ../../programs/zsh.nix
-    ../../desk-env/bspwm/home.nix
-    ../../desk-env/sxhkd/home.nix
     ../../programs/rofi.nix
     ../../programs/picom.nix
     ../../programs/feh.nix
