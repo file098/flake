@@ -5,10 +5,10 @@
     ./hardware-configuration.nix
     ./battery.nix
     # t ./nvidia.nix) ]
-    ../../programs/games.nix
+    ../../modules/games.nix
     ../../services/ssh.nix
     ../../services/openrazer.nix
-    ../../modules/desk-env
+    ../../modules/desktop
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
