@@ -1,6 +1,6 @@
 # general Home-manager configuration
 
-{ config, lib, pkgs, user, ... }:
+{ pkgs, user, ... }:
 
 {
   home = {

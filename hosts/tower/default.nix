@@ -1,9 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ (import ../../modules/desktop/gnome.nix) ]
-    ++ [ (import ../../services/ssh.nix) ]
-    ++ [ (import ./hardware-configuration.nix) ];
+  imports = [
+    ../../desktop/gnome.nix
+    ../../services/ssh.nix
+    ./hardware-configuration.nix
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

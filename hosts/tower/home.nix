@@ -1,13 +1,14 @@
 # Home-manager configuration for laptop
 #
-{ ... }:
 
 {
 
-  imports = [ (import ../../modules/programs/alacritty.nix) ]
-    ++ [ (import ../../modules/programs/neovim.nix) ]
-    ++ [ (import ../../modules/programs/git.nix) ]
-    ++ [ (import ../../modules/programs/python.nix) ]
-    ++ [ (import ../../modules/programs/zsh.nix) ];
+  imports = [
+    ../../programs/alacritty.nix
+    ../../programs/neovim.nix
+    ../../programs/git.nix
+    ../../programs/python.nix
+    ../../programs/zsh.nix
+  ];
 
 }

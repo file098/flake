@@ -5,16 +5,16 @@
 {
 
   imports = [
-    ../../modules/programs/alacritty.nix
-    ../../modules/programs/neovim.nix
-    ../../modules/programs/git.nix
-    ../../modules/programs/python.nix
-    ../../modules/programs/zsh.nix
-    ../../modules/desk-env/bspwm/home.nix
-    ../../modules/desk-env/sxhkd/home.nix
-    ../../modules/programs/rofi.nix
-    ../../modules/programs/picom.nix
-    ../../modules/programs/feh.nix
+    ../../programs/alacritty.nix
+    ../../programs/neovim.nix
+    ../../programs/git.nix
+    ../../programs/python.nix
+    ../../programs/zsh.nix
+    ../../desk-env/bspwm/home.nix
+    ../../desk-env/sxhkd/home.nix
+    ../../programs/rofi.nix
+    ../../programs/picom.nix
+    ../../programs/feh.nix
   ];
 
   home.packages = with pkgs; [
