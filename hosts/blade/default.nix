@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     ./battery.nix
     # t ./nvidia.nix) ]
-    ../../modules/programs/games.nix
+    ../../programs/games.nix
     ../../services/ssh.nix
     ../../services/openrazer.nix
     ../../modules/desk-env
