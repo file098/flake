@@ -2,12 +2,13 @@
 
 {
   imports = [ (import ./hardware-configuration.nix) ]
-    ++ [ (import ./nvidia.nix) ]
+    # ++ [ (import ./nvidia.nix) ]
     ++ [ (import ../../modules/programs/games.nix) ]
     ++ [ (import ../../services/ssh.nix) ]
     ++ [ (import ../../services/openrazer.nix) ]
-    # ++ [ (import ../../modules/desktop/bspwm.nix) ];
-    ++ [ (import ../../modules/desktop/gnome.nix) ];
+    # ++ [ (import ../../modules/desktop/gnome.nix) ]
+    ++ [ (import ../../modules/desktop/i3.nix) ]
+    ;
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelParams = [ "quiet" "splash" "button.lid_init_state=open" ];
@@ -37,6 +38,9 @@
     };
   };
 
+  services.xserver.videoDrivers = [ "modesetting" ];
+  services.xserver.useGlamor = true;
+
   networking.hostName = "blade";
   networking.networkmanager.enable = true;
 
@@ -48,10 +52,6 @@
       [ "networkmanager" "wheel" "openrazer" "docker" "audio" "plugdev" ];
   };
 
-  environment.systemPackages = with pkgs; [
-    ifuse
-    libimobiledevice
-    powertop
-  ];
+  environment.systemPackages = with pkgs; [ ifuse libimobiledevice powertop ];
 
 }
