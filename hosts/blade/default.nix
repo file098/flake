@@ -6,7 +6,7 @@
     ++ [ (import ../../modules/programs/games.nix) ]
     ++ [ (import ../../services/ssh.nix) ]
     ++ [ (import ../../services/openrazer.nix) ]
-    ++ [ (import ../../modules/desktop/gnome.nix) ]
+    ++ [ (import ../../modules/desktop/desk-env) ]
     ;
 
   boot.kernelPackages = pkgs.linuxPackages_zen;

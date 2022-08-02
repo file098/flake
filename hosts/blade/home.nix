@@ -4,13 +4,18 @@
 
 {
 
-  imports = [ (import ../../modules/programs/alacritty.nix) ]
-    ++ [ (import ../../modules/programs/neovim.nix) ]
-    ++ [ (import ../../modules/programs/git.nix) ]
-    ++ [ (import ../../modules/programs/python.nix) ]
-    ++ [ (import ../../modules/programs/zsh.nix) ]
-    # ++ [ (import ../../modules/desktop/bspwm) ]
-    ;
+  imports = [
+    ../../modules/programs/alacritty.nix
+    ../../modules/programs/neovim.nix
+    ../../modules/programs/git.nix
+    ../../modules/programs/python.nix
+    ../../modules/programs/zsh.nix
+    ../../modules/desk-env/bspwm/home.nix
+    ../../modules/desk-env/sxhkd/home.nix
+    ../../modules/programs/rofi.nix
+    ../../modules/programs/picom.nix
+    ../../modules/programs/feh.nix
+  ];
 
   home.packages = with pkgs; [
     # Node
@@ -23,6 +28,7 @@
     fstl # 3D file view
     libreoffice
     lollypop
+    polybar
     nixfmt # nix file formatter
     razergenie # razer hardware support
     nicotine-plus # file sharing
