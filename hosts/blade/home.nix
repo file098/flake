@@ -5,8 +5,8 @@
 {
 
   imports = [
-    ../../desktop/bspwm
-    ../../desktop/sxhkd
+    ../../modules/desktop/bspwm
+    ../../modules/desktop/sxhkd
     ../../programs/alacritty.nix
     ../../programs/neovim.nix
     ../../programs/git.nix
