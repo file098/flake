@@ -7,23 +7,18 @@
     username = "${user}";
     homeDirectory = "/home/${user}";
     packages = with pkgs; [
-      # Terminal
       btop # Resource Manager
       cpufrequtils
       cryptsetup
       nmap
       pfetch # Minimal fetch
       ranger # File Manager
-      # Video/Audio
       feh # Image Viewer
-      # Apps
       firefox # Browser
-      # File Management
       rsync # Syncer $ rsync -r dir1/ dir2/
       unrar # Rar files
       unzip # Zip files
       zip
-      # General configuration
       git # Repositories
       glxinfo
       gotop

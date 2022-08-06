@@ -1,9 +1,9 @@
 {
   powerManagement = {
     enable = true;
-    cpuFreqGovernor = "powersave";
+    cpuFreqGovernor = "powersaver";
   };
-  powerManagement.powertop.enable = true;
+  # powerManagement.powertop.enable = true;
   services.thermald.enable = true;
 
   boot.kernelModules = [ "coretemp" "cpuid" ];

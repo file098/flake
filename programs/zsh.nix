@@ -18,8 +18,7 @@
       shellAliases = {
         "ll" = "ls -l";
         ".." = "cd ..";
-        "update" = "sudo nixos-rebuild switch --flake .#file0";
-        "edit" = "sudo nixos-rebuild edit";
+        "update" = "cd ~/nixos-config && sudo nixos-rebuild switch --flake .#";
       };
     };
   };

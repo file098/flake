@@ -1,57 +1,58 @@
-{ pkgs, ... }:
+{ options, config, lib, pkgs, ... }:
 
-{
-  xsession = {
-    enable = true;
-    numlock.enable = true;
-    #pointerCursor = {
-    #  name = "Dracula-cursors";
-    #  package = pkgs.dracula-theme;
-    #  size = 16;
-    #};
-    windowManager = {
-      bspwm = {
+with lib;
+with lib.my;
+let
+  cfg = config.modules.desktop.bspwm;
+  configDir = config.dotfiles.configDir;
+in {
+  options.modules.desktop.bspwm = { enable = mkBoolOpt false; };
+
+  config = mkIf cfg.enable {
+    modules.theme.onReload.bspwm = ''
+      ${pkgs.bspwm}/bin/bspc wm -r
+      source $XDG_CONFIG_HOME/bspwm/bspwmrc
+    '';
+
+    environment.systemPackages = with pkgs; [
+      lightdm
+      dunst
+      libnotify
+      (polybar.override {
+        pulseSupport = true;
+        nlSupport = true;
+      })
+    ];
+
+    services = {
+      picom.enable = true;
+      redshift.enable = true;
+      xserver = {
         enable = true;
-        alwaysResetDesktops = true;
-        startupPrograms = [
-          #   "$HOME/.config/polybar/launch.sh"
-          "sxhkd"
-        ];
-        monitors = {
-          DP-0 = [ "1" "2" "3" "4" "5" "6" "7" "8" ];
-          HDMI-0 = [ "9" "10" ];
+        displayManager = {
+          defaultSession = "none+bspwm";
+          lightdm.enable = true;
+          lightdm.greeters.mini.enable = true;
         };
-        rules = {
-          "Thunar" = {
-            state = "floating";
-            center = true;
-          };
-          "Leafpad" = {
-            state = "floating";
-            center = true;
-          };
-        };
-        settings = {
-          border_width = 4;
-          window_gap = 12;
-          split_ratio = 0.5;
-          borderless_monocle = false;
-          gapless_monocle = false;
-          focus_follows_pointer = false;
-          normal_border_color = "#434c5e";
-          focused_border_color = "#81A1C1";
-          urgent_border_color = "#88C0D0";
-          presel_border_color = "#8FBCBB";
-          presel_feedback_color = "#B48EAD";
-        };
-        # extraConfig = ''
-        #   xrdb -q
-        #   xset -dpms
-        #   xset s off
-        #   xsetroot -cursor_name left_ptr
-        #   xdotool mousemove 3840 720
-        #   bspc monitor DP-0   -s HDMI-0
-        # '';
+        windowManager.bspwm.enable = true;
+      };
+    };
+
+    systemd.user.services."dunst" = {
+      enable = true;
+      description = "";
+      wantedBy = [ "default.target" ];
+      serviceConfig.Restart = "always";
+      serviceConfig.RestartSec = 2;
+      serviceConfig.ExecStart = "${pkgs.dunst}/bin/dunst";
+    };
+
+    # link recursively so other modules can link files in their folders
+    home.configFile = {
+      "sxhkd".source = "${configDir}/sxhkd";
+      "bspwm" = {
+        source = "${configDir}/bspwm";
+        recursive = true;
       };
     };
   };

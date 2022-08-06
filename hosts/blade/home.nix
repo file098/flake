@@ -8,13 +8,14 @@
     ../../modules/desktop/bspwm
     ../../modules/desktop/sxhkd
     ../../programs/alacritty.nix
-    ../../programs/neovim.nix
-    ../../programs/git.nix
-    ../../programs/python.nix
-    ../../programs/zsh.nix
-    ../../programs/rofi.nix
-    ../../programs/picom.nix
     ../../programs/feh.nix
+    #../../programs/firefox.nix
+    ../../programs/git.nix
+    ../../programs/neovim.nix
+    ../../programs/picom.nix
+    ../../programs/python.nix
+    ../../programs/rofi.nix
+    ../../programs/zsh.nix
   ];
 
   home.packages = with pkgs; [

@@ -4,11 +4,11 @@
   imports = [
     ./hardware-configuration.nix
     ./battery.nix
-    # t ./nvidia.nix) ]
+    ./nvidia.nix
     ../../modules/games.nix
     ../../services/ssh.nix
     ../../services/openrazer.nix
-    ../../modules/desktop
+    # ../../modules/desktop
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;

@@ -32,7 +32,7 @@ in {
     inherit system;
     specialArgs = { inherit inputs user; };
     modules = [ 
-      ./tower 
+      ./tower
       ./base-configuration.nix
       home-manager.nixosModules.home-manager
       {
