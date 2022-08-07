@@ -20,8 +20,6 @@
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, nixgl }:
     let
-      inherit (lib.my) mapModules mapModulesRec mapHosts;
-
       system = "x86_64-linux";
       user = "file0";
 
@@ -40,8 +38,6 @@
       lib-unstable = nixpkgs-unstable.lib;
 
     in {
-      lib = lib.my;
-
       nixosConfigurations = (
         import ./hosts {
           inherit (nixpkgs) lib;

@@ -1,20 +1,26 @@
 { options, config, lib, pkgs, ... }:
 
 with lib;
-with lib.my;
 let
   cfg = config.modules.desktop.bspwm;
   configDir = config.dotfiles.configDir;
 in {
-  options.modules.desktop.bspwm = { enable = mkBoolOpt false; };
+  options.modules.desktop.bspwm = with types; {
+    enable = mkOption {
+      type = bool;
+      default = false;
+    };
+  };
 
   config = mkIf cfg.enable {
-    modules.theme.onReload.bspwm = ''
-      ${pkgs.bspwm}/bin/bspc wm -r
-      source $XDG_CONFIG_HOME/bspwm/bspwmrc
-    '';
+    # modules.theme.onReload.bspwm = ''
+    #   ${pkgs.bspwm}/bin/bspc wm -r
+    #   source $XDG_CONFIG_HOME/bspwm/bspwmrc
+    # '';
 
     environment.systemPackages = with pkgs; [
+      xclip
+      screenkey
       lightdm
       dunst
       libnotify
@@ -29,11 +35,14 @@ in {
       redshift.enable = true;
       xserver = {
         enable = true;
+        # TODO(kevin): Part of the device specific configuration as desktops don't have touchpads
+        libinput.enable = true;
         displayManager = {
           defaultSession = "none+bspwm";
           lightdm.enable = true;
-          lightdm.greeters.mini.enable = true;
+          lightdm.greeters.gtk.enable = true;
         };
+
         windowManager.bspwm.enable = true;
       };
     };
@@ -47,12 +56,14 @@ in {
       serviceConfig.ExecStart = "${pkgs.dunst}/bin/dunst";
     };
 
-    # link recursively so other modules can link files in their folders
-    home.configFile = {
-      "sxhkd".source = "${configDir}/sxhkd";
-      "bspwm" = {
-        source = "${configDir}/bspwm";
-        recursive = true;
+    home-manager.users.venikx = {
+      xdg.configFile = {
+        "sxhkd".source = "${configDir}/sxhkd";
+        "bspwm" = {
+          source = "${configDir}/bspwm";
+          # link recursively so other modules can link files in their folders
+          recursive = true;
+        };
       };
     };
   };

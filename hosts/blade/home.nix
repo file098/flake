@@ -5,11 +5,10 @@
 {
 
   imports = [
-    ../../modules/desktop/bspwm
-    ../../modules/desktop/sxhkd
+    #../../modules/desktop
+
     ../../programs/alacritty.nix
     ../../programs/feh.nix
-    #../../programs/firefox.nix
     ../../programs/git.nix
     ../../programs/neovim.nix
     ../../programs/picom.nix

@@ -1,7 +1,6 @@
 { lib, inputs, nixpkgs, nixpkgs-unstable, system, home-manager, user, ... }:
 
 let
-  system = "x86_64-linux"; # System architecture
 
   pkgs = import nixpkgs {
     inherit system;

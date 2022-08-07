@@ -23,14 +23,14 @@
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 
   # Excluded Gnome Bloat
-  environment.gnome.excludePackages = (with pkgs; [
+  environment.gnome.excludePackages = with pkgs; [
     gnome-photos
     gnome-tour
     gnome.cheese
     gnome.gnome-music
     gnome.epiphany
     gnome.gnome-weather
-  ]);
+  ];
 
   # services.gnome = { 
   #  core-utilities.enable = false;
