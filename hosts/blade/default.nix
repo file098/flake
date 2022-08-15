@@ -18,7 +18,7 @@
   imports =  [                                  # For now, if applying to other system, swap files
     ./hardware-configuration.nix  
     ../../modules/desktop/gnome.nix
-    # ../../modules/desktop/bspwm/bspwm.nix        # Window Manager
+    #../../modules/desktop/bspwm/bspwm.nix        # Window Manager
   ];
 
   boot = {                                      # Boot options
@@ -57,13 +57,4 @@
     devicesOffOnScreensaver = false;
   };
 
-  services = {
-    xserver = {                                 
-      resolutions = [
-        { x = 1920; y = 1080; }
-        { x = 1600; y = 900; }
-        { x = 3840; y = 2160; }
-      ];
-    };
-  };
 }

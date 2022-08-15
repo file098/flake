@@ -2,8 +2,27 @@
 
 {
 
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services = {
+    xserver = {
+      enable = true;
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+      resolutions = [
+        {
+          x = 1920;
+          y = 1080;
+        }
+        {
+          x = 1600;
+          y = 900;
+        }
+        {
+          x = 3840;
+          y = 2160;
+        }
+      ];
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     # Extentions 

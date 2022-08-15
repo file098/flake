@@ -16,7 +16,7 @@
 
   users.users.${user} = {
     isNormalUser = true;
-    home = "/home/file0";
+    home = "/home/${user}";
     description = "Filippo";
     extraGroups =
       [ "networkmanager" "wheel" "openrazer" "docker" "audio" "plugdev" ];
