@@ -22,15 +22,12 @@
     shell = pkgs.zsh; # Default shell
   };
 
-  security.sudo.wheelNeedsPassword =
-    false; # User does not need to give password when using sudo.
-
-  time.timeZone = "America/Toronto"; # Time zone and internationalisation
+  time.timeZone = "Rome/Italy"; # Time zone and internationalisation
   i18n = { defaultLocale = "en_US.UTF-8"; };
 
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "us"; # or us/azerty/etc
+    keyMap = "us";
   };
 
   security.rtkit.enable = true;

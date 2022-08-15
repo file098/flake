@@ -1,17 +1,12 @@
+# Specific packages for laptop
 { pkgs, ... }:
 
 {
   imports = [
     #../../modules/desktop/bspwm/home.nix  #Window Manager
   ];
-
-  home = { # Specific packages for laptop
-    packages = with pkgs; [
-      # Node
-      nodePackages.typescript
-      nodePackages.webtorrent-cli
-      yarn
-
+  home = {
+    packages = (with pkgs; [
       discord
       fstl # 3D file view
       libreoffice
@@ -23,12 +18,14 @@
       spotify
       tdesktop # telegram
       transmission-gtk # torrent client
-      vlc # media player
-      vscode
       wally-cli # planck flash tool
       whatsapp-for-linux
       youtube-dl
-
-    ];
+      yarn
+    ]) ++ (with pkgs.nodePackages; [
+      # Node
+      typescript
+      webtorrent-cli
+    ]);
   };
 }

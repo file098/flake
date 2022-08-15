@@ -34,7 +34,7 @@
         version = 2;
         device = "nodev";
         gfxmodeEfi = "1920x1080";
-        font = "${pkgs.grub2}/share/grub/unicode.pf2";
+        font = "${pkgs.grub2}/share/grub/unicode.pf2";    # "${pkgs.iosevka}/share/fonts/truetype/iosevka-medium.ttf";
         fontSize = 32;
         extraEntries = ''
           menuentry "Windows" {

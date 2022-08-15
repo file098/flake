@@ -11,8 +11,7 @@ in {
   programs = {
     rofi = {
       enable = true;
-      terminal =
-        "${pkgs.alacritty}/bin/alacritty"; # Alacritty is default terminal emulator
+      terminal = "${pkgs.alacritty}/bin/alacritty"; # Alacritty is default terminal emulator
       location = "center";
       theme = with colors.scheme.doom; {
         "*" = {
