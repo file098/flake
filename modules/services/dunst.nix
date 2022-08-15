@@ -1,22 +1,19 @@
-#
 # System notifications
 #
 
 { config, pkgs, ... }:
 
-let
-  colors = import ../themes/colors.nix;                 # Import colors theme
-in
-{
-  home.packages = [ pkgs.libnotify ];                   # Dependency
+let colors = import ../themes/colors.nix; # Import colors theme
+in {
+  home.packages = [ pkgs.libnotify ]; # Dependency
   services.dunst = {
     enable = true;
-    iconTheme = {                                       # Icons
+    iconTheme = { # Icons
       name = "Papirus Dark";
       package = pkgs.papirus-icon-theme;
       size = "16x16";
     };
-    settings = with colors.scheme.doom; {               # Settings
+    settings = with colors.scheme.doom; { # Settings
       global = {
         monitor = 0;
         # geometry [{width}x{height}][+/-{x}+/-{y}]
@@ -36,7 +33,7 @@ in
         line_height = 4;
         idle_threshold = 120;
         markup = "full";
-        format = ''<b>%s</b>\n%b'';
+        format = "<b>%s</b>\\n%b";
         alignment = "left";
         vertical_alignment = "center";
         icon_position = "left";
@@ -48,7 +45,7 @@ in
         # startup_notification = false;
         hide_duplicate_count = true;
       };
-      urgency_low = {                                   # Colors
+      urgency_low = { # Colors
         background = "#${bg}";
         foreground = "#${text}";
         timeout = 4;
@@ -66,5 +63,6 @@ in
       };
     };
   };
-  xdg.dataFile."dbus-1/services/org.knopwob.dunst.service".source = "${pkgs.dunst}/share/dbus-1/services/org.knopwob.dunst.service";
+  xdg.dataFile."dbus-1/services/org.knopwob.dunst.service".source =
+    "${pkgs.dunst}/share/dbus-1/services/org.knopwob.dunst.service";
 }

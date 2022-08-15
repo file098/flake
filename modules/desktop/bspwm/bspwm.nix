@@ -1,4 +1,3 @@
-#
 #  Bspwm configuration
 #
 #  flake.nix
@@ -20,14 +19,15 @@
     xserver = {
       enable = true;
 
-      layout = "us";                              # Keyboard layout & €-sign
+      layout = "us"; # Keyboard layout & €-sign
       xkbOptions = "eurosign:e";
       libinput.enable = true;
 
-      displayManager = {                          # Display Manager
+      displayManager = { # Display Manager
         lightdm = {
-          enable = true;                          # Wallpaper and gtk theme
-          background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
+          enable = true; # Wallpaper and gtk theme
+          background =
+            pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
           greeters = {
             gtk = {
               theme = {
@@ -42,19 +42,20 @@
             };
           };
         };
-        defaultSession = "none+bspwm";            # none+bspwm -> no real display manager
+        defaultSession = "none+bspwm"; # none+bspwm -> no real display manager
       };
-      windowManager= {
-        bspwm = {                                 # Window Manager
+      windowManager = {
+        bspwm = { # Window Manager
           enable = true;
-        };  
+        };
       };
-    }; 
+    };
   };
 
-  programs.zsh.enable = true;                     # Weirdly needs to be added to have default user on lightdm
+  programs.zsh.enable =
+    true; # Weirdly needs to be added to have default user on lightdm
 
-  environment.systemPackages = with pkgs; [       # Packages installed
+  environment.systemPackages = with pkgs; [ # Packages installed
     xclip
     xorg.xev
     xorg.xkill

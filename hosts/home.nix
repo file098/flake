@@ -1,5 +1,4 @@
-#
-#  General Home-manager configuration
+# General Home-manager configuration
 #
 #  flake.nix
 #   ├─ ./hosts
@@ -17,10 +16,9 @@
 
 { config, lib, pkgs, user, ... }:
 
-{ 
-  imports =                                   # Home Manager Modules
-    (import ../modules/editors) ++
-    (import ../modules/programs) ++
+{
+  imports = # Home Manager Modules
+    (import ../modules/editors) ++ (import ../modules/programs) ++
     #(import ../modules/services) ++
     (import ../modules/shell);
 
@@ -30,54 +28,51 @@
 
     packages = with pkgs; [
       # Terminal
-      btop              # Resource Manager
-      pfetch            # Minimal fetch
+      btop # Resource Manager
+      pfetch # Minimal fetch
       neofetch
-      ranger            # File Manager
-      
+
       # Video/Audio
-      feh               # Image Viewer
-      mpv               # Media Player
-      pavucontrol       # Audio control
-      vlc               # Media Player
+      feh # Image Viewer
+      pavucontrol # Audio control
+      vlc # Media Player
 
       # Apps
-      firefox           # Browser
-      remmina           # XRDP & VNC Client
+      firefox # Browser
       vscode
 
       # File Management
-      gnome.file-roller # Archive Manager
-      rsync             # Syncer $ rsync -r dir1/ dir2/
-      unzip             # Zip files
-      unrar             # Rar files
+      ranger # File Manager
+      thunar
+      rsync # Syncer $ rsync -r dir1/ dir2/
+      unzip # Zip files
+      unrar # Rar files
 
     ];
     file.".config/wall".source = ../modules/themes/wall;
-    pointerCursor = {                         # This will set cursor systemwide so applications can not choose their own
-      name = "Dracula-cursors";
-      package = pkgs.dracula-theme;
-      size = 16;
-    };
+    pointerCursor =
+      { # This will set cursor systemwide so applications can not choose their own
+        name = "Dracula-cursors";
+        package = pkgs.dracula-theme;
+        size = 16;
+      };
     stateVersion = "22.05";
   };
 
-  programs = {
-    home-manager.enable = true;
-  };
+  programs = { home-manager.enable = true; };
 
-  gtk = {                                     # Theming
+  gtk = { # Theming
     enable = true;
     theme = {
-      name = "Dracula";
-      package = pkgs.dracula-theme;
+      name = "spacex";
+      package = pkgs.space-gtx-theme;
     };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-    font = {
-      name = "JetBrains Mono Medium";         # or FiraCode Nerd Font Mono Medium
-    };                                        # Cursor is declared under home.pointerCursor
+    #   iconTheme = {
+    #     name = "Papirus-Dark";
+    #     package = pkgs.papirus-icon-theme;
+    #   };
+    #   font = {
+    #     name = "JetBrains Mono Medium";         # or FiraCode Nerd Font Mono Medium
+    #   };                                        # Cursor is declared under home.pointerCursor
   };
 }

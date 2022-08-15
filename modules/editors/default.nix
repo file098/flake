@@ -1,4 +1,3 @@
-#
 #  Editors
 #
 #  flake.nix
@@ -10,6 +9,4 @@
 #               └─ ...
 #
 
-[
-  ./nvim
-]
+[ ./nvim ]

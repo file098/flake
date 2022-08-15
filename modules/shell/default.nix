@@ -1,4 +1,3 @@
-#
 #  Shell
 #
 #  flake.nix
@@ -10,7 +9,4 @@
 #               └─ ...
 #
 
-[
-  ./git.nix
-  ./zsh.nix
-]
+[ ./git.nix ./zsh.nix ]

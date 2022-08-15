@@ -1,5 +1,4 @@
-#
-#  Specific system configuration settings for desktop
+# Specific system configuration settings for desktop
 #
 #  flake.nix
 #   ├─ ./hosts
@@ -15,16 +14,16 @@
 { config, pkgs, ... }:
 
 {
-  imports =  [                                  # For now, if applying to other system, swap files
-    ./hardware-configuration.nix  
+  imports = [ # For now, if applying to other system, swap files
+    ./hardware-configuration.nix
     ../../modules/desktop/gnome.nix
     #../../modules/desktop/bspwm/bspwm.nix        # Window Manager
   ];
 
-  boot = {                                      # Boot options
+  boot = { # Boot options
     kernelPackages = pkgs.linuxPackages_latest;
 
-    loader = {            
+    loader = {
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot/efi";
@@ -34,6 +33,9 @@
         enable = true;
         version = 2;
         device = "nodev";
+        gfxmodeEfi = "1920x1080";
+        font = "${pkgs.grub2}/share/grub/unicode.pf2";
+        fontSize = 32;
         extraEntries = ''
           menuentry "Windows" {
             insmod part_gpt
@@ -41,7 +43,7 @@
             insmod search_fs_uuid
             insmod chain
             search --fs-uuid --set=root FCFC-D67F
-            chainloader /EFI/Microsoft/Boot/bootmgfw.edi
+            chainloader /EFI/Microsoft/Boot/bootmgfw.efi
           }
         '';
       };

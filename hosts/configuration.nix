@@ -1,4 +1,3 @@
-#
 #  Main system configuration. More information available in configuration.nix(5) man page.
 #
 #  flake.nix
@@ -20,24 +19,23 @@
     description = "Filippo";
     extraGroups =
       [ "networkmanager" "wheel" "openrazer" "docker" "audio" "plugdev" ];
-    shell = pkgs.zsh;                       # Default shell
+    shell = pkgs.zsh; # Default shell
   };
 
-  security.sudo.wheelNeedsPassword = false; # User does not need to give password when using sudo.
+  security.sudo.wheelNeedsPassword =
+    false; # User does not need to give password when using sudo.
 
-  time.timeZone = "America/Toronto";        # Time zone and internationalisation
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-  };
+  time.timeZone = "America/Toronto"; # Time zone and internationalisation
+  i18n = { defaultLocale = "en_US.UTF-8"; };
 
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "us";	                    # or us/azerty/etc
+    keyMap = "us"; # or us/azerty/etc
   };
 
   security.rtkit.enable = true;
 
-   # Sound settings
+  # Sound settings
   sound.enable = true;
   hardware.pulseaudio = {
     enable = true;
@@ -49,17 +47,15 @@
 
   hardware.bluetooth = { enable = true; };
 
-  fonts.fonts = with pkgs; [                # Fonts
-    carlito                                 # NixOS
-    vegur                                   # NixOS
+  fonts.fonts = with pkgs; [ # Fonts
+    carlito # NixOS
+    vegur # NixOS
     source-code-pro
     jetbrains-mono
-    font-awesome                            # Icons
-    corefonts                               # MS
-    (nerdfonts.override {                   # Nerdfont Icons override
-      fonts = [
-        "FiraCode"
-      ];
+    font-awesome # Icons
+    corefonts # MS
+    (nerdfonts.override { # Nerdfont Icons override
+      fonts = [ "FiraCode" ];
     })
   ];
 
@@ -69,7 +65,7 @@
       EDITOR = "nvim";
       VISUAL = "nvim";
     };
-    systemPackages = with pkgs; [           # Default packages install system-wide
+    systemPackages = with pkgs; [ # Default packages install system-wide
       curl
       vim
       git
@@ -83,16 +79,16 @@
     ];
   };
 
-  nix = {                                   # Nix Package Manager settings
-    settings ={
-      auto-optimise-store = true;           # Optimise syslinks
+  nix = { # Nix Package Manager settings
+    settings = {
+      auto-optimise-store = true; # Optimise syslinks
     };
-    gc = {                                  # Automatic garbage collection
+    gc = { # Automatic garbage collection
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
-    package = pkgs.nixFlakes;               # Enable nixFlakes on system
+    package = pkgs.nixFlakes; # Enable nixFlakes on system
     registry.nixpkgs.flake = inputs.nixpkgs;
     extraOptions = ''
       experimental-features = nix-command flakes
@@ -100,10 +96,10 @@
       keep-derivations      = true
     '';
   };
-  nixpkgs.config.allowUnfree = true;        # Allow proprietary software.
+  nixpkgs.config.allowUnfree = true; # Allow proprietary software.
 
-  system = {                                # NixOS settings
-    autoUpgrade = {                         # Allow auto update
+  system = { # NixOS settings
+    autoUpgrade = { # Allow auto update
       enable = true;
       channel = "https://nixos.org/channels/nixos-unstable";
     };

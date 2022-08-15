@@ -1,20 +1,20 @@
-#
 # System Menu
 #
 
 { config, lib, pkgs, ... }:
 
 let
-  inherit (config.lib.formats.rasi) mkLiteral;        # Theme.rasi alternative. Add Theme here
+  inherit (config.lib.formats.rasi)
+    mkLiteral; # Theme.rasi alternative. Add Theme here
   colors = import ../themes/colors.nix;
-in
-{
+in {
   programs = {
     rofi = {
       enable = true;
-      terminal = "${pkgs.alacritty}/bin/alacritty";           # Alacritty is default terminal emulator
+      terminal =
+        "${pkgs.alacritty}/bin/alacritty"; # Alacritty is default terminal emulator
       location = "center";
-      theme =  with colors.scheme.doom; {
+      theme = with colors.scheme.doom; {
         "*" = {
           spacing = 0;
           background-color = mkLiteral "transparent";
@@ -27,18 +27,15 @@ in
           background-color = mkLiteral "#${bg}";
         };
 
-        "mainbox" = {
-          padding = mkLiteral "30% 30%";
-        };
+        "mainbox" = { padding = mkLiteral "30% 30%"; };
 
         "inputbar" = {
           margin = mkLiteral "0px 0px 20px 0px";
-          children = mkLiteral "[prompt, textbox-prompt-colon, entry, case-indicator]";
+          children =
+            mkLiteral "[prompt, textbox-prompt-colon, entry, case-indicator]";
         };
 
-        "prompt" = {
-          text-color = mkLiteral "#${blue}";
-        };
+        "prompt" = { text-color = mkLiteral "#${blue}"; };
 
         "textbox-prompt-colon" = {
           expand = false;
@@ -46,9 +43,7 @@ in
           text-color = mkLiteral "#${text-alt}";
         };
 
-        "entry" = {
-          margin = mkLiteral "0px 10px";
-        };
+        "entry" = { margin = mkLiteral "0px 10px"; };
 
         "listview" = {
           spacing = mkLiteral "5px";

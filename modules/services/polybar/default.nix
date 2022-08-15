@@ -1,30 +1,30 @@
-#
 # Bar
 #
 
 { config, lib, pkgs, ... }:
 
 let
-  mypolybar = pkgs.polybar.override {             # Extra packages to run polybar (mostly sound atm)
-    alsaSupport = true;
-    pulseSupport = true;
-  };
-in
-{ 
-  config = lib.mkIf (config.xsession.enable) {    # Only evaluate code if using X11
-    home.file.".config/polybar/script/mic.sh" ={
+  mypolybar =
+    pkgs.polybar.override { # Extra packages to run polybar (mostly sound atm)
+      alsaSupport = true;
+      pulseSupport = true;
+    };
+in {
+  config = lib.mkIf (config.xsession.enable) { # Only evaluate code if using X11
+    home.file.".config/polybar/script/mic.sh" = {
       source = ./mic.sh;
       executable = true;
     };
     services = {
       polybar = {
         enable = true;
-        script = ''                               # Running polybar on startup
+        script = ''
+                               # Running polybar on startup
           #  Handled by bspwmrc (modules/desktop/bspwm)
-        '';                                       # Gets fixed in the bspwmrc file
+        ''; # Gets fixed in the bspwmrc file
         package = mypolybar;
         config = {
-          "bar/main" = {                          # Bar name = Top
+          "bar/main" = { # Bar name = Top
             #monitor = "HDMI-A-1";
             width = "100%";
             height = 15;
@@ -38,13 +38,14 @@ in
             module-margin-left = 1;
             #module-margin-right = "0.5";
 
-            font-0 = "SourceCodePro:size=10";     # Icons
+            font-0 = "SourceCodePro:size=10"; # Icons
             font-1 = "FontAwesome6Free:style=Solid:size=8";
             font-2 = "FontAwesome6Free:style=Regular:size=8";
             font-3 = "FontAwesome6Brands:style=Regular:size=8";
             font-4 = "FiraCodeNerdFont:size=10";
             modules-left = "logo bspwm";
-            modules-right = "backlight pad memory cpu pad mic volume pad battery date"; #wired-network wireless-network bluetooth";
+            modules-right =
+              "backlight pad memory cpu pad mic volume pad battery date"; # wired-network wireless-network bluetooth";
 
             tray-position = "right";
             tray-detached = "false";
@@ -65,7 +66,7 @@ in
             module-margin-left = 1;
             #module-margin-right = "0.5";
 
-            font-0 = "SourceCodePro:size=10";     # Icons
+            font-0 = "SourceCodePro:size=10"; # Icons
             font-1 = "FontAwesome6Free:style=Solid:size=8";
             font-2 = "FontAwesome6Free:style=Regular:size=8";
             font-3 = "FontAwesome6Brands:style=Regular:size=8";
@@ -76,20 +77,20 @@ in
             #override-redirect = "true";
             wm-restack = "bspwm";
           };
-          "module/memory" = {                     # RAM
+          "module/memory" = { # RAM
             type = "internal/memory";
-            format = "<label>"; #<bar-used>";
+            format = "<label>"; # <bar-used>";
             format-foreground = "#999";
             label = "  %percentage_used%%";
           };
-          "module/cpu" = {                        # CPU
+          "module/cpu" = { # CPU
             type = "internal/cpu";
             interval = 1;
             format = "<label>"; # <ramp-coreload>";
             format-foreground = "#999";
             label = "  %percentage%%";
           };
-          "module/volume" = {                     # Volume
+          "module/volume" = { # Volume
             type = "internal/pulseaudio";
             interval = 2;
             use-ui-max = "false";
@@ -101,42 +102,44 @@ in
             ramp-volume-1 = "";
             ramp-volume-2 = "";
 
-            click-right = "${pkgs.pavucontrol}/bin/pavucontrol";  # Right click opens pavucontrol, left click mutes, scroll changes levels
+            click-right =
+              "${pkgs.pavucontrol}/bin/pavucontrol"; # Right click opens pavucontrol, left click mutes, scroll changes levels
           };
-          "module/backlight" = {                  # Keeping for the futur when i have a screen that supports xbacklight
-            type = "internal/backlight";          # Now doen with sxhkb shortcuts
-            card = "intel_backlight";
-            #use-actual-brightness = "false";
-            format = "<ramp> <bar>";
+          "module/backlight" =
+            { # Keeping for the futur when i have a screen that supports xbacklight
+              type = "internal/backlight"; # Now doen with sxhkb shortcuts
+              card = "intel_backlight";
+              #use-actual-brightness = "false";
+              format = "<ramp> <bar>";
 
-            ramp-0 = "";
-            ramp-1 = "";
-            ramp-2 = "";
+              ramp-0 = "";
+              ramp-1 = "";
+              ramp-2 = "";
 
-            bar-width = 10;
-            bar-indicator = "|";
-            bar-indicator-font = 3;
-            bar-indicator-foreground = "#ff";
-            bar-fill = "─";
-            bar-fill-font = 3;
-            bar-fill-foreground = "ff"; #"#c9665e";
-            bar-empty = "─";
-            bar-empty-font = 3;
-            bar-empty-foreground = "#44";
-          };
-          "module/wireless-network" = {           # Show either wired or wireless
+              bar-width = 10;
+              bar-indicator = "|";
+              bar-indicator-font = 3;
+              bar-indicator-foreground = "#ff";
+              bar-fill = "─";
+              bar-fill-font = 3;
+              bar-fill-foreground = "ff"; # "#c9665e";
+              bar-empty = "─";
+              bar-empty-font = 3;
+              bar-empty-foreground = "#44";
+            };
+          "module/wireless-network" = { # Show either wired or wireless
             type = "internal/network";
             interface = "wlo1";
             interval = "3.0";
             ping-interval = 10;
-            
+
             format-connected = "<ramp-signal> <label-connected>";
             label-connected = "%essid%";
             label-disconnected = "";
             label-disconnected-foreground = "#66";
-            
+
             ramp-signal-0 = "";
-            
+
             animation-packetloss-0 = "";
             animation-packetloss-0-foreground = "#ffa64c";
             animation-packetloss-1 = "";
@@ -144,60 +147,62 @@ in
             animation-packetloss-framerate = 500;
           };
           #"module/wired-network" = {              # Ditto module above
-            #type = "internal/network";
-            #interface = "enp0s25";
-            #interval = "3.0";
-            #
-            #label-connected = "  %{T3}%local_ip%%{T-}";
-            #label-connected = "";
-            #label-disconnected-foreground = "#66";
+          #type = "internal/network";
+          #interface = "enp0s25";
+          #interval = "3.0";
+          #
+          #label-connected = "  %{T3}%local_ip%%{T-}";
+          #label-connected = "";
+          #label-disconnected-foreground = "#66";
           #};
-          "module/battery" = {                    # Show battery (only when exist), uncomment to show battery and animations
-            type = "internal/battery";
-            full-at = 98;
+          "module/battery" =
+            { # Show battery (only when exist), uncomment to show battery and animations
+              type = "internal/battery";
+              full-at = 98;
 
-            label-full = "%percentage%%";
-            label-charging = "%percentage%%";
-            label-discharging = "%percentage%%";
+              label-full = "%percentage%%";
+              label-charging = "%percentage%%";
+              label-discharging = "%percentage%%";
 
-            format-charging = "<animation-charging> <label-charging>    ";
-            format-discharging = "<ramp-capacity> <label-discharging>    ";
-            format-full = "<ramp-capacity> <label-full>    ";
+              format-charging = "<animation-charging> <label-charging>    ";
+              format-discharging = "<ramp-capacity> <label-discharging>    ";
+              format-full = "<ramp-capacity> <label-full>    ";
 
-            ramp-capacity-0 = "";
-            ramp-capacity-0-foreground = "#f53c3c";
-            ramp-capacity-1 = "";
-            ramp-capacity-1-foreground = "#ffa900";
-            ramp-capacity-2 = "";
-            ramp-capacity-3 = "";
-            ramp-capacity-4 = "";
+              ramp-capacity-0 = "";
+              ramp-capacity-0-foreground = "#f53c3c";
+              ramp-capacity-1 = "";
+              ramp-capacity-1-foreground = "#ffa900";
+              ramp-capacity-2 = "";
+              ramp-capacity-3 = "";
+              ramp-capacity-4 = "";
 
-            bar-capacity-width = 10;
-            bar-capacity-format = "%{+u}%{+o}%fill%%empty%%{-u}%{-o}";
-            bar-capacity-fill = "█";
-            bar-capacity-fill-foreground = "#ddffffff";
-            bar-capacity-fill-font = 3;
-            bar-capacity-empty = "█";
-            bar-capacity-empty-font = 3;
-            bar-capacity-empty-foreground = "#44ffffff";
+              bar-capacity-width = 10;
+              bar-capacity-format = "%{+u}%{+o}%fill%%empty%%{-u}%{-o}";
+              bar-capacity-fill = "█";
+              bar-capacity-fill-foreground = "#ddffffff";
+              bar-capacity-fill-font = 3;
+              bar-capacity-empty = "█";
+              bar-capacity-empty-font = 3;
+              bar-capacity-empty-foreground = "#44ffffff";
 
-            animation-charging-0 = "";          # Animation when charging
-            animation-charging-1 = "";
-            animation-charging-2 = "";
-            animation-charging-3 = "";
-            animation-charging-4 = "";
-            animation-charging-framerate = 750;
-          };
-          "module/date" = {                       # Time/Date  Day-Month-Year Hour:Minute
+              animation-charging-0 = ""; # Animation when charging
+              animation-charging-1 = "";
+              animation-charging-2 = "";
+              animation-charging-3 = "";
+              animation-charging-4 = "";
+              animation-charging-framerate = 750;
+            };
+          "module/date" = { # Time/Date  Day-Month-Year Hour:Minute
             type = "internal/date";
             date = "  %%{F#999}%d-%m-%Y%%{F-} %%{F#fff}%H:%M%%{F-}";
           };
-          "module/bspwm" = {                      # Workspaces
+          "module/bspwm" = { # Workspaces
             type = "internal/bspwm";
             pin-workspace = true;
             #label-monitor = "%name%";
 
-            ws-icon-0 = "1;";                    # Needs to be the same amount and same name as bswmrc
+            ws-icon-0 =
+              "1;"; # Needs to be the same amount and same name as bswmrc
             ws-icon-1 = "2;";
             ws-icon-2 = "3;";
             ws-icon-3 = "4;";
@@ -211,7 +216,8 @@ in
 
             format = "<label-state> <label-mode>";
 
-            label-dimmed-underline = "#ccffffff"; # Colors in use, active or inactive
+            label-dimmed-underline =
+              "#ccffffff"; # Colors in use, active or inactive
 
             label-focused = "%icon%";
             label-focused-foreground = "#fff";
@@ -258,7 +264,7 @@ in
             label-private-underline = "#c9665e";
             label-private-padding = 2;
           };
-          "module/title" = {                      # Show title of active screen
+          "module/title" = { # Show title of active screen
             type = "internal/xwindow";
             format = "<label>";
             format-background = "#00000000";
@@ -269,7 +275,7 @@ in
             label-empty-foreground = "#ccffffff";
           };
 
-            # CUSTOM
+          # CUSTOM
           "module/pad" = {
             type = "custom/text";
             content = "    ";
@@ -283,13 +289,13 @@ in
             click-left = "~/.config/polybar/script/mic.sh toggle";
           };
           #"module/logo" = {
-            #type = "custom/text";
-            #content = " %{F#a7c7e7} ";
-            #format-foreground = "#a7c7e7";
-            #click-left = "bspc quit";
-            #double-click-left = "systemctl suspend";
-            #double-click-middle = "poweroff";
-            #double-click-right = "xset dpms force off";
+          #type = "custom/text";
+          #content = " %{F#a7c7e7} ";
+          #format-foreground = "#a7c7e7";
+          #click-left = "bspc quit";
+          #double-click-left = "systemctl suspend";
+          #double-click-middle = "poweroff";
+          #double-click-right = "xset dpms force off";
           #};
           "module/logo" = {
             type = "custom/menu";
@@ -347,7 +353,6 @@ in
         };
       };
     };
-  };  
+  };
 }
-
 
