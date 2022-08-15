@@ -130,7 +130,6 @@ in
             interval = "3.0";
             ping-interval = 10;
             
-            format-connected = "<ramp-signal>";
             format-connected = "<ramp-signal> <label-connected>";
             label-connected = "%essid%";
             label-disconnected = "";

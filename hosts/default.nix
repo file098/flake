@@ -24,24 +24,23 @@ let
   lib = nixpkgs.lib;
 in
 {
-  # tower = lib.nixosSystem {                               # Desktop profile
-  #   inherit system;
-  #   specialArgs = { inherit inputs user location; };        # Pass flake variable
-  #   modules = [                                             # Modules that are used.
-  #     nur.nixosModules.nur
-  #     ./tower
-  #     ./configuration.nix
-
-  #     home-manager.nixosModules.home-manager {              # Home-Manager module that is used.
-  #       home-manager.useGlobalPkgs = true;
-  #       home-manager.useUserPackages = true;
-  #       home-manager.extraSpecialArgs = { inherit user; };  # Pass flake variable
-  #       home-manager.users.${user} = {
-  #         imports = [(import ./home.nix)] ++ [(import ./desktop/home.nix)];
-  #       };
-  #     }
-  #   ];
-  # };
+  tower = lib.nixosSystem {                               # Desktop profile
+    inherit system;
+    specialArgs = { inherit inputs user location; };        # Pass flake variable
+    modules = [                                             # Modules that are used.
+      nur.nixosModules.nur
+      ./tower
+      ./configuration.nix
+      home-manager.nixosModules.home-manager {              # Home-Manager module that is used.
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs = { inherit user; };  # Pass flake variable
+        home-manager.users.${user} = {
+          imports = [(import ./home.nix)] ++ [(import ./tower/home.nix)];
+        };
+      }
+    ];
+  };
 
   blade = lib.nixosSystem {                                # Laptop profile
     inherit system;
@@ -49,13 +48,12 @@ in
     modules = [
       ./blade
       ./configuration.nix
-
       home-manager.nixosModules.home-manager {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = { inherit user; };
         home-manager.users.${user} = {
-          imports = [(import ./home.nix)] ++ [(import ./laptop/home.nix)];
+          imports = [(import ./home.nix)] ++ [(import ./blade/home.nix)];
         };
       }
     ];
