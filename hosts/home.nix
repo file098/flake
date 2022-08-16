@@ -38,6 +38,7 @@
       feh # Image Viewer
       pavucontrol # Audio control
       vlc # Media Player
+      mpv
 
       # Apps
       firefox # Browser

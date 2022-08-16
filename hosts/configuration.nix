@@ -22,6 +22,9 @@
     shell = pkgs.zsh;
   };
 
+  time.timeZone = "Europe/Rome"; # Time zone and internationalisation
+  i18n = { defaultLocale = "en_US.UTF-8"; };
+
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
@@ -39,7 +42,7 @@
     '';
   };
 
-  hardware.bluetooth = { enable = true; };
+  hardware.bluetooth.enable = true;
 
   fonts.fonts = with pkgs; [ # Fonts
     carlito # NixOS
