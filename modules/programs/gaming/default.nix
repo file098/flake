@@ -1,2 +1,4 @@
-
-[ ./steam.nix ./nvidia.nix ]
+[
+  ./steam.nix
+  ./nvidia.nix 
+]
