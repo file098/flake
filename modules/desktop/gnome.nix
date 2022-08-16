@@ -24,32 +24,26 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs.gnomeExtensions; [
     # Extentions 
-    gnomeExtensions.appindicator
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.tray-icons-reloaded
-    gnomeExtensions.sound-output-device-chooser
-    gnomeExtensions.pop-shell
-    gnomeExtensions.vitals
-
+    appindicator
+    dash-to-dock
+    tray-icons-reloaded
+    sound-output-device-chooser
+    pop-shell
+    vitals
+  ]) ++ (with pkgs; [
     #Gnome packages
     pkgs.gnome3.gnome-tweaks
     gparted
     baobab
-  ];
+  ]);
 
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 
   # Excluded Gnome Bloat
-  environment.gnome.excludePackages = with pkgs; [
-    gnome-photos
-    gnome-tour
-    gnome.cheese
-    gnome.gnome-music
-    gnome.epiphany
-    gnome.gnome-weather
-  ];
+  environment.gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
+    ++ (with pkgs.gnome; [ cheese gnome-music epiphany gnome-weather ]);
 
   # services.gnome = { 
   #  core-utilities.enable = false;

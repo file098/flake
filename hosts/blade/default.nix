@@ -17,6 +17,8 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/desktop/gnome.nix
+    ../../modules/services/ios.nix
+    ../../modules/programs/gaming
     #../../modules/desktop/bspwm/bspwm.nix        # Window Manager
   ];
 

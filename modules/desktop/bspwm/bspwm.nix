@@ -52,9 +52,6 @@
     };
   };
 
-  programs.zsh.enable =
-    true; # Weirdly needs to be added to have default user on lightdm
-
   environment.systemPackages = with pkgs; [ # Packages installed
     xclip
     xorg.xev

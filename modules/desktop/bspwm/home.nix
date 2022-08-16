@@ -24,11 +24,6 @@
         #          HDMI-A-0 = [ "6" "7" "8" "9" "0" ];
         #        };
         rules = { # Specific rules for apps - use xprop
-          "Emacs" = {
-            desktop = "3";
-            follow = true;
-            state = "tiled";
-          };
           ".blueman-manager-wrapped" = {
             state = "floating";
             sticky = true;
@@ -45,15 +40,10 @@
             state = "floating";
             sticky = true;
           };
-          "Pcmanfm" = { state = "floating"; };
           "plexmediaplayer" = {
             desktop = "4";
             follow = true;
             state = "fullscreen";
-          };
-          "*:*:Picture in picture" = { # Google Chrome PIP
-            state = "floating";
-            sticky = true;
           };
           "*:*:Picture-in-Picture" = { # Firefox PIP
             state = "floating";

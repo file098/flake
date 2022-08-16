@@ -1,4 +1,4 @@
-#  Main system configuration. More information available in configuration.nix(5) man page.
+# Main system configuration. More information available in configuration.nix(5) man page.
 #
 #  flake.nix
 #   ├─ ./hosts
@@ -17,18 +17,16 @@
     isNormalUser = true;
     home = "/home/${user}";
     description = "Filippo";
-    extraGroups =
-      [ "networkmanager" "wheel" "docker" "audio" "plugdev" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "audio" "plugdev" ];
     shell = pkgs.zsh;
   };
 
-  time.timeZone = "Europe/Rome"; # Time zone and internationalisation
-  i18n = { defaultLocale = "en_US.UTF-8"; };
+  # Internationalisation properties.
+  console.keyMap = "us";
+  i18n.defaultLocale = "en_US.UTF-8";
 
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "us";
-  };
+  # Time zone.
+  time.timeZone = "Europe/Amsterdam";
 
   security.rtkit.enable = true;
 
