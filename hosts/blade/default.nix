@@ -15,13 +15,13 @@
 
 {
 
-  imports =
-    [ (import ./hardware-configuration.nix) ]
-    ++ [ (import ../../modules/programs/gaming.nix) ]
-    ++ [ (import ../../services/ios.nix) ]
-    ++ [ (import ../../modules/desktop/gnome.nix) ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules/services/ios.ni
+    ../../modules/programs/gaming.ni
+    ../../modules/desktop/gnome.nix
     #../../modules/desktop/bspwm/bspwm.nix        # Window Manager
-
+  ];
   boot = { # Boot options
     kernelPackages = pkgs.linuxPackages_latest;
 
@@ -60,8 +60,14 @@
       enable = true;
       allowedTCPPorts = [ 80 443 8080 ];
       allowedUDPPortRanges = [
-        { from = 4000; to = 4007; }
-        { from = 8000; to = 8010; }
+        {
+          from = 4000;
+          to = 4007;
+        }
+        {
+          from = 8000;
+          to = 8010;
+        }
       ];
     };
   };
