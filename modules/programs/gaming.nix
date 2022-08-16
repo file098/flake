@@ -32,4 +32,12 @@ in {
     };
   };
   environment.systemPackages = with pkgs; [ nvidia-offload nvtop ];
+
+  programs = {
+    steam = {
+      enable = true;
+      dedicatedServer.openFirewall = true;
+    };
+    gamemode.enable = true;
+  };
 }

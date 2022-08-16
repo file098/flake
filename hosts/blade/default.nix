@@ -14,13 +14,13 @@
 { config, pkgs, user, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    ../../modules/desktop/gnome.nix
-    ../../modules/services/ios.nix
-    ../../modules/gaming
+
+  imports =
+    [ (import ./hardware-configuration.nix) ]
+    ++ [ (import ../../modules/programs/gaming.nix) ]
+    ++ [ (import ../../services/ios.nix) ]
+    ++ [ (import ../../modules/desktop/gnome.nix) ];
     #../../modules/desktop/bspwm/bspwm.nix        # Window Manager
-  ];
 
   boot = { # Boot options
     kernelPackages = pkgs.linuxPackages_latest;

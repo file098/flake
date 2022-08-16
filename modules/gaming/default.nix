@@ -1,4 +1,0 @@
-[
-  ./steam.nix
-  ./nvidia.nix 
-]
