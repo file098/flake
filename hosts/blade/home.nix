@@ -15,6 +15,7 @@
       nixfmt # nix file formatter
       razergenie # razer hardware support
       nicotine-plus # file sharing
+      obsidian
       spotify
       tdesktop # telegram
       transmission-gtk # torrent client

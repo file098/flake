@@ -15,6 +15,7 @@
   # ./picom.nix
   # ./polybar
   ./openrazer.nix
+  ./ios.nix
   # ./sxhkd.nix
   # ./udiskie.nix
 ]
