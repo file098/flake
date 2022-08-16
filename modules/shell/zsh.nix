@@ -13,7 +13,7 @@
       oh-my-zsh = {
         enable = true;
         theme = "lambda";
-        plugins = [ "sudo" "git" "npm" "ng" "web-search" ];
+        plugins = [ "sudo" "git" "npm" "ng" "web-search" "systemd"];
       };
       shellAliases = {
         "ll" = "ls -l";

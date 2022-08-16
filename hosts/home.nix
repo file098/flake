@@ -17,9 +17,11 @@
 { config, lib, pkgs, user, ... }:
 
 {
-  imports = # Home Manager Modules
-    (import ../modules/editors) ++ (import ../modules/programs) ++
-    #(import ../modules/services) ++
+  # Home Manager Modules
+  imports = 
+    (import ../modules/editors) ++
+    (import ../modules/programs) ++
+    (import ../modules/services) ++
     (import ../modules/shell);
 
   home = {
@@ -43,7 +45,7 @@
 
       # File Management
       ranger # File Manager
-      thunar
+      xfce.thunar
       rsync # Syncer $ rsync -r dir1/ dir2/
       unzip # Zip files
       unrar # Rar files
@@ -61,18 +63,18 @@
 
   programs = { home-manager.enable = true; };
 
-  gtk = { # Theming
-    enable = true;
-    theme = {
-      name = "spacex";
-      package = pkgs.space-gtx-theme;
-    };
-    #   iconTheme = {
-    #     name = "Papirus-Dark";
-    #     package = pkgs.papirus-icon-theme;
-    #   };
-    #   font = {
-    #     name = "JetBrains Mono Medium";         # or FiraCode Nerd Font Mono Medium
-    #   };                                        # Cursor is declared under home.pointerCursor
-  };
+  # gtk = { # Theming
+  #   enable = true;
+  #   theme = {
+  #     name = "spacex";
+  #     package = pkgs.space-gtx-theme;
+  #   };
+  #   iconTheme = {
+  #     name = "Papirus-Dark";
+  #     package = pkgs.papirus-icon-theme;
+  #   };
+  #   font = {
+  #     name = "JetBrains Mono Medium";         # or FiraCode Nerd Font Mono Medium
+  #   };                                        # Cursor is declared under home.pointerCursor
+  # };
 }

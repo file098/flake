@@ -18,12 +18,9 @@
     home = "/home/${user}";
     description = "Filippo";
     extraGroups =
-      [ "networkmanager" "wheel" "openrazer" "docker" "audio" "plugdev" ];
-    shell = pkgs.zsh; # Default shell
+      [ "networkmanager" "wheel" "docker" "audio" "plugdev" ];
+    shell = pkgs.zsh;
   };
-
-  time.timeZone = "Rome/Italy"; # Time zone and internationalisation
-  i18n = { defaultLocale = "en_US.UTF-8"; };
 
   console = {
     font = "Lat2-Terminus16";

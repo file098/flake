@@ -11,10 +11,10 @@
 #               └─ bspwm.nix
 #
 
-{ config, pkgs, ... }:
+{ config, pkgs, user, ... }:
 
 {
-  imports = [ # For now, if applying to other system, swap files
+  imports = [
     ./hardware-configuration.nix
     ../../modules/desktop/gnome.nix
     #../../modules/desktop/bspwm/bspwm.nix        # Window Manager
@@ -34,7 +34,8 @@
         version = 2;
         device = "nodev";
         gfxmodeEfi = "1920x1080";
-        font = "${pkgs.grub2}/share/grub/unicode.pf2";    # "${pkgs.iosevka}/share/fonts/truetype/iosevka-medium.ttf";
+        font =
+          "${pkgs.grub2}/share/grub/unicode.pf2"; # "${pkgs.iosevka}/share/fonts/truetype/iosevka-medium.ttf";
         fontSize = 32;
         extraEntries = ''
           menuentry "Windows" {
@@ -50,13 +51,23 @@
     };
   };
 
-  networking.hostName = "blade";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "blade";
+    networkmanager.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 80 443 8080 ];
+      allowedUDPPortRanges = [
+        { from = 4000; to = 4007; }
+        { from = 8000; to = 8010; }
+      ];
+    };
+  };
 
   hardware.openrazer = {
     enable = true;
     keyStatistics = true;
-    devicesOffOnScreensaver = false;
+    users = [ "${user}" ];
   };
 
 }

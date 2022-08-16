@@ -11,11 +11,12 @@
 
 [
   ./dunst.nix
-  ./flameshot.nix
-  ./picom.nix
-  ./polybar
-  ./sxhkd.nix
-  ./udiskie.nix
+  # ./flameshot.nix
+  # ./picom.nix
+  # ./polybar
+  ./openrazer.nix
+  # ./sxhkd.nix
+  # ./udiskie.nix
 ]
 
 # Media is pulled from desktop default config
