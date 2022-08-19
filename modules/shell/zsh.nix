@@ -10,6 +10,9 @@
       enableCompletion = true;
       enableSyntaxHighlighting = true;
       enableAutosuggestions = true;
+      envExtra = ''
+        export XDG_DATA_HOME="$HOME/.local/share"
+      '';
       oh-my-zsh = {
         enable = true;
         theme = "lambda";

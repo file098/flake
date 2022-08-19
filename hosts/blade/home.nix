@@ -7,6 +7,7 @@
   ];
   home = {
     packages = (with pkgs; [
+      bitwarden
       discord
       fstl # 3D file view
       intel-gpu-tools

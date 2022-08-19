@@ -18,7 +18,6 @@
     home = "/home/${user}";
     description = "Filippo";
     extraGroups = [ "networkmanager" "wheel" "docker" "audio" "plugdev" ];
-    shell = pkgs.zsh;
   };
 
   # Internationalisation properties.
