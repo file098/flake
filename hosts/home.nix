@@ -19,20 +19,20 @@
 {
   # Home Manager Modules
   imports = 
-    (import ../modules/editors) ++
-    (import ../modules/programs) ++
-    (import ../modules/services) ++
-    (import ../modules/shell);
+  (import ../modules/editors) ++
+  (import ../modules/programs) ++
+  (import ../modules/services) ++
+  (import ../modules/shell);
 
   home = {
     username = "${user}";
     homeDirectory = "/home/${user}";
-
     packages = with pkgs; [
       # Terminal
       btop # Resource Manager
       pfetch # Minimal fetch
       neofetch
+      nmap
 
       # Video/Audio
       feh # Image Viewer
@@ -52,13 +52,13 @@
       unrar # Rar files
 
     ];
-    file.".config/wall".source = ../modules/themes/wall;
-    pointerCursor =
-      { # This will set cursor systemwide so applications can not choose their own
-        name = "Dracula-cursors";
-        package = pkgs.dracula-theme;
-        size = 16;
-      };
+    # file.".config/wall".source = ../modules/themes/wall;
+    # pointerCursor =
+    #   { # This will set cursor systemwide so applications can not choose their own
+    #     name = "Dracula-cursors";
+    #     package = pkgs.dracula-theme;
+    #     size = 16;
+    #   };
     stateVersion = "22.05";
   };
 
@@ -67,8 +67,8 @@
   # gtk = { # Theming
   #   enable = true;
   #   theme = {
-  #     name = "spacex";
-  #     package = pkgs.space-gtx-theme;
+  #     name = "graphite";
+  #     package = pkgs.graphite-gtk-theme;    
   #   };
   #   iconTheme = {
   #     name = "Papirus-Dark";

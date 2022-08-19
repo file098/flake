@@ -11,10 +11,10 @@
 
 [
   ./dunst.nix
+  ./openrazer.nix
   # ./flameshot.nix
   # ./picom.nix
   # ./polybar
-  ./openrazer.nix
   # ./sxhkd.nix
   # ./udiskie.nix
 ]

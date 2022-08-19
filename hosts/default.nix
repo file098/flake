@@ -20,6 +20,9 @@ let
     config.allowUnfree = true; # Allow proprietary software
   };
 
+  font = "Fira Code";
+  fontSize = 16;
+
   lib = nixpkgs.lib;
 in {
   tower = lib.nixosSystem { # Desktop profile

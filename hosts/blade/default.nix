@@ -16,10 +16,12 @@
 {
 
   imports = [
-    ./hardware-configuration.nix
-    ../../modules/services/ios.ni
-    ../../modules/programs/gaming.ni
     ../../modules/desktop/gnome.nix
+    ../../modules/programs/gaming.nix
+    ../../modules/services/ios.nix
+    ../../modules/services/samba.nix
+    ../../modules/services/ssh.nix
+    ./hardware-configuration.nix
     #../../modules/desktop/bspwm/bspwm.nix        # Window Manager
   ];
   boot = { # Boot options

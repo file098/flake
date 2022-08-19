@@ -31,7 +31,7 @@ in {
       nvidiaBusId = "PCI:1:0:0";
     };
   };
-  environment.systemPackages = with pkgs; [ nvidia-offload nvtop ];
+  environment.systemPackages = with pkgs; [ nvidia-offload nvtop glmark2];
 
   programs = {
     steam = {
