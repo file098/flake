@@ -32,14 +32,6 @@ in {
     };
   };
 
-  specialisation = {
-    external-display.configuration = {
-      system.nixos.tags = [ "external-display" ];
-      hardware.nvidia.prime.offload.enable = lib.mkForce true;
-      hardware.nvidia.powerManagement.enable = lib.mkForce false;
-    };
-  };
-
   environment.systemPackages = with pkgs; [ nvidia-offload nvtop glmark2];
 
   programs = {

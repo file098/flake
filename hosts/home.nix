@@ -30,9 +30,11 @@
     packages = with pkgs; [
       # Terminal
       btop # Resource Manager
+      htop
       pfetch # Minimal fetch
       neofetch
       nmap
+      zsh
 
       # Video/Audio
       feh # Image Viewer
@@ -46,7 +48,6 @@
 
       # File Management
       ranger # File Manager
-      xfce.thunar
       rsync # Syncer $ rsync -r dir1/ dir2/
       unzip # Zip files
       unrar # Rar files

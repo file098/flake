@@ -13,6 +13,7 @@
 
 {
 
+  users.defaultUserShell = pkgs.zsh;
   users.users.${user} = {
     isNormalUser = true;
     home = "/home/${user}";

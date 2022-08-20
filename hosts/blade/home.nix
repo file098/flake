@@ -7,25 +7,25 @@
   ];
   home = {
     packages = (with pkgs; [
-      bitwarden
+      bitwarden # password manager
+      cbonsai
       discord
       fstl # 3D file view
-      intel-gpu-tools
+      intel-gpu-tools 
       libreoffice
-      lollypop
-      polybar
-      powertop
-      nixfmt # nix file formatter
-      razergenie # razer hardware support
+      lollypop # music player
       nicotine-plus # file sharing
+      nixfmt # nix file formatter
       obsidian
+      powertop
+      razergenie # razer hardware support
       spotify
       tdesktop # telegram
       transmission-gtk # torrent client
       wally-cli # planck flash tool
       whatsapp-for-linux
-      youtube-dl
       yarn
+      youtube-dl
     ]) ++ (with pkgs.nodePackages; [
       # Node
       typescript

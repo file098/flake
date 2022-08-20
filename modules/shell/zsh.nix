@@ -22,6 +22,7 @@
         "ll" = "ls -l";
         ".." = "cd ..";
         "update" = "cd ~/nixos-config && sudo nixos-rebuild switch --flake .#";
+        "config" = "ranger ~/nixos-config";
       };
     };
   };
