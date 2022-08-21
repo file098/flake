@@ -13,22 +13,20 @@
 
 {
 
-  users.defaultUserShell = pkgs.zsh;
   users.users.${user} = {
     isNormalUser = true;
     home = "/home/${user}";
     description = "Filippo";
     extraGroups = [ "networkmanager" "wheel" "docker" "audio" "plugdev" ];
+    shell = pkgs.zsh;
   };
 
-  # Internationalisation properties.
-  console.keyMap = "us";
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  # Time zone.
-  time.timeZone = "Europe/Amsterdam";
-
-  security.rtkit.enable = true;
+  # Set your time zone.
+  time = {
+    timeZone = "Europe/Rome";
+    hardwareClockInLocalTime = true;
+  };
+  i18n.defaultLocale = "en_US.utf8";
 
   # Sound settings
   sound.enable = true;
@@ -40,7 +38,11 @@
     '';
   };
 
-  hardware.bluetooth.enable = true;
+  security.rtkit.enable = true;
+  hardware = {
+    bluetooth.enable = true;
+    keyboard.zsa.enable = true;
+  };
 
   fonts.fonts = with pkgs; [ # Fonts
     carlito # NixOS

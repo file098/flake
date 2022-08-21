@@ -13,6 +13,7 @@
       fstl # 3D file view
       intel-gpu-tools 
       libreoffice
+      librewolf
       lollypop # music player
       nicotine-plus # file sharing
       nixfmt # nix file formatter
@@ -20,6 +21,7 @@
       powertop
       razergenie # razer hardware support
       spotify
+      supercollider
       tdesktop # telegram
       transmission-gtk # torrent client
       wally-cli # planck flash tool

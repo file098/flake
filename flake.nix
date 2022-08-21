@@ -4,14 +4,6 @@
 #  I refer to the README and other org document on how to use these files.
 #  Currently and possibly forever a Work In Progress.
 #
-#  flake.nix *             
-#   ├─ ./hosts
-#   │   └─ default.nix
-#   ├─ ./darwin
-#   │   └─ default.nix
-#   └─ ./nix
-#       └─ default.nix
-#
 
 {
   description = "My Personal NixOS and Darwin System Flake Configuration";

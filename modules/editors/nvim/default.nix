@@ -44,7 +44,9 @@
         hi Normal guibg=NONE ctermbg=NONE         " Remove background, better for personal theme
 
         set number                                " Set numbers
-
+        set showmatch                             " show matching brackets.
+        set mouse=v                               " middle-click paste with mouse
+        filetype plugin indent on                 " allows auto-indenting depending on file type
         nmap <F6> :NERDTreeToggle<CR>             " F6 opens NERDTree
       '';
     };

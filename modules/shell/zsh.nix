@@ -12,6 +12,8 @@
       enableAutosuggestions = true;
       envExtra = ''
         export XDG_DATA_HOME="$HOME/.local/share"
+        export LC_CTYPE=en_US.UTF-8
+        export LC_ALL=en_US.UTF-8
       '';
       oh-my-zsh = {
         enable = true;
