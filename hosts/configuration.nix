@@ -57,6 +57,11 @@
   ];
 
   environment = {
+    sessionVariables = rec {
+      XDG_DATA_HOME = "$HOME/.local/share";
+      LC_CTYPE = "en_US.UTF-8";
+      LC_ALL="en_US.UTF-8";
+    };
     variables = {
       TERMINAL = "alacritty";
       EDITOR = "nvim";

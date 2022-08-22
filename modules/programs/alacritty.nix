@@ -18,7 +18,7 @@
         colors = {
           primary = {
             foreground = "#bbc2cf";
-            background = "#1d2021";
+            background = "#202020";
           };
 
           normal = {

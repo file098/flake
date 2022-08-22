@@ -31,6 +31,7 @@
     tray-icons-reloaded
     sound-output-device-chooser
     pop-shell
+    color-picker 
     vitals
   ]) ++ (with pkgs; [
     #Gnome packages
