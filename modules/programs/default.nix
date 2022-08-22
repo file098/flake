@@ -11,7 +11,7 @@
 
 [
   ./alacritty.nix
-  ./rofi.nix
+  # ./rofi.nix
   ./rbw.nix
 ]
 # Steam.nix is pulled from desktop/default.nix
