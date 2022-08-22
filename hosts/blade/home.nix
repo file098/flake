@@ -22,7 +22,6 @@
       powertop
       razergenie # razer hardware support
       spotify
-      supercollider
       tdesktop # telegram
       transmission-gtk # torrent client
       wally-cli # planck flash tool
