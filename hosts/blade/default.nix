@@ -21,6 +21,7 @@
     ../../modules/services/ios.nix
     ../../modules/services/samba.nix
     ../../modules/services/ssh.nix
+    ../../modules/shell/npm.nix
     ./hardware-configuration.nix
     #../../modules/desktop/bspwm/bspwm.nix        # Window Manager
   ];

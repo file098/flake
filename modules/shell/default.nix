@@ -9,4 +9,7 @@
 #               └─ ...
 #
 
-[ ./git.nix ./zsh.nix ./npm.nix]
+[ 
+  ./git.nix
+  ./zsh.nix
+]
