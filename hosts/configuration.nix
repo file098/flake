@@ -83,6 +83,7 @@
 
   nix = { # Nix Package Manager settings
     settings = {
+      #allowed-users = ["root"];
       auto-optimise-store = true; # Optimise syslinks
     };
     gc = { # Automatic garbage collection

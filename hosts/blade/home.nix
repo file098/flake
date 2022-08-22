@@ -17,6 +17,7 @@
       lollypop # music player
       nicotine-plus # file sharing
       nixfmt # nix file formatter
+      nodejs
       obsidian
       powertop
       razergenie # razer hardware support

@@ -56,6 +56,11 @@
   };
 
   networking = {
+    wireless.networks = {
+      Lumaca = {
+        pskRaw = "784ef16e538ba594671250c8fe39ba0aaf3ccf76e500303ee53e5aa42f8c2915";
+      };
+    };
     hostName = "blade";
     networkmanager.enable = true;
     firewall = {
