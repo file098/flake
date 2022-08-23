@@ -34,6 +34,7 @@
       neofetch
       nmap
       zsh
+      exa
 
       # Video/Audio
       feh # Image Viewer
