@@ -11,7 +11,8 @@
       cbonsai
       discord
       fstl # 3D file view
-      intel-gpu-tools 
+      graphite-gtk-theme
+      intel-gpu-tools
       libreoffice
       librewolf
       lollypop # music player
