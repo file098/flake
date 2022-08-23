@@ -26,6 +26,7 @@
         "build" = "sudo nixos-rebuild build --flake '/home/${user}/nixos-config#'";
         "switch" = "sudo nixos-rebuild switch --flake '/home/${user}/nixos-config#'";
         "config" = "ranger /home/${user}/nixos-config";
+        "update" = "cd /home/${user}/nixos-config && nix flake update";
       };
     };
   };
