@@ -13,5 +13,4 @@
   ./git.nix
   ./zsh.nix
   ./htop.nix
-  ./exa.nix
 ]
