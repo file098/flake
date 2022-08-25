@@ -21,7 +21,6 @@
         plugins = [ "sudo" "git" "npm" "ng" "web-search" "systemd"];
       };
       shellAliases = {
-        "ll" = "ls -l";
         ".." = "cd ..";
         "build" = "sudo nixos-rebuild build --flake '/home/${user}/nixos-config#'";
         "switch" = "sudo nixos-rebuild switch --flake '/home/${user}/nixos-config#'";

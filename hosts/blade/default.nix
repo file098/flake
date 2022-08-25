@@ -16,7 +16,7 @@
 {
 
   imports = [
-    ../../modules/desktop/gnome.nix
+    ../../modules/desktop/kde.nix
     ../../modules/programs/gaming.nix
     ../../modules/services/ios.nix
     ../../modules/services/samba.nix
@@ -39,8 +39,7 @@
         device = "nodev";
         gfxmodeEfi = "1920x1080";
         efiSupport = true;
-        font =
-          "${pkgs.grub2}/share/grub/unicode.pf2";
+        font = "${pkgs.grub2}/share/grub/unicode.pf2";
         fontSize = 32;
         extraEntries = ''
           menuentry "Windows" {
@@ -54,12 +53,16 @@
         '';
       };
     };
+    # should stop resume/suspend loop 
+    extraModprobeConfig =
+      "options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp";
   };
 
   networking = {
     wireless.networks = {
       Lumaca = {
-        pskRaw = "784ef16e538ba594671250c8fe39ba0aaf3ccf76e500303ee53e5aa42f8c2915";
+        pskRaw =
+          "784ef16e538ba594671250c8fe39ba0aaf3ccf76e500303ee53e5aa42f8c2915";
       };
     };
     hostName = "blade";
@@ -67,7 +70,7 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [ 80 443 8080 ];
-      allowedUDPPorts = [ 4000 57120 8000 8010 ];      
+      allowedUDPPorts = [ 4000 57120 8000 8010 ];
     };
   };
 

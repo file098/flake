@@ -101,10 +101,10 @@
   nixpkgs.config.allowUnfree = true; # Allow proprietary software.
 
   system = { # NixOS settings
-    autoUpgrade = { # Allow auto update
-      enable = true;
-      channel = "https://nixos.org/channels/nixos-unstable";
-    };
+    # autoUpgrade = { # Allow auto update
+    #   enable = true;
+    #   channel = "https://nixos.org/channels/nixos-unstable";
+    # };
     stateVersion = "22.05";
   };
 }

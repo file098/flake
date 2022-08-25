@@ -6,6 +6,7 @@
     xserver = {
       enable = true;
       displayManager.gdm.enable = true;
+      displayManager.job.preStart = "sleep 5";
       desktopManager.gnome.enable = true;
       resolutions = [
         {
@@ -31,7 +32,7 @@
     tray-icons-reloaded
     sound-output-device-chooser
     pop-shell
-    color-picker 
+    color-picker
     vitals
   ]) ++ (with pkgs; [
     #Gnome packages
