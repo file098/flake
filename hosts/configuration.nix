@@ -9,7 +9,7 @@
 #               └─ default.nix
 #
 
-{ config, lib, pkgs, inputs, user, location, ... }:
+{ config, lib, pkgs, inputs, user, ... }:
 
 {
 

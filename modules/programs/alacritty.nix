@@ -7,7 +7,7 @@
       settings = {
         selection.save_to_clipboard = true;
         window = {
-          decorations = "none";
+          decorations = "full";
           gtk_theme_variant = "None";
           opacity = 0.98;
           padding = {
@@ -15,6 +15,7 @@
             y = 15;
           };
         };
+        font.size = 10;
         colors = {
           primary = {
             foreground = "#bbc2cf";

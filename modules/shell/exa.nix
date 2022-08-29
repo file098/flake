@@ -2,6 +2,6 @@
 {
     programs.exa = {
         enable = true;
-        enableAliases = true;
+        # enableAliases = true;
     };
 }

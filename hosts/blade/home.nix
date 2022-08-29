@@ -12,6 +12,9 @@
       discord
       fstl # 3D file view
       graphite-gtk-theme
+      glxinfo
+      vulkan-tools
+      xorg.xdpyinfo
       intel-gpu-tools
       libreoffice
       librewolf

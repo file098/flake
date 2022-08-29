@@ -1,32 +1,22 @@
 # Specific system configuration settings for desktop
 #
-#  flake.nix
-#   ├─ ./hosts
-#   │   └─ ./vm
-#   │       ├─ default.nix *
-#   │       └─ hardware-configuration.nix
-#   └─ ./modules
-#       └─ ./desktop
-#           └─ ./bspwm
-#               └─ bspwm.nix
-#
 
 { config, pkgs, user, ... }:
 
 {
 
   imports = [
-    ../../modules/desktop/kde.nix
+    ../../modules/desktop/gnome.nix
     ../../modules/programs/gaming.nix
     ../../modules/services/ios.nix
     ../../modules/services/samba.nix
     ../../modules/services/ssh.nix
     ../../modules/shell/npm.nix
     ./hardware-configuration.nix
-    #../../modules/desktop/bspwm/bspwm.nix        # Window Manager
   ];
   boot = { # Boot options
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [ "libata.noacpi=1" ];
     plymouth.enable = true;
     loader = {
       efi = {
