@@ -27,20 +27,23 @@
         enable = true;
         version = 2;
         device = "nodev";
+        default = "saved";
+        useOSProber = true; # use OSProber for separate drive dual booting
         gfxmodeEfi = "1920x1080";
         efiSupport = true;
         font = "${pkgs.grub2}/share/grub/unicode.pf2";
         fontSize = 32;
-        extraEntries = ''
-          menuentry "Windows" {
-            insmod part_gpt
-            insmod fat
-            insmod search_fs_uuid
-            insmod chain
-            search --fs-uuid --set=root FCFC-D67F
-            chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-          }
-        '';
+        # use this configuration when dual booting is on the same drive
+        # extraEntries = ''   
+        #   menuentry "Windows" {
+        #     insmod part_gpt
+        #     insmod fat
+        #     insmod search_fs_uuid
+        #     insmod chain
+        #     search --fs-uuid --set=root FCFC-D67F
+        #     chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        #   }
+        # '';
       };
     };
     # should stop resume/suspend loop 
