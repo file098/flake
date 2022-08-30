@@ -30,7 +30,7 @@
 #          HDMI-A-0 = [ "6" "7" "8" "9" "0" ];
 #        };
         rules = {                               # Specific rules for apps - use xprop
-          "Emacs" = {
+          "VisualStudioCode" = {
             desktop = "3";
             follow = true;
             state = "tiled";
@@ -39,26 +39,26 @@
             state = "floating";
             sticky = true;
           };
-          "libreoffice" = {
-            desktop = "3";
-            follow = true;
-          };
-          "Lutris" = {
-            desktop = "5";
-            follow = true;
-          };
-          "Pavucontrol" = {
-            state = "floating";
-            sticky = true;
-          };
-          "Pcmanfm" = {
-            state = "floating";
-          };
-          "plexmediaplayer" = {
-            desktop = "4";
-            follow= true;
-            state = "fullscreen";
-          };
+          # "libreoffice" = {
+          #   desktop = "3";
+          #   follow = true;
+          # };
+          # "Lutris" = {
+          #   desktop = "5";
+          #   follow = true;
+          # };
+          # "Pavucontrol" = {
+          #   state = "floating";
+          #   sticky = true;
+          # };
+          # "Pcmanfm" = {
+          #   state = "floating";
+          # };
+          # "plexmediaplayer" = {
+          #   desktop = "4";
+          #   follow= true;
+          #   state = "fullscreen";
+          # };
           "*:*:Picture in picture" = {  #Google Chrome PIP
             state = "floating";
             sticky = true;

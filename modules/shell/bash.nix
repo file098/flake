@@ -1,0 +1,6 @@
+# Bash dotifles configuration
+{user, ...}:
+
+{
+
+}

@@ -1,3 +1,4 @@
+# zsh dotifles configuration
 { user, ... }:
 
 {

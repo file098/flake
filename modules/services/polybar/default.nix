@@ -19,15 +19,15 @@ in {
       polybar = {
         enable = true;
         script = ''
-                               # Running polybar on startup
-          #  Handled by bspwmrc (modules/desktop/bspwm)
+          # Running polybar on startup
+          # Handled by bspwmrc (modules/desktop/bspwm)
         ''; # Gets fixed in the bspwmrc file
         package = mypolybar;
         config = {
           "bar/main" = { # Bar name = Top
             #monitor = "HDMI-A-1";
             width = "100%";
-            height = 15;
+            height = 30;
             background = "#00000000";
             foreground = "#ccffffff";
 
@@ -45,7 +45,7 @@ in {
             font-4 = "FiraCodeNerdFont:size=10";
             modules-left = "logo bspwm";
             modules-right =
-              "backlight pad memory cpu pad mic volume pad battery date"; # wired-network wireless-network bluetooth";
+              "backlight pad memory cpu pad mic volume pad wireless-network pad battery date"; # wired-network wireless-network bluetooth";
 
             tray-position = "right";
             tray-detached = "false";
@@ -53,30 +53,30 @@ in {
             #override-redirect = "true";
             wm-restack = "bspwm";
           };
-          "bar/sec" = {
-            monitor = "DisplayPort-1";
-            width = "100%";
-            height = 15;
-            background = "#00000000";
-            foreground = "#ccffffff";
+          # "bar/sec" = {
+          #   monitor = "DisplayPort-1";
+          #   width = "100%";
+          #   height = 15;
+          #   background = "#00000000";
+          #   foreground = "#ccffffff";
 
-            offset-y = 2;
-            spacing = "1.5";
-            padding-right = 2;
-            module-margin-left = 1;
-            #module-margin-right = "0.5";
+          #   offset-y = 2;
+          #   spacing = "1.5";
+          #   padding-right = 2;
+          #   module-margin-left = 1;
+          #   #module-margin-right = "0.5";
 
-            font-0 = "SourceCodePro:size=10"; # Icons
-            font-1 = "FontAwesome6Free:style=Solid:size=8";
-            font-2 = "FontAwesome6Free:style=Regular:size=8";
-            font-3 = "FontAwesome6Brands:style=Regular:size=8";
-            font-4 = "FiraCodeNerdFont:size=10";
-            modules-left = "logo bspwm";
-            modules-right = "mic volume pad date";
+          #   font-0 = "SourceCodePro:size=10"; # Icons
+          #   font-1 = "FontAwesome6Free:style=Solid:size=8";
+          #   font-2 = "FontAwesome6Free:style=Regular:size=8";
+          #   font-3 = "FontAwesome6Brands:style=Regular:size=8";
+          #   font-4 = "FiraCodeNerdFont:size=10";
+          #   modules-left = "logo bspwm";
+          #   modules-right = "mic volume pad date";
 
-            #override-redirect = "true";
-            wm-restack = "bspwm";
-          };
+          #   #override-redirect = "true";
+          #   wm-restack = "bspwm";
+          # };
           "module/memory" = { # RAM
             type = "internal/memory";
             format = "<label>"; # <bar-used>";
@@ -127,6 +127,7 @@ in {
               bar-empty-font = 3;
               bar-empty-foreground = "#44";
             };
+
           "module/wireless-network" = { # Show either wired or wireless
             type = "internal/network";
             interface = "wlo1";
@@ -146,15 +147,15 @@ in {
             animation-packetloss-1-foreground = "#00000000";
             animation-packetloss-framerate = 500;
           };
-          #"module/wired-network" = {              # Ditto module above
-          #type = "internal/network";
-          #interface = "enp0s25";
-          #interval = "3.0";
-          #
-          #label-connected = "  %{T3}%local_ip%%{T-}";
-          #label-connected = "";
-          #label-disconnected-foreground = "#66";
-          #};
+          # "module/wired-network" = { # Ditto module above
+          #   type = "internal/network";
+          #   interface = "enp0s25";
+          #   interval = "3.0";
+
+          #   label-connected = "  %{T3}%local_ip%%{T-}";
+          #   label-connected = "";
+          #   label-disconnected-foreground = "#66";
+          # };
           "module/battery" =
             { # Show battery (only when exist), uncomment to show battery and animations
               type = "internal/battery";
@@ -288,15 +289,7 @@ in {
             #click-left = "pactl list sources | grep -qi 'Mute: yes' && pactl set-source-mute 1 false || pactl set-source-mute 1 true ";
             click-left = "~/.config/polybar/script/mic.sh toggle";
           };
-          #"module/logo" = {
-          #type = "custom/text";
-          #content = " %{F#a7c7e7} ";
-          #format-foreground = "#a7c7e7";
-          #click-left = "bspc quit";
-          #double-click-left = "systemctl suspend";
-          #double-click-middle = "poweroff";
-          #double-click-right = "xset dpms force off";
-          #};
+
           "module/logo" = {
             type = "custom/menu";
             expand-right = true;
@@ -322,14 +315,15 @@ in {
             menu-1-4 = "";
             menu-1-4-exec = "sleep 0.5; systemctl reboot";
 
+            # TODO: Everything needs to be changed with correct shortcuts
             menu-2-0 = "";
-            menu-2-0-exec = "google-chrome-stable &";
+            menu-2-0-exec = "librewolf &";
             menu-2-1 = "";
             menu-2-1-exec = "emacs &";
             menu-2-2 = "";
             menu-2-2-exec = "libreoffice &";
             menu-2-3 = "";
-            menu-2-3-exec = "plexmediaplayer &";
+            menu-2-3-exec = "vlc &";
             menu-2-4 = "";
             menu-2-4-exec = "darktable &";
             menu-2-5 = "";

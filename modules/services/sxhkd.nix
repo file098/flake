@@ -14,6 +14,7 @@
           "super + space" = "rofi -show drun"; # Open Rofi (custom theme " -theme theme.rasi")
           "super + e" = "pcmanfm"; # File Manager
           "super + w" = "librewolf";
+          "super + c" = "code";
           "Print" = "flameshot gui"; # Start flameshot gui
 
           # Bspwm
