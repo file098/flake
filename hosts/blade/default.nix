@@ -6,7 +6,9 @@
 {
 
   imports = [
-    ../../modules/desktop/gnome.nix
+    #  ../../modules/desktop/gnome.nix
+    #../../modules/desktop/bspwm/bspwm.nix
+    ../../modules/desktop/sway.nix
     ../../modules/programs/gaming.nix
     ../../modules/services/ios.nix
     ../../modules/services/samba.nix
