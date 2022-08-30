@@ -18,7 +18,7 @@
   ];
   boot = { # Boot options
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "libata.noacpi=1" ];
+    kernelParams = [ "libata.noacpi=1" "button.lid_init_state=open" ];
     plymouth.enable = true;
     loader = {
       efi = {
@@ -49,8 +49,9 @@
       };
     };
     # should stop resume/suspend loop 
-    extraModprobeConfig =
-      "options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp";
+    # it didnt
+  #   extraModprobeConfig =
+  #     "options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp";
   };
 
   networking = {

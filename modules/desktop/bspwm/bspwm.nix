@@ -20,7 +20,7 @@
       enable = true;
 
       layout = "us"; # Keyboard layout & €-sign
-      xkbOptions = "eurosign:e";
+      xkbOptions = "intl";
       libinput.enable = true;
 
       displayManager = { # Display Manager
