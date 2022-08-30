@@ -10,9 +10,10 @@
 #
 
 [
+  ./blueman
   ./dunst.nix
-  ./openrazer.nix
   ./flameshot.nix
+  ./openrazer.nix
   ./picom.nix
   ./polybar
   ./sxhkd.nix

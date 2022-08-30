@@ -34,6 +34,7 @@
       obsidian
       razergenie # razer hardware support
       spotify
+      thunderbird # email client
       tdesktop # telegram
 
       whatsapp-for-linux

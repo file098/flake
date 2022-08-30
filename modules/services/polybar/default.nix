@@ -43,9 +43,10 @@ in {
             font-2 = "FontAwesome6Free:style=Regular:size=8";
             font-3 = "FontAwesome6Brands:style=Regular:size=8";
             font-4 = "FiraCodeNerdFont:size=10";
-            modules-left = "logo bspwm";
+            modules-left = "logo bspwm xwindow";
+            # modules-center = "xwindow";
             modules-right =
-              "backlight pad memory cpu pad mic volume pad wireless-network pad battery date"; # wired-network wireless-network bluetooth";
+              "backlight pad memory cpu pad mic volume pad wireless-network bluetooth pad battery date"; # wired-network wireless-network bluetooth";
 
             tray-position = "right";
             tray-detached = "false";
@@ -105,6 +106,12 @@ in {
             click-right =
               "${pkgs.pavucontrol}/bin/pavucontrol"; # Right click opens pavucontrol, left click mutes, scroll changes levels
           };
+          "module/xwindow" = {
+            type = "internal/xwindow";
+            label = "%title:0:60%";
+            label-foreground = "#ff";
+            label-empty = "";
+          };
           "module/backlight" =
             { # Keeping for the futur when i have a screen that supports xbacklight
               type = "internal/backlight"; # Now doen with sxhkb shortcuts
@@ -119,7 +126,7 @@ in {
               bar-width = 10;
               bar-indicator = "|";
               bar-indicator-font = 3;
-              bar-indicator-foreground = "#ff";
+              bar-indicator-foreground = "#ff"; 
               bar-fill = "─";
               bar-fill-font = 3;
               bar-fill-foreground = "ff"; # "#c9665e";

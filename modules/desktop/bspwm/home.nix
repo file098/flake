@@ -30,7 +30,7 @@
 #          HDMI-A-0 = [ "6" "7" "8" "9" "0" ];
 #        };
         rules = {                               # Specific rules for apps - use xprop
-          "VisualStudioCode" = {
+          "Visual Studio Code" = {
             desktop = "3";
             follow = true;
             state = "tiled";
@@ -66,6 +66,13 @@
           "*:*:Picture-in-Picture" = {  #Firefox PIP
             state = "floating";
             sticky = true;
+          };
+          "Code" = {
+            desktop = "3";
+            follow = true;
+          };
+          "Firefox" = {
+            desktop = "2";
           };
           "Steam" = {
             desktop = "5";
@@ -103,6 +110,7 @@
             bspc wm -O HDMI-A-1 DisplayPort-1
             polybar sec &
           fi
+
         '';
       };
     };
