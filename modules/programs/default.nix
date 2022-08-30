@@ -14,5 +14,6 @@
   # ./rofi.nix
   ./neovim.nix
   ./rbw.nix
+  ./virtualbox.nix
 ]
 

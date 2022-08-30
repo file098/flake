@@ -1,3 +1,4 @@
+# bit warden terminal cli
 {
   programs.rbw = {
     enable = true;
