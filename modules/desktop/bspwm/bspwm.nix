@@ -25,9 +25,8 @@
 
       displayManager = { # Display Manager
         lightdm = {
-          enable = true; # Wallpaper and gtk theme
-          background =
-            pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
+          enable = true;
+          background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
           greeters = {
             gtk = {
               theme = {
@@ -49,8 +48,47 @@
           enable = true;
         };
       };
+
+      videoDrivers = [ # Video Settings
+        "modesetting"
+      ];
+
+      displayManager.sessionCommands = ''
+        #!/bin/sh
+        SCREEN=$(${pkgs.xorg.xrandr}/bin/xrandr | grep " connected " | wc -l)
+        if [[ $SCREEN -eq 1 ]]; then
+          ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-A-1 --primary --mode 1920x1080 --rotate normal
+        elif [[ $SCREEN -eq 2 ]]; then
+          ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-A-1 --primary --mode 1920x1080 --rotate normal --output DisplayPort-1 --mode 1920x1080 --rotate normal --left-of HDMI-A-1
+        fi
+      ''; # Settings for correct display configuration; This can also be done with setupCommands when X server start for smoother transition (if setup is static)
+      # Another option to research in future is arandr
+      serverFlagsSection = ''
+        Option "BlankTime" "0"
+        Option "StandbyTime" "0"
+        Option "SuspendTime" "0"
+        Option "OffTime" "0"
+      ''; # Used so computer does not goes to sleep
+
+      resolutions = [
+        {
+          x = 1920;
+          y = 1080;
+        }
+        {
+          x = 1600;
+          y = 900;
+        }
+        {
+          x = 3840;
+          y = 2160;
+        }
+      ];
     };
   };
+
+  # programs.zsh.enable =
+  #   true; # Weirdly needs to be added to have default user on lightdm
 
   environment.systemPackages = with pkgs; [ # Packages installed
     xclip
@@ -58,5 +96,6 @@
     xorg.xkill
     xorg.xrandr
     xterm
+    arandr
   ];
 }

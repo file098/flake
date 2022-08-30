@@ -6,10 +6,10 @@
 {
 
   imports = [
-    #  ../../modules/desktop/gnome.nix
-    #../../modules/desktop/bspwm/bspwm.nix
-    ../../modules/desktop/sway.nix
-    ../../modules/programs/gaming.nix
+    # ../../modules/desktop/gnome.nix
+    ../../modules/desktop/bspwm/bspwm.nix
+    ../../modules/programs/virtualbox.nix
+    #../../modules/programs/gaming.nix
     ../../modules/services/ios.nix
     ../../modules/services/samba.nix
     ../../modules/services/ssh.nix
@@ -67,6 +67,33 @@
       allowedTCPPorts = [ 80 443 8080 ];
       allowedUDPPorts = [ 4000 57120 8000 8010 ];
     };
+  };
+
+  services.xserver = {
+    libinput = { # Trackpad support & gestures
+      touchpad = {
+        tapping = true;
+        scrollMethod = "twofinger";
+        naturalScrolling = true; # The correct way of scrolling
+        accelProfile = "adaptive"; # Speed settings
+        #accelSpeed = "-0.5";
+        disableWhileTyping = false;
+      };
+    };
+    resolutions = [
+      {
+        x = 1600;
+        y = 920;
+      }
+      {
+        x = 1280;
+        y = 720;
+      }
+      {
+        x = 1920;
+        y = 1080;
+      }
+    ];
   };
 
   hardware.openrazer = {

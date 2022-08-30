@@ -1,3 +1,4 @@
+{user, ...}:
 {
   services.samba-wsdd.enable =
     true; # make shares visible for windows 10 clients
@@ -24,23 +25,21 @@
       map to guest = bad user
     '';
     shares = {
-      public = {
-        path = "/mnt/Shares/Public";
-        browseable = "yes";
-        "read only" = "no";
-        "guest ok" = "yes";
-        "create mask" = "0644";
-        "directory mask" = "0755";
-        "force user" = "username";
-        "force group" = "groupname";
-      };
+      # public = {
+      #   path = "/mnt/Shares/Public";
+      #   browseable = "yes";
+      #   "read only" = "no";
+      #   "guest ok" = "yes";
+      #   "create mask" = "0644";
+      #   "directory mask" = "0755";
+      #   "force user" = "username";
+      #   "force group" = "groupname";
+      # };
       private = {
-        path = "/mnt/Shares/Private";
+        path = "/home/${user}";
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "no";
-        "create mask" = "0644";
-        "directory mask" = "0755";
         "force user" = "username";
         "force group" = "groupname";
       };

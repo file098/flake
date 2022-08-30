@@ -1,3 +1,4 @@
+#
 #  Bspwm Home manager configuration
 #
 #  flake.nix
@@ -13,17 +14,27 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ../../services/polybar
+    ../../services/picom.nix
+    ../../services/sxhkd.nix
+  ];
   xsession = {
     enable = true;
     numlock.enable = true;
     windowManager = {
       bspwm = {
         enable = true;
-        #        monitors = {                            # Multiple monitors
-        #          HDMI-A-1 = [ "1" "2" "3" "4" "5" ];
-        #          HDMI-A-0 = [ "6" "7" "8" "9" "0" ];
-        #        };
-        rules = { # Specific rules for apps - use xprop
+#        monitors = {                            # Multiple monitors
+#          HDMI-A-1 = [ "1" "2" "3" "4" "5" ];
+#          HDMI-A-0 = [ "6" "7" "8" "9" "0" ];
+#        };
+        rules = {                               # Specific rules for apps - use xprop
+          "Emacs" = {
+            desktop = "3";
+            follow = true;
+            state = "tiled";
+          };
           ".blueman-manager-wrapped" = {
             state = "floating";
             sticky = true;
@@ -40,12 +51,19 @@
             state = "floating";
             sticky = true;
           };
+          "Pcmanfm" = {
+            state = "floating";
+          };
           "plexmediaplayer" = {
             desktop = "4";
-            follow = true;
+            follow= true;
             state = "fullscreen";
           };
-          "*:*:Picture-in-Picture" = { # Firefox PIP
+          "*:*:Picture in picture" = {  #Google Chrome PIP
+            state = "floating";
+            sticky = true;
+          };
+          "*:*:Picture-in-Picture" = {  #Firefox PIP
             state = "floating";
             sticky = true;
           };

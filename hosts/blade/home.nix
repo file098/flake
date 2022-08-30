@@ -3,11 +3,13 @@
 
 {
   imports = [
-    # ../../modules/desktop/bspwm/home.nix  #Window Manager
+    ../../modules/desktop/bspwm/home.nix  #Window Manager
   ];
   home = {
     packages = (with pkgs; [
       bitwarden # password manager
+      bluez
+      blueman
       cbonsai
       discord
       fstl # 3D file view
@@ -18,6 +20,7 @@
       intel-gpu-tools
       libreoffice
       librewolf
+      light
       lollypop # music player
       nicotine-plus # file sharing
       nixfmt # nix file formatter

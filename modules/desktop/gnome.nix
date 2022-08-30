@@ -8,20 +8,6 @@
       displayManager.gdm.enable = true;
       displayManager.job.preStart = "sleep 5";
       desktopManager.gnome.enable = true;
-      resolutions = [
-        {
-          x = 1920;
-          y = 1080;
-        }
-        {
-          x = 1600;
-          y = 900;
-        }
-        {
-          x = 3840;
-          y = 2160;
-        }
-      ];
     };
   };
 

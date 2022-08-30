@@ -11,9 +11,8 @@
 
 [
   ./alacritty.nix
-  # ./rofi.nix
+  ./rofi.nix
   ./neovim.nix
   ./rbw.nix
-  ./virtualbox.nix
 ]
 
