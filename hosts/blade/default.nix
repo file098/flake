@@ -7,18 +7,27 @@
 
   imports = [
     # ../../modules/desktop/gnome.nix
+    #Desktop
+    #../../modules/desktop/nvidia.nix
     ../../modules/desktop/bspwm/bspwm.nix
+    #Programs
     ../../modules/programs/virtualbox.nix
     ../../modules/programs/steam.nix
+    #Services
     ../../modules/services/ios.nix
     ../../modules/services/samba.nix
     ../../modules/services/ssh.nix
+    #Shell
     ../../modules/shell/npm.nix
+    #Hardware
     ./hardware-configuration.nix
   ];
+
+  services.xserver.videoDrivers = ["modesetting"];
+
   boot = { # Boot options
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "module_blacklist=i915" "button.lid_init_state=open" ];
+    kernelPackages = pkgs.linuxPackages_zen;
+    kernelParams = [ "button.lid_init_state=open" ];
     plymouth.enable = true;
     loader = {
       efi = {
@@ -48,10 +57,6 @@
         # '';
       };
     };
-    # should stop resume/suspend loop 
-    # it didnt
-  #   extraModprobeConfig =
-  #     "options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp";
   };
 
   networking = {
