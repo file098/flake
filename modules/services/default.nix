@@ -10,7 +10,6 @@
 #
 
 [
-  ./blueman
   ./dunst.nix
   ./flameshot.nix
   ./openrazer.nix

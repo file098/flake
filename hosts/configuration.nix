@@ -17,7 +17,7 @@
     isNormalUser = true;
     home = "/home/${user}";
     description = "Filippo";
-    extraGroups = [ "networkmanager" "wheel" "docker" "audio" "plugdev" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "audio" "plugdev" "video" ];
     shell = pkgs.zsh;
   };
 

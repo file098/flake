@@ -143,7 +143,8 @@ in {
 
             format-connected = "<ramp-signal> <label-connected>";
             label-connected = "%essid%";
-            label-disconnected = "";
+            # label-disconnected = "";
+            label-disconnected = "x";
             label-disconnected-foreground = "#66";
 
             ramp-signal-0 = "";

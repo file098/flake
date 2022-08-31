@@ -9,7 +9,7 @@
     # ../../modules/desktop/gnome.nix
     ../../modules/desktop/bspwm/bspwm.nix
     ../../modules/programs/virtualbox.nix
-    #../../modules/programs/gaming.nix
+    ../../modules/programs/steam.nix
     ../../modules/services/ios.nix
     ../../modules/services/samba.nix
     ../../modules/services/ssh.nix
@@ -18,7 +18,7 @@
   ];
   boot = { # Boot options
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "libata.noacpi=1" "button.lid_init_state=open" ];
+    kernelParams = [ "module_blacklist=i915" "button.lid_init_state=open" ];
     plymouth.enable = true;
     loader = {
       efi = {
