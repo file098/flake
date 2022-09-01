@@ -61,11 +61,11 @@ in
   ];
 
 
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
+#   services.pipewire = {
+#     enable = true;
+#     alsa.enable = true;
+#     pulse.enable = true;
+#   };
 
 
   # xdg-desktop-portal works by exposing a series of D-Bus interfaces
@@ -88,4 +88,6 @@ in
     enable = true;
     wrapperFeatures.gtk = true;
   };
+
+  programs.light.enable = true;
 }

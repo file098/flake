@@ -32,13 +32,14 @@
     let # Variables that can be used in the config files.
       user = "file0";
       location = "$HOME/.setup";
+      bg-path = "/home/${user}/nixos-config/other/wall.png";
       # Use above variables in ...
     in {
       nixosConfigurations = ( # NixOS configurations
         import ./hosts { # Imports ./hosts/default.nix
           inherit (nixpkgs) lib;
           inherit inputs nixpkgs home-manager nur user
-            location; # Also inherit home-manager so it does not need to be defined here.
+            location bg-path; # Also inherit home-manager so it does not need to be defined here.
         });
     };
 }

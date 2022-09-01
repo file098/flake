@@ -10,7 +10,7 @@
 #            └─ ./home.nix 
 #
 
-{ lib, inputs, nixpkgs, home-manager, nur, user, location, ... }:
+{ lib, inputs, nixpkgs, home-manager, nur, user, location, bg-path, ... }:
 
 let
   system = "x86_64-linux"; # System architecture
@@ -27,7 +27,7 @@ let
 in {
   tower = lib.nixosSystem { # Desktop profile
     inherit system;
-    specialArgs = { inherit inputs user location; }; # Pass flake variable
+    specialArgs = { inherit inputs user location bg-path; }; # Pass flake variable
     modules = [ # Modules that are used.
       # nur.nixosModules.nur # Nixos User Repository
       ./tower
@@ -46,7 +46,7 @@ in {
 
   blade = lib.nixosSystem { # Laptop profile
     inherit system;
-    specialArgs = { inherit inputs user location; };
+    specialArgs = { inherit inputs user location bg-path; };
     modules = [
       ./blade
       ./configuration.nix
