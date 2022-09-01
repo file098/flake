@@ -8,9 +8,9 @@
   imports = [
     # ../../modules/desktop/gnome.nix
     #Desktop
-    #../../modules/desktop/nvidia.nix
+    # ../../modules/desktop/nvidia.nix
     # ../../modules/desktop/bspwm/bspwm.nix
-    ../../modules/desktop/sway-user.nix
+    ../../modules/desktop/sway.nix
     #Programs
     ../../modules/programs/virtualbox.nix
     ../../modules/programs/steam.nix
@@ -24,7 +24,7 @@
     ./hardware-configuration.nix
   ];
 
-  services.xserver.videoDrivers = ["modesetting"];
+  # services.xserver.videoDrivers = ["modesetting"];
 
   boot = { # Boot options
     kernelPackages = pkgs.linuxPackages_zen;
