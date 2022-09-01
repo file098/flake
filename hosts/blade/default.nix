@@ -9,7 +9,8 @@
     # ../../modules/desktop/gnome.nix
     #Desktop
     #../../modules/desktop/nvidia.nix
-    ../../modules/desktop/bspwm/bspwm.nix
+    # ../../modules/desktop/bspwm/bspwm.nix
+    ../../modules/desktop/sway.nix
     #Programs
     ../../modules/programs/virtualbox.nix
     ../../modules/programs/steam.nix

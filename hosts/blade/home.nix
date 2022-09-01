@@ -3,7 +3,7 @@
 
 {
   imports = [
-    ../../modules/desktop/bspwm/home.nix # Window Manager
+    # ../../modules/desktop/bspwm/home.nix # Window Manager
   ];
   home = {
     packages = (with pkgs; [
