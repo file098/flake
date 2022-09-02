@@ -39,7 +39,6 @@
         enable = true;
         version = 2;
         device = "nodev";
-        default = "saved";
         useOSProber = true; # use OSProber for separate drive dual booting
         gfxmodeEfi = "1920x1080";
         efiSupport = true;

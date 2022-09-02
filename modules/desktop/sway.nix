@@ -1,4 +1,10 @@
-{ pkgs, lib, user, bg-path, ... }: {
+{ pkgs, lib, user, bg-path, ... }:
+
+let
+  lock_cmd =
+    "swaylock -i ${bg-path} --clock --indicator --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color 000000 --fade-in 0.5";
+  theme = import (dirOf <nixos-config> + /modules/theme.nix);
+in {
   # Unfortunately this must be true for GDM to work properly.
   services.xserver.enable = true;
 
@@ -22,7 +28,7 @@
       mako
       foot
       wofi
-      swaylock
+      # swaylock
       swaylock-effects
       swayidle
       bemenu # wayland clone of dmenu
@@ -51,6 +57,15 @@
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-kde ];
   };
 
+  environment.sessionVariables = {
+    # fixes cursor disappearing issues in VMs
+    WLR_NO_HARDWARE_CURSORS = "1";
+    # control qt theme with qt5ct
+    QT_QPA_PLATFORMTHEME = "qt5ct";
+    # fixes gtk theme not applying to certain apps (maybe its gtk4 apps? evince/seahorse)
+    GTK_THEME = "Adwaita:dark";
+  };
+
   home-manager.users."${user}" = {
     services.dunst.enable = lib.mkForce false;
     services.network-manager-applet.enable = lib.mkForce false;
@@ -64,12 +79,59 @@
       config = {
         modifier = "Mod4";
         output = { "*" = { bg = "${bg-path} fill"; }; };
-        input = { "*" = { tap = "enabled"; }; };
+        input = {
+          "type:keyboard" = {
+            xkb_layout = "us";
+            xkb_options = "intl";
+          };
+          "type:pointer" = {
+            accel_profile = "adaptive";
+            pointer_accel = "0.8";
+          };
+          "type:touchpad" = {
+            dwt = "enabled";
+            tap = "enabled";
+            natural_scroll = "enabled";
+            middle_emulation = "enabled";
+          };
+        };
         bars = [{
           command = "waybar";
           position = "top";
         }];
         menu = "bemenu-run";
+        terminal = "alacritty";
+        window.titlebar = true;
+        colors = {
+          focused = {
+            border = "#${theme.dark.active.background}";
+            background = "#${theme.dark.active.background}";
+            text = "#${theme.dark.active.foreground}";
+            indicator = "#${theme.dark.active.background}";
+            childBorder = "#${theme.dark.active.background}";
+          };
+          focusedInactive = {
+            border = "#${theme.dark.active.background}";
+            background = "#${theme.dark.active.background}";
+            text = "#${theme.dark.active.foreground}";
+            indicator = "#${theme.dark.active.background}";
+            childBorder = "#${theme.dark.active.background}";
+          };
+          unfocused = {
+            border = "#${theme.dark.inactive.background}";
+            background = "#${theme.dark.inactive.background}";
+            text = "#${theme.dark.inactive.foreground}";
+            indicator = "#${theme.dark.inactive.background}";
+            childBorder = "#${theme.dark.inactive.background}";
+          };
+          urgent = {
+            border = "#${theme.dark.urgent.background}";
+            background = "#${theme.dark.urgent.background}";
+            text = "#${theme.dark.urgent.foreground}";
+            indicator = "#${theme.dark.urgent.background}";
+            childBorder = "#${theme.dark.urgent.background}";
+          };
+        };
         keybindings = let mod = config.modifier;
         in {
           # Launchers
@@ -136,30 +198,31 @@
           "${mod}+Shift+9" = "move container to workspace 9";
           "${mod}+Shift+0" = "move container to workspace 10";
           "${mod}+Shift+r" = "reload";
-          
-          # Function keys
-          "XF86AudioRaiseVolume" = "exec pactl -- set-sink-volume 0 +10%";
-          "XF86AudioLowerVolume" = "exec pactl -- set-sink-volume 0 -10%";
-          "XF86AudioMute" = "exec pactl list sinks | grep -q Mute:.no && pactl set-sink-mute 0 1 || pactl set-sink-mute 0 0"; # Toggle mute audio
 
-          "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -A 10";
-          "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 10";
+          # Brightness
+          "XF86MonBrightnessDown" = "exec light -U 5";
+          "XF86MonBrightnessUp" = "exec light -A 5";
+
+          # Volume
+          "XF86AudioRaiseVolume" =
+            "exec 'pactl set-sink-volume @DEFAULT_SINK@ +5%'";
+          "XF86AudioLowerVolume" =
+            "exec 'pactl set-sink-volume @DEFAULT_SINK@ -5%'";
+          "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
 
           "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play";
           "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl pause";
           "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
           "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-          
-        };
 
+        };
         startup = [
           {
             # Auto-start all *.desktop files in auto-start directories.
             command = "${pkgs.dex}/bin/dex -a";
           }
-          {
-            command = "mako";
-          }
+          # { command = "${pkgs.waybar}/bin/waybar"; }
+          { command = "mako"; }
           { command = "nm-applet --indicator"; }
         ];
       };
@@ -168,8 +231,11 @@
         default_orientation auto
         gaps inner 10
         gaps outer 4
-        smart_gaps on
-        default_border pixel 3
+        # smart_gaps on
+        default_border pixel 2
+
+        workspace 1 output eDP-1
+        workspace 10 output DP-3
       '';
     };
 
@@ -179,22 +245,26 @@
       enable = true;
       timeouts = [{
         timeout = 5 * 60;
-        command = "swaylock -if ${bg-path}";
+        command = lock_cmd;
       }];
       events = [
         {
           event = "before-sleep";
-          command = "swaylock -if ${bg-path}";
+          command = lock_cmd;
         }
         {
           event = "lock";
-          command = "swaylock -if ${bg-path}";
+          command = lock_cmd;
         }
       ];
     };
 
     programs.waybar = {
       enable = true;
+      # systemd = {
+      #   enable = true;
+      #   target = "sway-session.target";
+      # };
       style = let
         # base16-default-dark-css = pkgs.fetchurl {
         #   url = "https://raw.githubusercontent.com/mnussbaum/base16-waybar/d2f943b1abb9c9f295e4c6760b7bdfc2125171d2/colors/base16-default-dark.css";
@@ -212,8 +282,8 @@
         mainBar = {
           position = "top";
           modules-left = [ "sway/workspaces" "sway/mode" ];
-          modules-center = ["clock" ];
-          modules-right = [ "network" "battery" "tray" ];
+          modules-center = [ "clock" ];
+          modules-right = [ "network" "pulseaudio" "battery" "tray" ];
           "sway/window" = { max-length = 50; };
           # network = {
           #   format = "";
@@ -237,6 +307,18 @@
             };
             on-click = "alacritty -e 'nmtui'";
             tooltip = false;
+          };
+          pulseaudio = {
+            format = "{icon} {volume:2}%";
+            format-bluetooth = "{icon}  {volume}%";
+            format-muted = "MUTE";
+            format-icons = {
+              headphones = "";
+              default = [ "" "" ];
+            };
+            scroll-step = 5;
+            on-click = "pamixer -t";
+            on-click-right = "pavucontrol";
           };
           battery = {
             format = "{capacity}% {icon}";
