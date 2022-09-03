@@ -6,7 +6,7 @@ let
   theme = import ../themes/theme.nix;
 in {
 
-  # imports = [ ../services/swayidle.nix ];
+  imports = [ ./../services/swayidle.nix ];
 
   # Unfortunately this must be true for GDM to work properly.
   services.xserver = {
@@ -25,7 +25,6 @@ in {
 
   programs.light.enable = true;
   programs.sway.enable = true;
-  programs.mako.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -44,6 +43,9 @@ in {
   };
 
   home-manager.users."${user}" = {
+
+    imports = [ ./../programs/swaybar/swaybar.nix ];
+
     services.dunst.enable = lib.mkForce false;
     services.network-manager-applet.enable = lib.mkForce false;
     xsession.enable = lib.mkForce false;
@@ -126,7 +128,7 @@ in {
           "${mod}+Delete" = "exec loginctl lock-session";
           "${mod}+Print" = "exec flameshot gui";
           "${mod}+q" = "kill";
-          "${mod}+Escape" = "exec ${lock_cmd}";
+          "${mod}+Escape" = "exec ${pkgs.swaylock}/bin/${lock_cmd}";
 
           # Navigation
           "${mod}+Shift+grave" = "move scratchpad";
@@ -227,95 +229,83 @@ in {
       '';
     };
 
-    programs.swaylock.settings = { image = "${bg-path}"; };
+    # programs.swaylock.settings = { image = "${bg-path}"; };
 
-    services.swayidle = {
-      enable = true;
-      timeouts = [{
-        timeout = 5 * 60;
-        command = lock_cmd;
-      }];
-      events = [
-        {
-          event = "before-sleep";
-          command = lock_cmd;
-        }
-        {
-          event = "lock";
-          command = lock_cmd;
-        }
-      ];
-    };
+    # services.swayidle = {
+    #   enable = true;
+    #   timeouts = [{
+    #     timeout = 5 * 60;
+    #     command = lock_cmd;
+    #   }];
+    #   events = [
+    #     {
+    #       event = "before-sleep";
+    #       command = lock_cmd;
+    #     }
+    #     {
+    #       event = "lock";
+    #       command = lock_cmd;
+    #     }
+    #   ];
+    # };
 
-    programs.waybar = {
-      enable = true;
-      # systemd = {
-      #   enable = true;
-      #   target = "sway-session.target";
-      # };
-      style = let
-        # base16-default-dark-css = pkgs.fetchurl {
-        #   url = "https://raw.githubusercontent.com/mnussbaum/base16-waybar/d2f943b1abb9c9f295e4c6760b7bdfc2125171d2/colors/base16-default-dark.css";
-        #   hash = "sha256:1dncxqgf7zsk39bbvrlnh89lsgr2fnvq5l50xvmpnibk764bz0jb";
-        # };
-        style = pkgs.fetchurl {
-          url =
-            "https://raw.githubusercontent.com/robertjk/dotfiles/253b86442dae4d07d872e8b963fa33b5f8819594/.config/waybar/style.css";
-          hash = "sha256-7bEOPMslgpXsKOa2aMqVoV5z1OSSRqXs2UGDgWwejx4=";
-        };
-      in ''
-        @import "${style}";
-      '';
-      settings = {
-        mainBar = {
-          position = "top";
-          modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
-          modules-center = [ "clock" ];
-          modules-right = [ "network" "pulseaudio" "battery" "tray" ];
-          "sway/window" = { max-length = 50; };
-          # network = {
-          #   format = "";
-          #   format-wired = "";
-          #   format-linked = "";
-          #   format-wifi = "{essid} {icon}";
-          #   format-disconnected = "";
-          #   tooltip-format = ''
-          #     {ifname}
-          #     {ipaddr}
-          #     {essid} ({signalStrength}%)'';
-          # };
-          network = {
-            format = "{icon} {essid}";
-            format-alt = "{ipaddr}/{cidr} {icon}";
-            format-alt-click = "click-right";
-            format-icons = {
-              wifi = [ "" "" "" ];
-              ethernet = [ "" ];
-              disconnected = [ "" ];
-            };
-            on-click = "alacritty -e 'nmtui'";
-            tooltip = false;
-          };
-          pulseaudio = {
-            format = "{icon} {volume:2}%";
-            format-bluetooth = "{icon}  {volume}%";
-            format-muted = "MUTE";
-            format-icons = {
-              headphones = "";
-              default = [ "" "" ];
-            };
-            scroll-step = 5;
-            on-click = "pamixer -t";
-            on-click-right = "pavucontrol";
-          };
-          battery = {
-            format = "{capacity}% {icon}";
-            format-icons = [ "" "" "" "" "" ];
-          };
-          clock = { format-alt = "{:%a, %d. %b  %H:%M}"; };
-        };
-      };
-    };
+    # programs.waybar = {
+    #   enable = true;
+    #   # systemd = {
+    #   #   enable = true;
+    #   #   target = "sway-session.target";
+    #   # };
+    #   style = let
+    #     # base16-default-dark-css = pkgs.fetchurl {
+    #     #   url = "https://raw.githubusercontent.com/mnussbaum/base16-waybar/d2f943b1abb9c9f295e4c6760b7bdfc2125171d2/colors/base16-default-dark.css";
+    #     #   hash = "sha256:1dncxqgf7zsk39bbvrlnh89lsgr2fnvq5l50xvmpnibk764bz0jb";
+    #     # };
+    #     style = pkgs.fetchurl {
+    #       url =
+    #         "https://raw.githubusercontent.com/robertjk/dotfiles/253b86442dae4d07d872e8b963fa33b5f8819594/.config/waybar/style.css";
+    #       hash = "sha256-7bEOPMslgpXsKOa2aMqVoV5z1OSSRqXs2UGDgWwejx4=";
+    #     };
+    #   in ''
+    #     @import "${style}";
+    #   '';
+    #   settings = {
+    #     mainBar = {
+    #       position = "top";
+    #       modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
+    #       modules-center = [ "clock" ];
+    #       modules-right = [ "network" "pulseaudio" "battery" "tray" ];
+    #       "sway/window" = { max-length = 50; };
+    #       network = {
+    #         format = "{icon} {essid}";
+    #         format-alt = "{ipaddr}/{cidr} {icon}";
+    #         format-alt-click = "click-right";
+    #         format-icons = {
+    #           wifi = [ "" "" "" ];
+    #           ethernet = [ "" ];
+    #           disconnected = [ "" ];
+    #         };
+    #         on-click = "alacritty -e 'nmtui'";
+    #         tooltip = false;
+    #       };
+    #       pulseaudio = {
+    #         format = "{icon} {volume:2}%";
+    #         format-bluetooth = "{icon}  {volume}%";
+    #         format-muted = "Mute";
+    #         format-icons = {
+    #           headphones = "";
+    #           default = [ "" "" ];
+    #         };
+    #         scroll-step = 5;
+    #         on-click = "pavucontrol";
+    #       };
+    #       battery = {
+    #         format = "{capacity}% {icon}";
+    #         format-icons = [ "" "" "" "" "" ];
+    #       };
+    #       clock = { format-alt = "{:%a, %d. %b  %H:%M}"; };
+    #     };
+    #   };
+    # };
 
     programs.foot = {
       enable = true;

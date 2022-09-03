@@ -1,41 +1,49 @@
-{ pkgs, user, ... }:
+{ config, pkgs, user, ... }: {
+  home-manager.users."${user}" = {
+    services.swayidle = {
+      enable = true;
+      package = pkgs.swayidle;
+      events = [
+        {
+          event = "before-sleep";
+          command = "swaylock";
+        }
+        {
+          event = "lock";
+          command = "swaylock";
+        }
+      ];
+      timeouts = [{
+        timeout = 60;
+        command = "swaylock -fF";
+      }];
+    };
 
-let
-  lock_cmd =
-    "swaylock -i ${bg-path} --clock --indicator --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color 000000 --fade-in 0.5";
-in {
-  systemd.services.swaylock = {
-    before = [ "sleep.target" ];
-    serviceConfig.Type = "forking";
-    serviceConfig.User = "${user}";
-    serviceConfig.ExecStartPost = "${pkgs.coreutils}/bin/sleep 1";
-    environment.WAYLAND_DISPLAY = "wayland-1";
-    environment.XDG_RUNTIME_DIR = "/run/user/1000";
-    wantedBy = [ "sleep.target" ];
-    serviceConfig.ExecStart = "${pkgs.swaylock}/bin/${lock_cmd}";
+    programs.swaylock.settings = {
+      font = "FiraCode Nerd Retina";
+      font-size = 50;
+      indicator-radius = 384;
+      indicator-thickness = 75;
+      inside-color = "ffffff00";
+      key-hl-color = "5e81ac";
+      ring-color = "2e3440";
+      line-uses-ring = true;
+      separator-color = "e5e9f022";
+      text-color = "d8dee9";
+      text-clear-color = "d8dee9";
+      text-caps-lock-color = "d8dee9";
+      indicator-idle-visible = true;
+      daemonize = true;
+      image = "/home/${user}/Pictures/wall/wall.png";
+      scaling = "fill";
+      # swaylock-effects specific
+      effect-blur = "20x2";
+      grace = 1;
+      fade-in = "0.2";
+      indicator = true;
+      clock = true;
+      datestr = "%F";
+      timestr = "%T";
+    };
   };
-
-  # playerctl -a pause
-  # home-manager.users.avo.systemd.user.services.swaylock = {
-  #   Service = {
-  #     ExecStart = "${pkgs.swaylock}/bin/swaylock -f -c 000000";
-  #     ExecStartPost = "${pkgs.coreutils}/bin/sleep 1";
-  #     Type = "forking";
-  #     User = "avo";
-  #   };
-  #   Unit = {
-  #     Before = [ "suspend.target" "sleep.target" ];
-  #     ConditionEnvironment = "WAYLAND_DISPLAY";
-  #     Environment = "WAYLAND_DISPLAY=wayland-1";
-  #   };
-  #   Install.WantedBy = [ "suspend.target" "sleep.target" ];
-  # };
-
-  security.pam.services.swaylock.text = "auth include login";
-
-  # security.pam.services.swaylock = {}
-
-  # - security.pam.services.swaylock.text = builtins.readFile "${pkgs.swaylock}/etc/pam.d/swaylock";
-  # + security.pam.services.swaylock.text = builtins.readFile "''${pkgs.swaylock}/etc/pam.d/swaylock";
-  # security.pam.services.swaylock.text = lib.fileContents "${pkgs.swaylock}/etc/pam.d/swaylock";
 }
