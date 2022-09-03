@@ -15,9 +15,9 @@
           "custom/separator"
           "custom/launcher"
           "custom/separator"
-          "custom/keyboard"
-          "custom/separator"
           "tray"
+          "sway/window"
+
         ];
         modules-center = [ "wlr/taskbar" ];
         modules-right = [
@@ -31,6 +31,7 @@
           "clock"
         ];
         # Modules configuration
+        "sway/window" = { max-length = 50; };
         "wlr/workspaces" = {
           format = "{name}";
           on-click = "activate";
@@ -148,14 +149,9 @@
           format = "|";
           tooltip = false;
         };
-        "custom/keyboard" = {
-          format = " ";
-          tooltip = false;
-          on-click = "exec ~/.config/waybar/wvkbd.sh";
-        };
       };
     };
-    style = ./style.css;
+    style = ./style.scss;
 
   };
 }

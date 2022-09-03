@@ -114,6 +114,7 @@ in {
         keybindings = let
           mod = config.modifier;
           resize_increment = "40px";
+          default_increment = "5";
           left = "Left";
           down = "Down";
           up = "Up";
@@ -125,7 +126,8 @@ in {
           "${mod}+e" = "exec pcmanfm";
           "${mod}+c" = "exec code";
           "${mod}+d" = "exec ${pkgs.wofi}/bin/wofi --show=run";
-          "${mod}+Print" = "exec flameshot gui";
+          "${mod}+Print" =
+            "exec ${pkgs.grim}/bin/grim  -g '$(pkgs.slurp)' /tmp/$(date +'%H:%M:%S.png')";
           "${mod}+q" = "kill";
           "${mod}+Escape" = "exec ${pkgs.swaylock}/bin/swaylock -f";
 
@@ -250,7 +252,6 @@ in {
       # oguri # animated background # TODO: needed?
       slurp
       # startsway # start sway with logs going to systemd
-      swayidle
       swaylock-effects
       swaybg # set background
       swaywsr # automatically rename workspaces with contents

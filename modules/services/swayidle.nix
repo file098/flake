@@ -12,6 +12,11 @@
           event = "lock";
           command = "swaylock";
         }
+        {
+          event = "after-resume";
+          command = "swaylock";
+        }
+
       ];
       timeouts = [{
         timeout = 60;

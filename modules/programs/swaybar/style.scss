@@ -1,6 +1,11 @@
+ :root {
+     --bg: #2b2b2b;
+     --fg: #ffffff;
+ }
+
 window#waybar {
-    background: #2e3440;
-    color: #eceff4;
+    background: var(--bg);
+    color: var(--fg);
     font-family: 'FiraCode Nerd Font', Inconsolata, sans-serif;
     font-weight: 700;
     font-size: 12px;
@@ -11,13 +16,13 @@ window#waybar {
 /*WORKSPACE STYLES*/
 #workspaces,
 #window {
-    background: #3b4252;
+    background: var(--bg);
     margin: 5px 0 5px 5px;
     border-radius: 5px;
 }
 
 #workspaces button {
-    color: #eceff4;
+    color: var(--fg);
     background: #434c5e;
     border: none;
     padding: 0 5px 0 5px;
@@ -26,7 +31,7 @@ window#waybar {
 
 #workspaces button:hover {
     border: none;
-    background: #3b4252;
+    background: var(--bg);
     box-shadow: none;
 }
 
@@ -70,7 +75,7 @@ window#waybar {
 #custom-separator {
     /*border-right: #d8dee9 solid 1px;*/
     padding: 0 5px 0 5px;
-    /* background: #3b4252; */
+    /* background: var(--bg); */
     margin: 5px 0 5px 0;
     border-radius: 5px;
 
@@ -109,13 +114,13 @@ tooltip {
 }
 
 tooltip label {
-    color: #eceff4;
+    color: var(--fg);
 }
 
 /*Taskbar*/
 #taskbar button {
     border: none;
-    color: #eceff4;
+    color: var(--fg);
 }
 
 #taskbar button:hover {
@@ -125,7 +130,7 @@ tooltip label {
 
 #taskbar button.active {
     border-bottom: 2px solid #81a1c1;
-    background-color: #3b4252;
+    background-color: var(--bg);
 }
 
 .modules-left {
