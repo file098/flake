@@ -124,7 +124,7 @@ in {
           "${mod}+w" = "exec librewolf";
           "${mod}+e" = "exec pcmanfm";
           "${mod}+c" = "exec code";
-          "${mod}+d" = "exec ${pkgs.bemenu}/bin/bemenu-run";
+          "${mod}+d" = "exec ${pkgs.wofi}/bin/wofi -show=run";
           "${mod}+Delete" = "exec loginctl lock-session";
           "${mod}+Print" = "exec flameshot gui";
           "${mod}+q" = "kill";
@@ -229,84 +229,6 @@ in {
       '';
     };
 
-    # programs.swaylock.settings = { image = "${bg-path}"; };
-
-    # services.swayidle = {
-    #   enable = true;
-    #   timeouts = [{
-    #     timeout = 5 * 60;
-    #     command = lock_cmd;
-    #   }];
-    #   events = [
-    #     {
-    #       event = "before-sleep";
-    #       command = lock_cmd;
-    #     }
-    #     {
-    #       event = "lock";
-    #       command = lock_cmd;
-    #     }
-    #   ];
-    # };
-
-    # programs.waybar = {
-    #   enable = true;
-    #   # systemd = {
-    #   #   enable = true;
-    #   #   target = "sway-session.target";
-    #   # };
-    #   style = let
-    #     # base16-default-dark-css = pkgs.fetchurl {
-    #     #   url = "https://raw.githubusercontent.com/mnussbaum/base16-waybar/d2f943b1abb9c9f295e4c6760b7bdfc2125171d2/colors/base16-default-dark.css";
-    #     #   hash = "sha256:1dncxqgf7zsk39bbvrlnh89lsgr2fnvq5l50xvmpnibk764bz0jb";
-    #     # };
-    #     style = pkgs.fetchurl {
-    #       url =
-    #         "https://raw.githubusercontent.com/robertjk/dotfiles/253b86442dae4d07d872e8b963fa33b5f8819594/.config/waybar/style.css";
-    #       hash = "sha256-7bEOPMslgpXsKOa2aMqVoV5z1OSSRqXs2UGDgWwejx4=";
-    #     };
-    #   in ''
-    #     @import "${style}";
-    #   '';
-    #   settings = {
-    #     mainBar = {
-    #       position = "top";
-    #       modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
-    #       modules-center = [ "clock" ];
-    #       modules-right = [ "network" "pulseaudio" "battery" "tray" ];
-    #       "sway/window" = { max-length = 50; };
-    #       network = {
-    #         format = "{icon} {essid}";
-    #         format-alt = "{ipaddr}/{cidr} {icon}";
-    #         format-alt-click = "click-right";
-    #         format-icons = {
-    #           wifi = [ "" "" "" ];
-    #           ethernet = [ "" ];
-    #           disconnected = [ "" ];
-    #         };
-    #         on-click = "alacritty -e 'nmtui'";
-    #         tooltip = false;
-    #       };
-    #       pulseaudio = {
-    #         format = "{icon} {volume:2}%";
-    #         format-bluetooth = "{icon}  {volume}%";
-    #         format-muted = "Mute";
-    #         format-icons = {
-    #           headphones = "";
-    #           default = [ "" "" ];
-    #         };
-    #         scroll-step = 5;
-    #         on-click = "pavucontrol";
-    #       };
-    #       battery = {
-    #         format = "{capacity}% {icon}";
-    #         format-icons = [ "" "" "" "" "" ];
-    #       };
-    #       clock = { format-alt = "{:%a, %d. %b  %H:%M}"; };
-    #     };
-    #   };
-    # };
-
     programs.foot = {
       enable = true;
       server.enable = true;
@@ -338,6 +260,7 @@ in {
       wev
       wf-recorder # screen recorder
       wl-clipboard
+      wofi
       wmfocus # window picker
       xwayland
     ];

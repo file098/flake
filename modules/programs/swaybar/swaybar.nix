@@ -11,6 +11,8 @@
         margin-right = 2;
         spacing = 0;
         modules-left = [
+          "sway/workspaces"
+          "custom/separator"
           "custom/launcher"
           "custom/separator"
           "custom/keyboard"
@@ -128,7 +130,7 @@
             car = "";
             default = [ "" "" "" ];
           };
-          on-click = "kitty -e alsamixer";
+          on-click = "alacritty -e alsamixer";
           tooltip = true;
           tooltip-format = ''
             {icon} {desc}
