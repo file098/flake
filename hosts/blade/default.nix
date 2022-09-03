@@ -75,6 +75,9 @@
     };
   };
 
+  # automount network devices
+  services.gvfs.enable = true;
+
   services.xserver = {
     libinput = { # Trackpad support & gestures
       touchpad = {

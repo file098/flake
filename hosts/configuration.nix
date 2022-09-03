@@ -26,7 +26,8 @@
     timeZone = "Europe/Rome";
     hardwareClockInLocalTime = true;
   };
-  i18n.defaultLocale = "en_US.utf8";
+  i18n.defaultLocale = "en_US.UTF-8";
+  console.keyMap = "us";
 
   # Sound settings
   sound.enable = true;
@@ -45,15 +46,19 @@
   };
 
   fonts.fonts = with pkgs; [ # Fonts
-    carlito # NixOS
-    vegur # NixOS
+    # NixOS
+    carlito
+    vegur
     source-code-pro
     jetbrains-mono
-    font-awesome # Icons
+    # Icons
+    font-awesome 
+    nerdfonts
+    nerd-font-patcher
     corefonts # MS
-    (nerdfonts.override { # Nerdfont Icons override
-      fonts = [ "FiraCode" ];
-    })
+    # (nerdfonts.override { # Nerdfont Icons override
+    #   fonts = [ "FiraCode" ];
+    # })
   ];
 
   environment = {
@@ -65,7 +70,7 @@
     variables = {
       TERMINAL = "alacritty";
       EDITOR = "nvim";
-      VISUAL = "nvim";
+      VISUAL = "code";
     };
     systemPackages = with pkgs; [ # Default packages install system-wide
       curl

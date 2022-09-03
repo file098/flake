@@ -67,18 +67,4 @@
 
   programs = { home-manager.enable = true; };
 
-  # gtk = { # Theming
-  #   enable = true;
-  #   theme = {
-  #     name = "graphite";
-  #     package = pkgs.graphite-gtk-theme;    
-  #   };
-  #   iconTheme = {
-  #     name = "Papirus-Dark";
-  #     package = pkgs.papirus-icon-theme;
-  #   };
-  #   font = {
-  #     name = "JetBrains Mono Medium";         # or FiraCode Nerd Font Mono Medium
-  #   };                                        # Cursor is declared under home.pointerCursor
-  # };
 }

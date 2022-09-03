@@ -5,12 +5,12 @@
 
   programs = {
     zsh = {
-      initExtra = "pfetch";
       enable = true;
       autocd = true;
       enableCompletion = true;
       enableSyntaxHighlighting = true;
       enableAutosuggestions = true;
+      initExtra = "pfetch";
       envExtra = ''
         export XDG_DATA_HOME="$HOME/.local/share"
         export LC_CTYPE=en_US.UTF-8

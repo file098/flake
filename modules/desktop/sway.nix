@@ -3,7 +3,7 @@
 let
   lock_cmd =
     "swaylock -i ${bg-path} --clock --indicator --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color 000000 --fade-in 0.5";
-  theme = import (dirOf <nixos-config> + /modules/theme.nix);
+  theme = import  ../themes/theme.nix;
 in {
   # Unfortunately this must be true for GDM to work properly.
   services.xserver.enable = true;
@@ -22,34 +22,8 @@ in {
 
   programs.sway = {
     enable = true;
-    extraPackages = with pkgs; [
-      alacritty
-      wl-clipboard
-      mako
-      foot
-      wofi
-      # swaylock
-      swaylock-effects
-      swayidle
-      bemenu # wayland clone of dmenu
-    ];
-    extraSessionCommands = ''
-      # Source: https://github.com/cole-mickens/nixcfg/blob/707b2db0a5f69ffda027f8008835f01d03954dcb/mixins/nvidia.nix#L7-L13
-      export GBM_BACKEND=nvidia-drm
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export WLR_NO_HARDWARE_CURSORS=1
-
-      # Source: https://gist.github.com/zimbatm/b82817b7feb5b58a8003d6afced62065#file-sway-nix-L56-L69
-      # SDL:
-      export SDL_VIDEODRIVER=wayland
-      # QT (needs qt5.qtwayland in systemPackages):
-      export QT_QPA_PLATFORM=wayland-egl
-      export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-      # Fix for some Java AWT applications (e.g. Android Studio),
-      # use this if they aren't displayed properly:
-      export _JAVA_AWT_WM_NONREPARENTING=1
-    '';
   };
+
   xdg.portal = {
     enable = true;
     wlr.enable = true;
@@ -80,7 +54,7 @@ in {
         modifier = "Mod4";
         output = { "*" = { bg = "${bg-path} fill"; }; };
         input = {
-          "type:keyboard" = {
+          "*" = {
             xkb_layout = "us";
             xkb_options = "intl";
           };
@@ -343,5 +317,27 @@ in {
     };
 
     programs.mako.enable = true;
+
+    home.packages = with pkgs; [
+        alacritty
+        autotiling
+        bemenu # ui
+        grim
+        # kanshi  # display configuration # TODO: needed?
+        # oguri # animated background # TODO: needed?
+        slurp
+        # startsway # start sway with logs going to systemd
+        swayidle
+        swaylock-effects
+        swaybg # set background
+        swaywsr # automatically rename workspaces with contents
+        waybar
+        wdisplays # display configuration
+        wev
+        wf-recorder # screen recorder
+        wl-clipboard
+        wmfocus # window picker
+        xwayland
+      ];
   };
 }
