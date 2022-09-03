@@ -21,7 +21,6 @@
         ];
         modules-center = [ "wlr/taskbar" ];
         modules-right = [
-          "idle_inhibitor"
           "pulseaudio"
           "network"
           "cpu"
@@ -45,15 +44,6 @@
           tooltip-format = "{icon} {app_id}";
           on-click = "minimize-raise";
         };
-        idle_inhibitor = {
-          format = "{icon} ";
-          format-icons = {
-            activated = "";
-            deactivated = "";
-          };
-          tooltip = true;
-          tooltip-format = "Sleep: {status}";
-        };
         tray = {
           icon-size = 20;
           spacing = 15;
@@ -61,7 +51,7 @@
           show-passve-icons = true;
         };
         clock = {
-          timezone = "GB";
+          timezone = "IT";
           tooltip-format = ''
             <big>{:%Y %B}</big>
             {calendar}'';
@@ -114,6 +104,7 @@
             Down Speed: {bandwidthDownBits}'';
           format-linked = "{ifname} (No IP)";
           format-disconnected = "(No Internet)";
+          on-click = "alacritty -e nmtui";
         };
         pulseaudio = {
           format = "{icon} {volume}% {format_source}";
@@ -131,7 +122,7 @@
             car = "";
             default = [ "" "" "" ];
           };
-          on-click = "alacritty -e alsamixer";
+          on-click = "alacritty -e pavucontrol";
           tooltip = true;
           tooltip-format = ''
             {icon} {desc}
