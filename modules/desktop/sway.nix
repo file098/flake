@@ -124,11 +124,10 @@ in {
           "${mod}+w" = "exec librewolf";
           "${mod}+e" = "exec pcmanfm";
           "${mod}+c" = "exec code";
-          "${mod}+d" = "exec ${pkgs.wofi}/bin/wofi -show=run";
-          "${mod}+Delete" = "exec loginctl lock-session";
+          "${mod}+d" = "exec ${pkgs.wofi}/bin/wofi --show=run";
           "${mod}+Print" = "exec flameshot gui";
           "${mod}+q" = "kill";
-          "${mod}+Escape" = "exec ${pkgs.swaylock}/bin/${lock_cmd}";
+          "${mod}+Escape" = "exec ${pkgs.swaylock}/bin/swaylock -f";
 
           # Navigation
           "${mod}+Shift+grave" = "move scratchpad";
