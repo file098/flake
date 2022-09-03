@@ -3,26 +3,29 @@
 let
   lock_cmd =
     "swaylock -i ${bg-path} --clock --indicator --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color 000000 --fade-in 0.5";
-  theme = import  ../themes/theme.nix;
+  theme = import ../themes/theme.nix;
 in {
+
+  # imports = [ ../services/swayidle.nix ];
+
   # Unfortunately this must be true for GDM to work properly.
-  services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
+    displayManager.lightdm.enable = lib.mkForce false;
+    displayManager.gdm.enable = true;
+    displayManager.gdm.wayland = true;
+    displayManager.defaultSession = lib.mkForce "sway";
+  };
 
-  services.xserver.displayManager.lightdm.enable = lib.mkForce false;
-  systemd.services.display-manager.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
-  services.xserver.displayManager.defaultSession = lib.mkForce "sway";
-  #services.xserver.videoDrivers = lib.mkForce [ ];
-
-  # Prevent restarting sway when using nixos-rebuild switch
-  systemd.services.sway.restartIfChanged = false;
+  systemd.services = {
+    display-manager.enable = true;
+    # Prevent restarting sway when using nixos-rebuild switch
+    sway.restartIfChanged = false;
+  };
 
   programs.light.enable = true;
-
-  programs.sway = {
-    enable = true;
-  };
+  programs.sway.enable = true;
+  programs.mako.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -106,8 +109,14 @@ in {
             childBorder = "#${theme.dark.urgent.background}";
           };
         };
-        keybindings = let mod = config.modifier;
-        in {
+        keybindings = let
+          mod = config.modifier;
+          resize_increment = "40px";
+          left = "Left";
+          down = "Down";
+          up = "Up";
+          right = "Right";
+        in lib.mkOptionDefault {
           # Launchers
           "${mod}+t" = "exec alacritty";
           "${mod}+w" = "exec librewolf";
@@ -117,7 +126,7 @@ in {
           "${mod}+Delete" = "exec loginctl lock-session";
           "${mod}+Print" = "exec flameshot gui";
           "${mod}+q" = "kill";
-          "${mod}+Escape" = "exec swaylock -i ${bg-path} ";
+          "${mod}+Escape" = "exec ${lock_cmd}";
 
           # Navigation
           "${mod}+Shift+grave" = "move scratchpad";
@@ -126,10 +135,10 @@ in {
           "${mod}+k" = "focus down";
           "${mod}+l" = "focus up";
           "${mod}+semicolon" = "focus right";
-          "${mod}+Left" = "focus left";
-          "${mod}+Down" = "focus down";
-          "${mod}+Up" = "focus up";
-          "${mod}+Right" = "focus right";
+          "${mod}+${left}" = "focus left";
+          "${mod}+${down}" = "focus down";
+          "${mod}+${up}" = "focus up";
+          "${mod}+${right}" = "focus right";
           "${mod}+Shift+j" = "move left";
           "${mod}+Shift+k" = "move down";
           "${mod}+Shift+l" = "move up";
@@ -150,6 +159,12 @@ in {
           "${mod}+Shift+g" = "sticky toggle";
           "${mod}+Shift+f" = "floating toggle";
           "${mod}+space" = "focus mode_toggle";
+
+          "${mod}+Alt+${left}" = "resize grow width ${resize_increment}";
+          "${mod}+Alt+${down}" = "resize grow height ${resize_increment}";
+          "${mod}+Alt+${up}" = "resize shrink height ${resize_increment}";
+          "${mod}+Alt+${right}" = "resize shrink width ${resize_increment}";
+
           # Workspaces
           "${mod}+1" = "workspace 1";
           "${mod}+2" = "workspace 2";
@@ -191,13 +206,12 @@ in {
 
         };
         startup = [
-          {
-            # Auto-start all *.desktop files in auto-start directories.
-            command = "${pkgs.dex}/bin/dex -a";
-          }
-          # { command = "${pkgs.waybar}/bin/waybar"; }
+          # {
+          #   # Auto-start all *.desktop files in auto-start directories.
+          #   command = "${pkgs.dex}/bin/dex -a";
+          # }
+          # { command = "nm-applet --indicator"; }
           { command = "mako"; }
-          { command = "nm-applet --indicator"; }
         ];
       };
       extraConfig = ''
@@ -255,7 +269,7 @@ in {
       settings = {
         mainBar = {
           position = "top";
-          modules-left = [ "sway/workspaces" "sway/mode" ];
+          modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
           modules-center = [ "clock" ];
           modules-right = [ "network" "pulseaudio" "battery" "tray" ];
           "sway/window" = { max-length = 50; };
@@ -316,28 +330,27 @@ in {
       };
     };
 
-    programs.mako.enable = true;
-
     home.packages = with pkgs; [
-        alacritty
-        autotiling
-        bemenu # ui
-        grim
-        # kanshi  # display configuration # TODO: needed?
-        # oguri # animated background # TODO: needed?
-        slurp
-        # startsway # start sway with logs going to systemd
-        swayidle
-        swaylock-effects
-        swaybg # set background
-        swaywsr # automatically rename workspaces with contents
-        waybar
-        wdisplays # display configuration
-        wev
-        wf-recorder # screen recorder
-        wl-clipboard
-        wmfocus # window picker
-        xwayland
-      ];
+      alacritty
+      autotiling
+      bemenu # ui
+      grim
+      # kanshi  # display configuration # TODO: needed?
+      # oguri # animated background # TODO: needed?
+      slurp
+      # startsway # start sway with logs going to systemd
+      swayidle
+      swaylock-effects
+      swaybg # set background
+      swaywsr # automatically rename workspaces with contents
+      waybar
+      wdisplays # display configuration
+      wev
+      wf-recorder # screen recorder
+      wl-clipboard
+      wmfocus # window picker
+      xwayland
+    ];
+
   };
 }
