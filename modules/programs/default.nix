@@ -9,5 +9,11 @@
 #               └─ ...
 #
 
-[ ./alacritty.nix ./rofi.nix ./neovim.nix ./rbw.nix ./mako.nix ]
+[
+  ./alacritty.nix
+  ./rofi.nix
+  ./neovim.nix
+  ./rbw.nix
+  #./mako.nix
+]
 

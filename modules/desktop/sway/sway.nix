@@ -3,8 +3,10 @@
 let
   lock_cmd =
     "swaylock -i ${bg-path} --clock --indicator --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color 000000 --fade-in 0.5";
-  theme = import ../themes/theme.nix;
+  theme = import ../../themes/theme.nix;
 in {
+
+  imports = [ ./swayidle.nix ./swayidle.nix ];
 
   # Unfortunately this must be true for GDM to work properly.
   services.xserver = {
@@ -42,7 +44,7 @@ in {
 
   home-manager.users."${user}" = {
 
-    imports = [ ./swaybar/swaybar.nix ./swaylock.nix ./swayidle.nix ];
+    imports = [ ./swaybar/swaybar.nix ];
 
     services.dunst.enable = lib.mkForce false;
     services.network-manager-applet.enable = lib.mkForce false;

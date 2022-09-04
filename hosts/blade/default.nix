@@ -1,7 +1,7 @@
 # Specific system configuration settings for desktop
 #
 
-{ config, pkgs, user, ... }:
+{ pkgs, user, ... }:
 
 {
 
@@ -10,7 +10,7 @@
     #Desktop
     # ../../modules/desktop/nvidia.nix
     # ../../modules/desktop/bspwm/bspwm.nix
-    ../../modules/desktop/sway.nix
+    ../../modules/desktop/sway/sway.nix
     #Programs
     ../../modules/programs/virtualbox.nix
     ../../modules/programs/steam.nix
