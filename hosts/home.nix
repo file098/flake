@@ -19,7 +19,7 @@
 {
   # Home Manager Modules
   imports = (import ../modules/programs) ++ (import ../modules/services)
-    ++ (import ../modules/shell);
+    ++ (import ../modules/shell) ++ (import ../modules/desktop/sway);
 
   home = {
     username = "${user}";

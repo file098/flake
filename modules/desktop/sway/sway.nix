@@ -6,8 +6,6 @@ let
   theme = import ../../themes/theme.nix;
 in {
 
-  imports = [ ./swayidle.nix ./swayidle.nix ];
-
   # Unfortunately this must be true for GDM to work properly.
   services.xserver = {
     enable = true;
