@@ -1,4 +1,4 @@
-#  Services
+# Services
 #
 #  flake.nix
 #   ├─ ./hosts
@@ -10,13 +10,7 @@
 #
 
 [
-  ./dunst.nix
-  ./flameshot.nix
   ./openrazer.nix
-  ./picom.nix
-  ./polybar
-  ./sxhkd.nix
-  # ./udiskie.nix
 ]
 
 # Media is pulled from desktop default config

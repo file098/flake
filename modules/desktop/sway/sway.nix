@@ -6,8 +6,6 @@ let
   theme = import ../themes/theme.nix;
 in {
 
-  imports = [ ./../services/swayidle.nix ];
-
   # Unfortunately this must be true for GDM to work properly.
   services.xserver = {
     enable = true;
@@ -44,7 +42,7 @@ in {
 
   home-manager.users."${user}" = {
 
-    imports = [ ./../programs/swaybar/swaybar.nix ];
+    imports = [ ./swaybar/swaybar.nix ./swaylock.nix ./swayidle.nix ];
 
     services.dunst.enable = lib.mkForce false;
     services.network-manager-applet.enable = lib.mkForce false;

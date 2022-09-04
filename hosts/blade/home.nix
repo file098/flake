@@ -9,7 +9,6 @@
     packages = (with pkgs; [
       # Terminal
       cbonsai
-      powertop
       wally-cli # planck flash tool
       youtube-dl
       light

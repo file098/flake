@@ -1,4 +1,4 @@
-#  Shell
+# Shell
 #
 #  flake.nix
 #   ├─ ./hosts
@@ -9,9 +9,4 @@
 #               └─ ...
 #
 
-[ 
-  ./git.nix
-  ./zsh.nix
-  ./htop.nix
-  ./exa.nix
-]
+[ ./git.nix ./zsh.nix ./htop.nix ./exa.nix ./bash.nix ]

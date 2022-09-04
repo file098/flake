@@ -18,10 +18,8 @@
 
 {
   # Home Manager Modules
-  imports = 
-  (import ../modules/programs) ++
-  (import ../modules/services) ++
-  (import ../modules/shell);
+  imports = (import ../modules/programs) ++ (import ../modules/services)
+    ++ (import ../modules/shell);
 
   home = {
     username = "${user}";
@@ -35,6 +33,7 @@
       nmap
       zsh
       exa
+      powertop
 
       # Video/Audio
       feh # Image Viewer
