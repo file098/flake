@@ -1,4 +1,4 @@
-{ user, bg-path, ... }: {
+{ user, ... }: {
   programs.swaylock.settings = {
     font = "FiraCode Nerd Retina";
     font-size = 50;
@@ -14,7 +14,7 @@
     text-caps-lock-color = "d8dee9";
     indicator-idle-visible = true;
     daemonize = true;
-    image = "${bg-path}";
+    image = "/home/${user}/nixos-config/other/wall.png";
     scaling = "fill";
     # swaylock-effects specific
     effect-blur = "20x2";

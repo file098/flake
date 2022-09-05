@@ -27,7 +27,9 @@ let
 in {
   tower = lib.nixosSystem { # Desktop profile
     inherit system;
-    specialArgs = { inherit inputs user location bg-path; }; # Pass flake variable
+    specialArgs = {
+      inherit inputs user location bg-path;
+    }; # Pass flake variable
     modules = [ # Modules that are used.
       # nur.nixosModules.nur # Nixos User Repository
       ./tower
@@ -50,11 +52,12 @@ in {
     modules = [
       ./blade
       ./configuration.nix
+      { nix.registry.nixpkgs.flake = nixpkgs; }
       home-manager.nixosModules.home-manager
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = { inherit user; };
+        home-manager.extraSpecialArgs = { inherit user bg-path; };
         home-manager.users.${user} = {
           imports = [ (import ./home.nix) ] ++ [ (import ./blade/home.nix) ];
         };

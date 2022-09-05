@@ -1,7 +1,10 @@
-{ pkgs, user, ... }: {
+{ pkgs, user, bg-path, ... }: {
   services.swayidle = {
     enable = true;
-    package = pkgs.swayidle;
+    timeouts = [{
+      timeout = 5 * 60;
+      command = "swaylock";
+    }];
     events = [
       {
         event = "before-sleep";
@@ -11,15 +14,6 @@
         event = "lock";
         command = "swaylock";
       }
-      {
-        event = "after-resume";
-        command = "swaylock";
-      }
-
     ];
-    timeouts = [{
-      timeout = 60;
-      command = "swaylock -fF";
-    }];
   };
 }

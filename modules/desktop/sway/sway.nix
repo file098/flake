@@ -38,11 +38,35 @@ in {
     QT_QPA_PLATFORMTHEME = "qt5ct";
     # fixes gtk theme not applying to certain apps (maybe its gtk4 apps? evince/seahorse)
     GTK_THEME = "Adwaita:dark";
+    XDG_CURRENT_DESKTOP = "Unity";
   };
 
   home-manager.users."${user}" = {
 
     imports = [ ./swaybar/swaybar.nix ];
+
+    home.packages = with pkgs; [
+      # kanshi  # display configuration # TODO: needed?
+      # oguri # animated background # TODO: needed?
+      # startsway # start sway with logs going to systemd
+      alacritty
+      autotiling
+      bemenu # ui
+      grim
+      slurp
+      swaybg # set background
+      swayidle
+      swaylock-effects
+      swaywsr # automatically rename workspaces with contents
+      waybar
+      wdisplays # display configuration
+      wev
+      wf-recorder # screen recorder
+      wl-clipboard
+      wmfocus # window picker
+      wofi
+      xwayland
+    ];
 
     services.dunst.enable = lib.mkForce false;
     services.network-manager-applet.enable = lib.mkForce false;
@@ -55,7 +79,17 @@ in {
       xwayland = true;
       config = {
         modifier = "Mod4";
-        output = { "*" = { bg = "${bg-path} fill"; }; };
+        output = {
+          "*" = { bg = "${bg-path} fill"; };
+          eDP-1 = {
+            res = "1920x1080@144hz";
+            bg = "${bg-path} fill";
+          };
+          DP-3 = {
+            res = "1920x1080@75hz";
+            bg = "${bg-path} fill";
+          };
+        };
         input = {
           "*" = {
             xkb_layout = "us";
@@ -127,7 +161,7 @@ in {
           "${mod}+Print" =
             "exec ${pkgs.grim}/bin/grim  -g '$(pkgs.slurp)' /tmp/$(date +'%H:%M:%S.png')";
           "${mod}+q" = "kill";
-          "${mod}+Escape" = "exec ${pkgs.swaylock}/bin/swaylock -f";
+          "${mod}+Escape" = "exec swaylock";
 
           # Navigation
           "${mod}+Shift+grave" = "move scratchpad";
@@ -240,28 +274,6 @@ in {
         };
       };
     };
-
-    home.packages = with pkgs; [
-      alacritty
-      autotiling
-      bemenu # ui
-      grim
-      # kanshi  # display configuration # TODO: needed?
-      # oguri # animated background # TODO: needed?
-      slurp
-      # startsway # start sway with logs going to systemd
-      swaylock-effects
-      swaybg # set background
-      swaywsr # automatically rename workspaces with contents
-      waybar
-      wdisplays # display configuration
-      wev
-      wf-recorder # screen recorder
-      wl-clipboard
-      wofi
-      wmfocus # window picker
-      xwayland
-    ];
 
   };
 }

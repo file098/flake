@@ -4,7 +4,7 @@
 {
   imports = [
     # ../../modules/desktop/bspwm/home.nix # Window Manager
-    ../../modules/desktop/sway/home.nix
+    # ../../modules/desktop/sway/home.nix
   ];
   home = {
     packages = (with pkgs; [
@@ -26,6 +26,7 @@
       discord
       fstl # 3D file view
       graphite-gtk-theme
+      gnome.gnome-disk-utility
       xorg.xdpyinfo
       intel-gpu-tools
       libreoffice

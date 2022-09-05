@@ -1,4 +1,4 @@
-#  G'Day
+# G'Day
 #  Behold is my personal Nix, NixOS and Darwin Flake.
 #  I'm not the sharpest tool in the shed, so this build might not be the best out there.
 #  I refer to the README and other org document on how to use these files.
@@ -25,6 +25,11 @@
         url = "github:guibou/nixGL";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+
+      vim-tidal = {
+        url = "github:tidalcycles/vim-tidal";
+        flake = false;
+      };
     };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, ...
@@ -38,8 +43,8 @@
       nixosConfigurations = ( # NixOS configurations
         import ./hosts { # Imports ./hosts/default.nix
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager nur user
-            location bg-path; # Also inherit home-manager so it does not need to be defined here.
+          inherit inputs nixpkgs home-manager nur vim-tidal user location
+            bg-path; # Also inherit home-manager so it does not need to be defined here.
         });
     };
 }

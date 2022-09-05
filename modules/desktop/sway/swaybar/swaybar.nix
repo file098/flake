@@ -6,7 +6,7 @@
       mainBar = {
         layer = "top";
         position = "top";
-        height = 30;
+        height = 40;
         margin-left = 2;
         margin-right = 2;
         spacing = 0;
@@ -26,6 +26,7 @@
           "cpu"
           "memory"
           "backlight"
+          "custom/separator"
           "battery"
           "clock"
         ];
@@ -51,7 +52,7 @@
           show-passve-icons = true;
         };
         clock = {
-          timezone = "IT";
+          timezone = "Europe/Rome";
           tooltip-format = ''
             <big>{:%Y %B}</big>
             {calendar}'';
