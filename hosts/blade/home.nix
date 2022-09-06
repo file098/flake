@@ -19,9 +19,10 @@
       nodejs
       glxinfo
       vulkan-tools
+      w3m # A text-mode web browser
+      joshuto # Ranger-like terminal file manager written in Rust
 
       # Apps
-
       bitwarden # password manager
       discord
       fstl # 3D file view

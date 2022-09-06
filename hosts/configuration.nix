@@ -17,7 +17,16 @@
     isNormalUser = true;
     home = "/home/${user}";
     description = "Filippo";
-    extraGroups = [ "networkmanager" "wheel" "docker" "audio" "plugdev" "video" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "jackaudio"
+      "audio"
+      "sound"
+      "input"
+      "tty"
+    ];
     shell = pkgs.zsh;
   };
 
@@ -27,7 +36,7 @@
     hardwareClockInLocalTime = true;
   };
   i18n.defaultLocale = "en_US.UTF-8";
-  console.keyMap = "us";
+  # console.keyMap = "us";
 
   # Sound settings
   sound.enable = true;
@@ -52,20 +61,17 @@
     source-code-pro
     jetbrains-mono
     # Icons
-    font-awesome 
+    font-awesome
     nerdfonts
     nerd-font-patcher
     corefonts # MS
-    # (nerdfonts.override { # Nerdfont Icons override
-    #   fonts = [ "FiraCode" ];
-    # })
   ];
 
   environment = {
     sessionVariables = rec {
       XDG_DATA_HOME = "$HOME/.local/share";
       LC_CTYPE = "en_US.UTF-8";
-      LC_ALL="en_US.UTF-8";
+      LC_ALL = "en_US.UTF-8";
     };
     variables = {
       TERMINAL = "alacritty";

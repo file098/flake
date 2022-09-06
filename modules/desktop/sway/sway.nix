@@ -4,6 +4,43 @@ let
   lock_cmd =
     "swaylock -i ${bg-path} --clock --indicator --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color 000000 --fade-in 0.5";
   theme = import ../../themes/theme.nix;
+  # bash script to let dbus know about important env variables and
+  # propogate them to relevent services run at the end of sway config
+  # see
+  # https://github.com/emersion/xdg-desktop-portal-wlr/wiki/"It-doesn't-work"-Troubleshooting-Checklist
+  # note: this is pretty much the same as  /etc/sway/config.d/nixos.conf but also restarts  
+  # some user services to make sure they have the correct environment variables
+  dbus-sway-environment = pkgs.writeTextFile {
+    name = "dbus-sway-environment";
+    destination = "/bin/dbus-sway-environment";
+    executable = true;
+
+    text = ''
+      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+      systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+      systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+    '';
+  };
+
+  # currently, there is some friction between sway and gtk:
+  # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
+  # the suggested way to set gtk settings is with gsettings
+  # for gsettings to work, we need to tell it where the schemas are
+  # using the XDG_DATA_DIR environment variable
+  # run at the end of sway config
+  configure-gtk = pkgs.writeTextFile {
+    name = "configure-gtk";
+    destination = "/bin/configure-gtk";
+    executable = true;
+    text = let
+      schema = pkgs.gsettings-desktop-schemas;
+      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+    in ''
+      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+      gnome_schema=org.gnome.desktop.interface
+      gsettings set $gnome_schema gtk-theme 'Dracula'
+    '';
+  };
 in {
 
   # Unfortunately this must be true for GDM to work properly.
@@ -24,21 +61,17 @@ in {
   programs.light.enable = true;
   programs.sway.enable = true;
 
+  services.dbus.enable = true;
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    #gtkUsePortal = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-kde ];
+    # gtk portal needed to make gtk apps happy
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   environment.sessionVariables = {
-    # fixes cursor disappearing issues in VMs
-    WLR_NO_HARDWARE_CURSORS = "1";
-    # control qt theme with qt5ct
-    QT_QPA_PLATFORMTHEME = "qt5ct";
     # fixes gtk theme not applying to certain apps (maybe its gtk4 apps? evince/seahorse)
     GTK_THEME = "Adwaita:dark";
-    XDG_CURRENT_DESKTOP = "Unity";
   };
 
   home-manager.users."${user}" = {
@@ -49,23 +82,32 @@ in {
       # kanshi  # display configuration # TODO: needed?
       # oguri # animated background # TODO: needed?
       # startsway # start sway with logs going to systemd
-      alacritty
+      alacritty # gpu accelerated terminal
       autotiling
-      bemenu # ui
-      grim
-      slurp
+      bemenu # wayland clone of dmenu
+      configure-gtk
+      dbus-sway-environment
+      dracula-theme # gtk theme
+      glib # gsettings
+      gnome3.adwaita-icon-theme # default gnome cursors
+      grim # screenshot functionality
+      mako # notification system developed by swaywm maintainer
+      slurp # screenshot functionality
+      sway
       swaybg # set background
       swayidle
       swaylock-effects
       swaywsr # automatically rename workspaces with contents
       waybar
+      wayland
       wdisplays # display configuration
       wev
       wf-recorder # screen recorder
-      wl-clipboard
+      wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
       wmfocus # window picker
       wofi
       xwayland
+
     ];
 
     services.dunst.enable = lib.mkForce false;
@@ -81,24 +123,19 @@ in {
         modifier = "Mod4";
         output = {
           "*" = { bg = "${bg-path} fill"; };
-          eDP-1 = {
-            res = "1920x1080@144hz";
-            bg = "${bg-path} fill";
-          };
-          DP-3 = {
-            res = "1920x1080@75hz";
-            bg = "${bg-path} fill";
-          };
+          eDP-1 = { res = "1920x1080@144hz"; };
+          DP-3 = { res = "1920x1080@75hz"; };
         };
         input = {
           "*" = {
             xkb_layout = "us";
-            xkb_options = "intl";
+            # xkb_options = "intl";
+            xkb_variant = "intl";
           };
-          "type:pointer" = {
-            accel_profile = "adaptive";
-            pointer_accel = "0.8";
-          };
+          # "type:pointer" = {
+          #   accel_profile = "adaptive";
+          #   pointer_accel = "0.8";
+          # };
           "type:touchpad" = {
             dwt = "enabled";
             tap = "enabled";
@@ -110,7 +147,7 @@ in {
           command = "waybar";
           position = "top";
         }];
-        menu = "bemenu-run";
+        menu = "wofi";
         terminal = "alacritty";
         window.titlebar = true;
         colors = {
@@ -195,10 +232,10 @@ in {
           "${mod}+Shift+f" = "floating toggle";
           "${mod}+space" = "focus mode_toggle";
 
-          "${mod}+Alt+${left}" = "resize grow width ${resize_increment}";
+          "${mod}+Alt+${left}" = "resize shrink width ${resize_increment}";
           "${mod}+Alt+${down}" = "resize grow height ${resize_increment}";
           "${mod}+Alt+${up}" = "resize shrink height ${resize_increment}";
-          "${mod}+Alt+${right}" = "resize shrink width ${resize_increment}";
+          "${mod}+Alt+${right}" = "resize grow width ${resize_increment}";
 
           # Workspaces
           "${mod}+1" = "workspace 1";
@@ -258,7 +295,7 @@ in {
         default_border pixel 2
 
         workspace 1 output eDP-1
-        workspace 10 output DP-3
+        workspace 2 output DP-3
       '';
     };
 
