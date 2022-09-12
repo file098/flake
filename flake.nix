@@ -44,7 +44,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit user; };
-              home-manager.users.${user} = import ./modules;
+              home-manager.users.${user} = { imports = [ ./modules ./hosts/blade/home.nix]; };
             }
           ];
         };

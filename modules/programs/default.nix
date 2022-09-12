@@ -10,7 +10,7 @@
 #
 {
 
-  imports = [ ./alacritty.nix ./neovim.nix ];
+  imports = [ ./alacritty.nix ./neovim.nix ./mako.nix ];
 
 }
 

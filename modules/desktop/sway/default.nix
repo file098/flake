@@ -1,22 +1,30 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   imports = [
     ./sway.nix
-    ./swayidle.nix
+    # ./swayidle.nix 
     ./swaylock.nix
-    ./swaybar
+    ./swaybar/swaybar.nix
   ];
 
   home.packages = with pkgs; [
-    slurp
-    grim
-    wf-recorder
-    wl-clipboard
-    wl-mirror
-    wl-mirror-pick
-    ydotool
-    primary-xwayland
-    pulseaudio
+    autotiling
+    dracula-theme # gtk theme
+    glib # gsettings
+    gnome3.adwaita-icon-theme # default gnome cursors
+    grim # screenshot functionality
+    slurp # screenshot functionality
+    swaybg # set background
+    swaylock-effects
+    swaywsr # automatically rename workspaces with contents
+    # waybar
+    wayland
+    wdisplays # display configuration
+    wev
+    wf-recorder # screen recorder
+    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+    wmfocus # window picker
+    wofi
+    xwayland
   ];
 
   home.sessionVariables = {

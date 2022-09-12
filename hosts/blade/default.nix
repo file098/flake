@@ -5,6 +5,7 @@
     #Hardware
     ./hardware.nix
     ../../modules/desktop/gnome.nix
+    ../../modules/desktop/nvidia.nix
   ];
 
   boot = { # Boot options
