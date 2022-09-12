@@ -1,10 +1,3 @@
-# G'Day
-#  Behold is my personal Nix, NixOS and Darwin Flake.
-#  I'm not the sharpest tool in the shed, so this build might not be the best out there.
-#  I refer to the README and other org document on how to use these files.
-#  Currently and possibly forever a Work In Progress.
-#
-
 {
   description = "My Personal NixOS and Darwin System Flake Configuration";
 
@@ -16,30 +9,42 @@
         url = "github:nix-community/home-manager";
         inputs.nixpkgs.follows = "nixpkgs";
       };
-
-      nur = {
-        url = "github:nix-community/NUR"; # NUR packages
-      };
-
-      nixgl = { # OpenGL
-        url = "github:guibou/nixGL";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
     };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, ...
-    }: # Function that tells my flake which to use and what do what to do with the dependencies.
-    let # Variables that can be used in the config files.
+# Function that tells my flake which to use and what do what to do with the dependencies.
+  outputs = {self, nixpkgs, home-manager }@inputs: 
+  # Variables that can be used in the config files.
+    let 
+       system = "x86_64-linux"; # System architecture
+
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true; # Allow proprietary software
+      };
+      lib = nixpkgs.lib;
       user = "file0";
-      location = "$HOME/.setup";
-      bg-path = "/home/${user}/nixos-config/other/wall.png";
-      # Use above variables in ...
     in {
-      nixosConfigurations = ( # NixOS configurations
-        import ./hosts { # Imports ./hosts/default.nix
-          inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager nur user location
-            bg-path; # Also inherit home-manager so it does not need to be defined here.
-        });
+
+      # Your custom packages and modifications
+      overlays = { default = import ./overlay { inherit inputs; }; };
+
+      nixosConfigurations = {  # NixOS configurations
+        blade = lib.nixosSystem { # Laptop profile
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/common.nix
+            ./hosts/blade
+            { nix.registry.nixpkgs.flake = nixpkgs; }
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit user;};
+              home-manager.users.${user} = import ./modules;
+            }
+          ];
+        };
+    };
     };
 }
