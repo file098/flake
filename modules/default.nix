@@ -2,7 +2,7 @@
 
 {
   # Home Manager Modules
-  imports = [ ./programs ./services ./shell ];
+  imports = [ ./programs ./services ./shell ./desktop/sway ];
 
   programs.home-manager.enable = true;
 

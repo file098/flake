@@ -117,9 +117,10 @@ in {
 
     wayland.windowManager.sway = rec {
       enable = true;
-      systemdIntegration = true;
-      extraOptions = [ "--unsupported-gpu" ];
-      xwayland = true;
+      wrapperFeatures.gtk = true;
+      # systemdIntegration = true;
+      # extraOptions = [ "--unsupported-gpu" ];
+      # xwayland = true;
       config = {
         modifier = "Mod4";
         output = {
@@ -133,10 +134,6 @@ in {
             # xkb_options = "intl";
             xkb_variant = "intl";
           };
-          # "type:pointer" = {
-          #   accel_profile = "adaptive";
-          #   pointer_accel = "0.8";
-          # };
           "type:touchpad" = {
             dwt = "enabled";
             tap = "enabled";
