@@ -1,35 +1,17 @@
-# General Home-manager configuration
-#
-#  flake.nix
-#   ├─ ./hosts
-#   │   └─ home.nix *
-#   └─ ./modules
-#       ├─ ./editors
-#       │   └─ default.nix
-#       ├─ ./programs
-#       │   └─ default.nix
-#       ├─ ./services
-#       │   └─ default.nix
-#       └─ ./shell
-#           └─ default.nix
-#
-
-{ config, lib, pkgs, user, ... }:
+{ config, pkgs, ... }:
 
 {
   # Home Manager Modules
-  imports = [ 
-    ./programs 
-    ./services
-    ./shell 
-    ./desktop/sway
-  ];
+  imports = [ ./programs ./services ./shell ];
 
   programs.home-manager.enable = true;
 
+  # Nicely reload system units when changing configs
+  systemd.user.startServices = "sd-switch";
+
   home = {
-    username = "${user}";
-    homeDirectory = "/home/${user}";
+    username = "file0";
+    homeDirectory = "/home/file0";
     packages = with pkgs; [
       # Terminal
       btop # Resource Manager

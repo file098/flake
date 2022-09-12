@@ -8,12 +8,9 @@
 #           └─ default.nix *
 #               └─ ...
 #
+{
 
-[
-  ./alacritty.nix
-  ./rofi.nix
-  ./neovim.nix
-  ./rbw.nix
-  #./mako.nix
-]
+  imports = [ ./alacritty.nix ./neovim.nix ];
+
+}
 

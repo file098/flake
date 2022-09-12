@@ -1,4 +1,3 @@
-#
 #  Bspwm configuration
 #
 #  flake.nix
@@ -11,7 +10,7 @@
 #               └─ bspwm.nix *
 #
 
-{ config, lib, pkgs, user ,... }:
+{ config, lib, pkgs, user, ... }:
 
 {
   programs.dconf.enable = true;
@@ -20,16 +19,17 @@
     xserver = {
       enable = true;
 
-      layout = "us";                              # Keyboard layout & €-sign
+      layout = "us"; # Keyboard layout & €-sign
       xkbOptions = "intl";
       libinput.enable = true;
-      
-      displayManager = {                          # Display Manager
+
+      displayManager = { # Display Manager
         autoLogin.enable = true;
         autoLogin.user = "${user}";
         lightdm = {
           enable = true;
-          background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
+          background =
+            pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
           greeters = {
             gtk = {
               theme = {
@@ -44,10 +44,10 @@
             };
           };
         };
-        defaultSession = "none+bspwm";            # none+bspwm -> no real display manager
+        defaultSession = "none+bspwm"; # none+bspwm -> no real display manager
       };
       windowManager.bspwm.enable = true;
-      
+
       displayManager.sessionCommands = ''
         #!/bin/sh
         SCREEN=$(${pkgs.xorg.xrandr}/bin/xrandr | grep " connected " | wc -l)
@@ -58,24 +58,33 @@
         elif [[ $SCREEN -eq 3 ]]; then
           ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-A-1 --primary --mode 1920x1080 --rotate normal --output DisplayPort-1 --mode 1920x1080 --rotate normal --left-of HDMI-A-1 --output HDMI-A-0 --mode 1280x1024 --rotate normal --right-of HDMI-A-1
         fi
-      '';                                         # Settings for correct display configuration; This can also be done with setupCommands when X server start for smoother transition (if setup is static)
-                                                  # Another option to research in future is arandr
+      ''; # Settings for correct display configuration; This can also be done with setupCommands when X server start for smoother transition (if setup is static)
+      # Another option to research in future is arandr
       serverFlagsSection = ''
         Option "BlankTime" "0"
         Option "StandbyTime" "0"
         Option "SuspendTime" "0"
         Option "OffTime" "0"
-      '';                                         # Used so computer does not goes to sleep
+      ''; # Used so computer does not goes to sleep
 
       resolutions = [
-        { x = 1920; y = 1080; }
-        { x = 1600; y = 900; }
-        { x = 3840; y = 2160; }
+        {
+          x = 1920;
+          y = 1080;
+        }
+        {
+          x = 1600;
+          y = 900;
+        }
+        {
+          x = 3840;
+          y = 2160;
+        }
       ];
     };
   };
 
-  environment.systemPackages = with pkgs; [       # Packages installed
+  environment.systemPackages = with pkgs; [ # Packages installed
     xclip
     xorg.xev
     xorg.xkill

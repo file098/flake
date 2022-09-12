@@ -9,4 +9,6 @@
 #               └─ ...
 #
 
-[ ./git.nix ./zsh.nix ./htop.nix ./exa.nix ./bash.nix ]
+{
+  imports = [ ./git.nix ./zsh.nix ./htop.nix ./exa.nix ];
+}

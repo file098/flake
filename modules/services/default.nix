@@ -9,8 +9,8 @@
 #               └─ ...
 #
 
-[
-  ./openrazer.nix
-]
+{
+  imports = [ ./openrazer.nix ];
+}
 
 # Media is pulled from desktop default config

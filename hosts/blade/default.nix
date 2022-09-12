@@ -1,9 +1,10 @@
-{ pkgs, user, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     #Hardware
     ./hardware.nix
+    ../../modules/desktop/gnome.nix
   ];
 
   boot = { # Boot options
@@ -36,6 +37,5 @@
   hardware.openrazer = {
     enable = true;
     keyStatistics = true;
-    users = [ "${user}" ];
   };
 }

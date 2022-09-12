@@ -3,15 +3,46 @@
 {
 
   imports = [
-    ../users/file0
+    # ../users/file0.nix
   ];
-  # Set your time zone.
-  time = {
-    timeZone = "Europe/Rome";
-    hardwareClockInLocalTime = true;
+
+  users.users.file0 = {
+    isNormalUser = true;
+    home = "/home/file0";
+    description = "Filippo";
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "jackaudio"
+      "audio"
+      "sound"
+      "input"
+      "tty"
+    ];
+    shell = pkgs.zsh;
   };
-  i18n.defaultLocale = "en_US.UTF-8";
-  # console.keyMap = "us";
+
+  # Set your time zone.
+  time.timeZone = "Europe/Rome";
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.utf8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "it_IT.utf8";
+    LC_IDENTIFICATION = "it_IT.utf8";
+    LC_MEASUREMENT = "it_IT.utf8";
+    LC_MONETARY = "it_IT.utf8";
+    LC_NAME = "it_IT.utf8";
+    LC_NUMERIC = "it_IT.utf8";
+    LC_PAPER = "it_IT.utf8";
+    LC_TELEPHONE = "it_IT.utf8";
+    LC_TIME = "it_IT.utf8";
+  };
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "alt-intl";
+  };
 
   # Sound settings
   sound.enable = true;
@@ -32,10 +63,10 @@
   nixpkgs.config.allowUnfree = true; # Allow proprietary software.
 
   system = { # NixOS settings
-    # autoUpgrade = { # Allow auto update
-    #   enable = true;
-    #   channel = "https://nixos.org/channels/nixos-unstable";
-    # };
+    autoUpgrade = { # Allow auto update
+      enable = true;
+      channel = "https://nixos.org/channels/nixos-unstable";
+    };
     stateVersion = "22.05";
   };
 }

@@ -1,6 +1,6 @@
-{inputs, pkgs, ...}: {
-    
-    nix = { # Nix Package Manager settings
+{ inputs, pkgs, ... }: {
+
+  nix = { # Nix Package Manager settings
     settings = {
       auto-optimise-store = true; # Optimise syslinks
     };
@@ -17,4 +17,4 @@
       keep-derivations      = true
     '';
   };
-  }
+}

@@ -11,12 +11,11 @@
       };
     };
 
-# Function that tells my flake which to use and what do what to do with the dependencies.
-  outputs = {self, nixpkgs, home-manager }@inputs: 
-  # Variables that can be used in the config files.
-    let 
-       system = "x86_64-linux"; # System architecture
-
+  # Function that tells my flake which to use and what do what to do with the dependencies.
+  outputs = { self, nixpkgs, home-manager }@inputs:
+    # Variables that can be used in the config files.
+    let
+      system = "x86_64-linux"; # System architecture
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true; # Allow proprietary software
@@ -28,9 +27,8 @@
       # Your custom packages and modifications
       overlays = { default = import ./overlay { inherit inputs; }; };
 
-      nixosConfigurations = {  # NixOS configurations
+      nixosConfigurations = { # NixOS configurations
         blade = lib.nixosSystem { # Laptop profile
-          inherit system;
           specialArgs = { inherit inputs; };
           modules = [
             ./hosts/common.nix
@@ -40,11 +38,11 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit user;};
+              home-manager.extraSpecialArgs = { inherit user; };
               home-manager.users.${user} = import ./modules;
             }
           ];
         };
-    };
+      };
     };
 }

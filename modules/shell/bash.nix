@@ -1,6 +1,0 @@
-# Bash dotifles configuration
-{user, ...}:
-
-{
-
-}
