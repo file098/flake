@@ -5,9 +5,10 @@
   services = {
     xserver = {
       enable = true;
+      displayManager.gdm.wayland = true;
       displayManager.gdm.enable = true;
-      displayManager.job.preStart = "sleep 5";
       desktopManager.gnome.enable = true;
+      # displayManager.job.preStart = "sleep 5";
     };
   };
 

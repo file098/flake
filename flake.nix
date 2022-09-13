@@ -25,7 +25,7 @@
     in {
 
       # Your custom packages and modifications
-      overlays = { default = import ./overlays { inherit inputs; }; };
+      # overlays = { default = import ./overlays { inherit inputs; }; };
 
       # devShells = forAllSystems (system: {
       #   default = legacyPackages.${system}.callPackage ./shell.nix { };
@@ -33,7 +33,7 @@
 
       nixosConfigurations = { # NixOS configurations
         blade = lib.nixosSystem { # Laptop profile
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit self inputs; };
           modules = [
             ./hosts/common.nix
             ./hosts/blade

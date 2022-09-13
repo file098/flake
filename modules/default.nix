@@ -2,7 +2,9 @@
 
 {
   # Home Manager Modules
-  imports = [ ./programs ./services ./shell ./desktop/sway ];
+  imports = [ ./programs ./services ./shell 
+#./desktop/sway 
+];
 
   programs.home-manager.enable = true;
 
@@ -14,8 +16,6 @@
     homeDirectory = "/home/file0";
     packages = with pkgs; [
       # Terminal
-      btop # Resource Manager
-      htop
       pfetch # Minimal fetch
       neofetch
       nmap

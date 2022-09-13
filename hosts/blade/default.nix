@@ -1,14 +1,15 @@
-{ pkgs, ... }:
+{ self, pkgs, ... }:
 
 {
   imports = [
     #Hardware
     ./hardware.nix
-    ../../modules/desktop/gnome.nix
-    ../../modules/desktop/nvidia.nix
+    "${self}"/modoules
+    # ../../modules/desktop/gnome.nix
+    #../../modules/desktop/nvidia.nix
   ];
 
-  boot = { # Boot options
+  boot = {
     loader = {
       efi = {
         canTouchEfiVariables = true;
@@ -21,6 +22,11 @@
         useOSProber = true; # use OSProber for separate drive dual booting
         gfxmodeEfi = "1920x1080";
         efiSupport = true;
+
+        splashImage = ../../mountain.png;
+        font =
+          "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/'Sauce Code Pro Nerd Font Complete.ttf'";
+        fontSize = 28;
       };
     };
   };
@@ -35,8 +41,13 @@
     };
   };
 
-  hardware.openrazer = {
-    enable = true;
-    keyStatistics = true;
+  hardware = {
+    openrazer = {
+      enable = true;
+      keyStatistics = true;
+    };
+
+    bluetooth.enable = true;
+    keyboard.zsa.enable = true;
   };
 }

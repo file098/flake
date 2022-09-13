@@ -6,6 +6,10 @@
     # ../users/file0.nix
   ];
 
+  environment.defaultPackages = with pkgs; [
+    nerdfonts
+  ];
+
   users.users.file0 = {
     isNormalUser = true;
     home = "/home/file0";
@@ -43,6 +47,7 @@
     layout = "us";
     xkbVariant = "alt-intl";
   };
+  console.keyMap = "us";
 
   # Sound settings
   sound.enable = true;
@@ -55,10 +60,6 @@
   };
 
   security.rtkit.enable = true;
-  hardware = {
-    bluetooth.enable = true;
-    keyboard.zsa.enable = true;
-  };
 
   nixpkgs.config.allowUnfree = true; # Allow proprietary software.
 
