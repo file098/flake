@@ -26,6 +26,7 @@
       powertop
       nodejs
       nixfmt
+      zsh
 
       # Video/Audio
       feh # Image Viewer
