@@ -6,9 +6,7 @@
     # ../users/file0.nix
   ];
 
-  environment.defaultPackages = with pkgs; [
-    nerdfonts
-  ];
+  environment.defaultPackages = with pkgs; [ nerdfonts ];
 
   users.users.file0 = {
     isNormalUser = true;

@@ -136,9 +136,7 @@
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
 
       };
-      startup = [
-        { command = "mako"; }
-      ];
+      startup = [{ command = "mako"; }];
     };
     extraConfig = ''
       workspace_layout default

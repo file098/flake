@@ -2,9 +2,12 @@
 
 {
   # Home Manager Modules
-  imports = [ ./programs ./services ./shell 
-#./desktop/sway 
-];
+  imports = [
+    ./programs
+    ./services
+    ./shell
+    #./desktop/sway 
+  ];
 
   programs.home-manager.enable = true;
 
@@ -19,13 +22,10 @@
       pfetch # Minimal fetch
       neofetch
       nmap
-      zsh
       exa
       powertop
-      nixfmt
       nodejs
       nixfmt
-      git
 
       # Video/Audio
       feh # Image Viewer

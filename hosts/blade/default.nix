@@ -4,9 +4,10 @@
   imports = [
     #Hardware
     ./hardware.nix
-    "${self}"/modoules
-    # ../../modules/desktop/gnome.nix
-    #../../modules/desktop/nvidia.nix
+
+    #Graphics
+    "${self}/modules/desktop/gnome.nix"
+    "${self}/modules/desktop/nvidia.nix"
   ];
 
   boot = {
@@ -23,7 +24,7 @@
         gfxmodeEfi = "1920x1080";
         efiSupport = true;
 
-        splashImage = ../../mountain.png;
+        splashImage = "${self}/other/wallpapers/mountain.png";
         font =
           "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/'Sauce Code Pro Nerd Font Complete.ttf'";
         fontSize = 28;
@@ -46,8 +47,7 @@
       enable = true;
       keyStatistics = true;
     };
-
-    bluetooth.enable = true;
+    # bluetooth.enable = true;
     keyboard.zsa.enable = true;
   };
 }
