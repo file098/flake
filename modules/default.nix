@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, user, ... }:
 
 {
   # Home Manager Modules
@@ -6,7 +6,7 @@
     ./programs
     ./services
     ./shell
-    #./desktop/sway 
+    # ./desktop/sway
   ];
 
   programs.home-manager.enable = true;

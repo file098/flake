@@ -9,10 +9,12 @@
         url = "github:nix-community/home-manager";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+
+      neovim-flake.url = "github:jordanisaacs/neovim-flake";
     };
 
   # Function that tells my flake which to use and what do what to do with the dependencies.
-  outputs = { self, nixpkgs, home-manager }@inputs:
+  outputs = { self, nixpkgs, home-manager, neovim-flake }@inputs:
     # Variables that can be used in the config files.
     let
       system = "x86_64-linux"; # System architecture
@@ -25,7 +27,9 @@
     in {
 
       # Your custom packages and modifications
-      # overlays = { default = import ./overlays { inherit inputs; }; };
+      overlays = {
+        default = import ./overlays { inherit inputs neovim-flake; };
+      };
 
       # devShells = forAllSystems (system: {
       #   default = legacyPackages.${system}.callPackage ./shell.nix { };
@@ -33,7 +37,7 @@
 
       nixosConfigurations = { # NixOS configurations
         blade = lib.nixosSystem { # Laptop profile
-          specialArgs = { inherit self inputs; };
+          specialArgs = { inherit self inputs user; };
           modules = [
             ./hosts/common.nix
             ./hosts/blade

@@ -8,11 +8,10 @@
     #Graphics
     "${self}/modules/desktop/gnome.nix"
     "${self}/modules/desktop/nvidia.nix"
-    "${self}/modules/desktop/sway.nix"
-
   ];
 
   boot = {
+    kernelParams = [ "nvidia_drm.modeset=1" ];
     loader = {
       efi = {
         canTouchEfiVariables = true;

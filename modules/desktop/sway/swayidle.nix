@@ -28,7 +28,7 @@
     documentation = [ "man:swayidle(1)" ];
     wantedBy = [ "sway-session.target" ];
     partOf = [ "graphical-session.target" ];
-    path = [ pkgs.bash ];
+    path = [ pkgs.zsh ];
     serviceConfig = {
       ExecStart = ''
         ${pkgs.swayidle}/bin/swayidle -w -d \

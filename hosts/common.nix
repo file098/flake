@@ -15,8 +15,10 @@
     extraGroups = [
       "wheel"
       "networkmanager"
+      # "plugdev"
       "video"
-      "jackaudio"
+      "openrazer"
+      # "jackaudio"
       "audio"
       "sound"
       "input"
@@ -48,16 +50,38 @@
   console.keyMap = "us";
 
   # Sound settings
-  sound.enable = true;
-  hardware.pulseaudio = {
+  # sound.enable = true;
+  # hardware.pulseaudio = {
+  #   enable = true;
+  #   package = pkgs.pulseaudioFull;
+  #   extraConfig = ''
+  #     load-module module-switch-on-connect
+  #   '';
+  # };
+
+  # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
+  #sound.enable = false;
+
+  # rtkit is optional but recommended
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
     enable = true;
-    package = pkgs.pulseaudioFull;
-    extraConfig = ''
-      load-module module-switch-on-connect
-    '';
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    jack.enable = true;
   };
 
-  security.rtkit.enable = true;
+  # ios support 
+  services.usbmuxd.enable = true;
+  environment.systemPackages = with pkgs; [
+    libimobiledevice
+    ifuse # optional, to mount using 'ifuse'
+    shotwell
+    pulseaudio
+  ];
 
   nixpkgs.config.allowUnfree = true; # Allow proprietary software.
 

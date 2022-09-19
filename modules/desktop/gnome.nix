@@ -19,8 +19,6 @@
     tray-icons-reloaded
     sound-output-device-chooser
     pop-shell
-    color-picker
-    vitals
   ]) ++ (with pkgs; [
     #Gnome packages
     pkgs.gnome3.gnome-tweaks

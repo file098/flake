@@ -15,7 +15,7 @@
         export XDG_DATA_HOME="$HOME/.local/share"
         export LC_CTYPE=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
-        export EDITOR='vim'
+        export EDITOR='nvim'
         export TERMINAL='alacritty'
         export BROWSER='librewolf'
         export TERM="xterm-256color"
@@ -36,6 +36,7 @@
           "sudo nixos-rebuild switch --flake '/home/${user}/nixos-config#'";
         "config" = "ranger /home/${user}/nixos-config";
         "update" = "cd /home/${user}/nixos-config && nix flake update";
+        "tidal" = "nix run github:jordanisaacs/neovim-flake#tidal file.tidal";
       };
     };
   };

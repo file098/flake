@@ -12,5 +12,3 @@ reboot
 $ sudo rm -r /etc/nixos/configuration.nix
 # move to build to desired location
 ```
-
-$A \in B \sum_{2}^{10}$
