@@ -3,8 +3,8 @@
 
   inputs = # All flake references used to build my NixOS setup. These are dependencies.
     {
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
-      # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # Nix Packages
+      # nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+      nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; # Nix Packages
 
       home-manager = { # User Package Management
         url = "github:nix-community/home-manager";
@@ -34,7 +34,7 @@
 
       nixosConfigurations = { # NixOS configurations
         blade = lib.nixosSystem { # Laptop profile
-          specialArgs = { inherit self inputs user; };
+          specialArgs = { inherit self inputs user system; };
           modules = [
             ./hosts/common.nix
             ./hosts/blade
