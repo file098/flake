@@ -7,7 +7,7 @@
       settings = {
         selection.save_to_clipboard = true;
         window = {
-          decorations = "full";
+          decorations = "none";
           gtk_theme_variant = "None";
           opacity = 0.98;
           padding = {

@@ -3,7 +3,8 @@
 
   inputs = # All flake references used to build my NixOS setup. These are dependencies.
     {
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; # Nix Packages
+      nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+      # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # Nix Packages
 
       home-manager = { # User Package Management
         url = "github:nix-community/home-manager";
@@ -30,10 +31,6 @@
       overlays = {
         default = import ./overlays { inherit inputs neovim-flake; };
       };
-
-      # devShells = forAllSystems (system: {
-      #   default = legacyPackages.${system}.callPackage ./shell.nix { };
-      # });
 
       nixosConfigurations = { # NixOS configurations
         blade = lib.nixosSystem { # Laptop profile

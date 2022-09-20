@@ -4,8 +4,8 @@
   programs = {
     neovim = {
       enable = true;
-      viAlias = false;
-      vimAlias = false;
+      viAlias = true;
+      vimAlias = true;
 
       plugins = with pkgs.vimPlugins; [
 
@@ -35,7 +35,7 @@
         set nocompatible            " disable compatibility to old-time vi
         set showmatch               " show matching brackets.
         set ignorecase              " case insensitive matching
-        set mouse=v                 " middle-click paste with mouse
+        set mouse=a                 " The A stands for All modes and will allow the mouse to be used everywhere in Vim.
         set hlsearch                " highlight search results
         set autoindent              " indent a new line the same amount as the line just typed
         set number                  " add line numbers

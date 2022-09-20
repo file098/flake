@@ -60,10 +60,9 @@
   # };
 
   # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
-  #sound.enable = false;
+  # sound.enable = true;
 
   # rtkit is optional but recommended
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -73,6 +72,9 @@
     # If you want to use JACK applications, uncomment this
     jack.enable = true;
   };
+
+  hardware.pulseaudio.enable = false;
+  hardware.bluetooth.enable = true;
 
   # ios support 
   services.usbmuxd.enable = true;
@@ -86,10 +88,10 @@
   nixpkgs.config.allowUnfree = true; # Allow proprietary software.
 
   system = { # NixOS settings
-    autoUpgrade = { # Allow auto update
-      enable = true;
-      channel = "https://nixos.org/channels/nixos-unstable";
-    };
+    # autoUpgrade = { # Allow auto update
+    #   enable = true;
+    #   channel = "https://nixos.org/channels/nixos-unstable";
+    # };
     stateVersion = "22.05";
   };
 }
