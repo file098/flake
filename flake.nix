@@ -32,8 +32,7 @@
             ./nix.nix
             ./machines/blade
             {
-              # Pin nixpkgs. So "nix run nixpkgs#<package>" will use the
-              # pinned version.
+              # Pin nixpkgs. So "nix run nixpkgs#<package>" will use the pinned version.
               nixpkgs.overlays = [
                 (final: prev: {
                   packages = customPkgs.packages.${system};
