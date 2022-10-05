@@ -1,64 +1,26 @@
-{ config, pkgs, user, ... }:
+{ pkgs, user, ... }:
 
 {
-  # Home Manager Modules
-  imports = [
-    ./programs
-    ./services
-    ./shell
-    # ./desktop/sway
-  ];
+  imports = [ ./desktop ./programs ./shell ];
 
   programs.home-manager.enable = true;
 
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
-
   home = {
-    username = "file0";
-    homeDirectory = "/home/file0";
+    username = "${user}";
+    homeDirectory = "/home/${user}";
+
     packages = with pkgs; [
-      # Terminal
-      pfetch # Minimal fetch
+      # list of packages managed by HM
+      gimp
       neofetch
-      nmap
-      exa
-      powertop
-      nodejs
       nixfmt
-      zsh
-
-      # Video/Audio
-      feh # Image Viewer
-      pavucontrol # Audio control
-      vlc # Media Player
-
-      # Apps
-      librewolf
-      firefox
-      vscode
-      tdesktop
-
-      bitwarden # password manager
-      discord
-      lollypop # music player
-      nicotine-plus # file sharing
+      pfetch
       obsidian
-      spotify
-      whatsapp-for-linux
-      transmission-gtk # torrent client
-
-      # File Management
-      pcmanfm
-      ranger # File Manager
-      rsync # Syncer $ rsync -r dir1/ dir2/
-      unzip # Zip files
-      unrar # Rar files
-      fstl # 3D file view
-
     ];
 
     stateVersion = "22.05";
   };
+
+  programs = { exa.enable = true; };
 
 }

@@ -1,20 +1,14 @@
+# Nix Package Manager settings
 { inputs, pkgs, ... }: {
 
-  nix = { # Nix Package Manager settings
-    settings = {
-      auto-optimise-store = true; # Optimise syslinks
-    };
-    gc = { # Automatic garbage collection
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-    package = pkgs.nixFlakes; # Enable nixFlakes on system
-    registry.nixpkgs.flake = inputs.nixpkgs;
+  nix = {
+    # Enable nixFlakes on system
+    package = pkgs.nixVersions.stable;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs          = true
       keep-derivations      = true
     '';
   };
+
 }

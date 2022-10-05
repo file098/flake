@@ -1,14 +1,1 @@
-# Shell
-#
-#  flake.nix
-#   ├─ ./hosts
-#   │   └─ home.nix
-#   └─ ./modules
-#       └─ ./shell
-#           └─ default.nix *
-#               └─ ...
-#
-
-{
-  imports = [ ./git.nix ./zsh.nix ./htop.nix ./exa.nix ];
-}
+{ ... }: { imports = [ ./git.nix ./zsh.nix ./htop.nix ./neovim.nix ]; }

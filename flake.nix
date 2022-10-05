@@ -1,56 +1,57 @@
 {
-  description = "My Personal NixOS and Darwin System Flake Configuration";
 
-  inputs = # All flake references used to build my NixOS setup. These are dependencies.
-    {
-      # nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; # Nix Packages
+  description = "My Personal NixOS Flake Configuration";
 
-      home-manager = { # User Package Management
-        url = "github:nix-community/home-manager";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-
-      neovim-flake.url = "github:jordanisaacs/neovim-flake";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-22.05";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    customPkgs = {
+      url = "path:./overlays/vim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   # Function that tells my flake which to use and what do what to do with the dependencies.
-  outputs = { self, nixpkgs, home-manager, neovim-flake }@inputs:
-    # Variables that can be used in the config files.
+  outputs =
+    inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, customPkgs, ... }:
+
     let
-      system = "x86_64-linux"; # System architecture
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true; # Allow proprietary software
-      };
-      lib = nixpkgs.lib;
       user = "file0";
+      system = "x86_64-linux";
     in {
 
-      # Your custom packages and modifications
-      overlays = {
-        default = import ./overlays { inherit inputs neovim-flake; };
-      };
-
-      nixosConfigurations = { # NixOS configurations
-        blade = lib.nixosSystem { # Laptop profile
-          specialArgs = { inherit self inputs user system; };
+      nixosConfigurations = {
+        blade = inputs.nixpkgs.lib.nixosSystem {
+          inherit system;
           modules = [
-            ./hosts/common.nix
-            ./hosts/blade
             ./nix.nix
-            { nix.registry.nixpkgs.flake = nixpkgs; }
+            ./machines/blade
+            {
+              # Pin nixpkgs. So "nix run nixpkgs#<package>" will use the
+              # pinned version.
+              nixpkgs.overlays = [
+                (final: prev: {
+                  packages = customPkgs.packages.${system};
+                  inherit nixpkgs-unstable;
+                })
+              ];
+            }
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit user; };
-              home-manager.users.${user} = {
-                imports = [ ./modules ./hosts/blade/home.nix ];
-              };
+              home-manager.users."${user}" = import "${self}/modules";
             }
           ];
+          specialArgs = { inherit inputs; };
         };
       };
     };
+
 }

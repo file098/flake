@@ -11,14 +11,6 @@
       enableSyntaxHighlighting = true;
       enableAutosuggestions = true;
       initExtra = "pfetch";
-      envExtra = ''
-        # export XDG_DATA_HOME="$HOME/.local/share"
-        export LC_CTYPE=en_US.UTF-8
-        export LC_ALL=en_US.UTF-8
-        export TERMINAL='alacritty'
-        export BROWSER='librewolf'
-        export TERM="xterm-256color"
-      '';
       oh-my-zsh = {
         enable = true;
         theme = "lambda";
