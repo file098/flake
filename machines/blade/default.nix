@@ -8,9 +8,25 @@
   imports = [ ./hardware.nix ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/nvme1n1";
-  boot.loader.grub.useOSProber = true;
+  # boot.loader.grub.enable = true;
+  # boot.loader.grub.device = "/dev/nvme1n1";
+  # boot.loader.grub.useOSProber = true;
+  boot = {
+    loader = {
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
+      grub = {
+        enable = true;
+        version = 2;
+        device = "nodev";
+        useOSProber = true; # use OSProber for separate drive dual booting
+        gfxmodeEfi = "1920x1080";
+        efiSupport = true;
+      };
+    };
+  };
 
   networking.hostName = "blade"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

@@ -10,12 +10,38 @@
     homeDirectory = "/home/${user}";
 
     packages = with pkgs; [
-      # list of packages managed by HM
-      gimp
+      pfetch # Minimal fetch
       neofetch
+      nmap
+      powertop
+      nodejs
       nixfmt
-      pfetch
+      zsh
+
+      # Video/Audio
+      vlc # Media Player
+
+      # Apps
+      gimp
+      tdesktop
+
+      bitwarden # password manager
+      discord
+      # lollypop # music player
+      nicotine-plus # file sharing
       obsidian
+      spotify
+      whatsapp-for-linux
+      transmission-gtk # torrent client
+
+      # File
+      # pcmanfm
+      ranger # File Manager
+      rsync # Syncer $ rsync -r dir1/ dir2/
+      unzip # Zip files
+      unrar # Rar files
+      fstl # 3D file view
+
     ];
 
     stateVersion = "22.05";
