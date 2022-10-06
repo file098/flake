@@ -8,7 +8,7 @@
       url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     customPkgs = {
       url = "path:./overlays/vim";
@@ -18,7 +18,7 @@
 
   # Function that tells my flake which to use and what do what to do with the dependencies.
   outputs =
-    inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, customPkgs, ... }:
+    inputs@{ self, nixpkgs, unstable, home-manager, customPkgs, ... }:
 
     let
       user = "file0";
@@ -37,7 +37,7 @@
               nixpkgs.overlays = [
                 (final: prev: {
                   packages = customPkgs.packages.${system};
-                  inherit nixpkgs-unstable;
+                  inherit unstable;
                 })
               ];
             }
