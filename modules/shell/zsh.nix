@@ -28,6 +28,7 @@
         "config" = "ranger /home/${user}/nixos-config";
         "update" = "cd /home/${user}/nixos-config && nix flake update";
         "tidal" = "nix run github:jordanisaacs/neovim-flake#tidal file.tidal";
+        "ng" = "npx -p @angular/cli ng";
       };
     };
   };
