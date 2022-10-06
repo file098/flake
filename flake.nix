@@ -31,7 +31,6 @@
           modules = [
             ./nix.nix
             ./machines/blade
-            (import ./packages inputs)
             {
               # Pin nixpkgs. So "nix run nixpkgs#<package>" will use the pinned version.
               nixpkgs.overlays = [
