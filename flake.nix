@@ -17,8 +17,7 @@
   };
 
   # Function that tells my flake which to use and what do what to do with the dependencies.
-  outputs =
-    inputs@{ self, nixpkgs, unstable, home-manager, customPkgs, ... }:
+  outputs = inputs@{ self, nixpkgs, unstable, home-manager, customPkgs, ... }:
 
     let
       user = "file0";
@@ -31,24 +30,28 @@
           modules = [
             ./nix.nix
             ./machines/blade
-            {
-              # Pin nixpkgs. So "nix run nixpkgs#<package>" will use the pinned version.
+
+            # this allows the use of unstable packages in the HM modules
+            ({ ... }: {
               nixpkgs.overlays = [
                 (final: prev: {
-                  packages = customPkgs.packages.${system};
-                  inherit unstable;
+                  unstable = import unstable {
+                    system = prev.system;
+                    config.allowUnfree = true;
+                  };
                 })
               ];
-            }
+            })
+
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit user; };
+              home-manager.extraSpecialArgs = { inherit user unstable; };
               home-manager.users."${user}" = import "${self}/modules";
             }
           ];
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs user; };
         };
       };
     };

@@ -1,7 +1,11 @@
 { pkgs, user, ... }:
 
 {
-  imports = [ ./desktop ./programs ./shell ];
+  imports = [
+    ./desktop
+    ./programs
+    ./shell
+  ];
 
   programs.home-manager.enable = true;
 
@@ -24,6 +28,7 @@
       # Apps
       gimp
       tdesktop
+      vscode
 
       bitwarden # password manager
       discord
@@ -42,6 +47,8 @@
       unrar # Rar files
       fstl # 3D file view
 
+      # unstable packages
+      unstable.polychromatic
     ];
 
     stateVersion = "22.05";

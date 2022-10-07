@@ -2,10 +2,10 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, user, ... }:
 
 {
-  imports = [ ./hardware.nix ];
+  imports = [ ./hardware-configuration.nix ];
 
   # Bootloader.
   # boot.loader.grub.enable = true;
@@ -51,12 +51,41 @@
     LC_TIME = "it_IT.utf8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services = {
+    xserver = {
+      enable = true;
+      displayManager.gdm.wayland = true;
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+      # displayManager.job.preStart = "sleep 5";
+    };
+  };
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  environment.systemPackages = (with pkgs.gnomeExtensions; [
+    # Extentions 
+    appindicator
+    dash-to-dock
+    tray-icons-reloaded
+    sound-output-device-chooser
+    pop-shell
+  ]) ++ (with pkgs; [
+    #Gnome packages
+    pkgs.gnome3.gnome-tweaks
+    gparted
+    baobab
+  ]);
+
+  # services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+
+  # Excluded Gnome Bloat
+  environment.gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
+    ++ (with pkgs.gnome; [ cheese gnome-music epiphany gnome-weather ]);
+
+  # services.gnome = { 
+  #  core-utilities.enable = false;
+  #  tracker-miners.enable = false;
+  #  tracker.enable = false;
+  # };
 
   # Configure keymap in X11
   services.xserver = {
@@ -69,6 +98,9 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  hardware.openrazer.enable = true;
+  hardware.openrazer.users = [ "${user}" ];
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -87,10 +119,6 @@
     #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.file0 = {
     isNormalUser = true;
@@ -102,15 +130,6 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    neovim
-    git
-    vscode
-  ];
 
   system.stateVersion = "22.05"; # Did you read the comment?
 
