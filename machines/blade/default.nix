@@ -123,9 +123,10 @@
   users.users.file0 = {
     isNormalUser = true;
     description = "Filippo";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" config.users.groups.keys.name ];
     shell = pkgs.zsh;
     packages = with pkgs; [ firefox ];
+    # passwordFile = config.sops.secrets.my-password.path;
   };
 
   # Allow unfree packages

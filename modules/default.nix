@@ -31,7 +31,10 @@
       # lollypop # music player
       nicotine-plus # file sharing
       obsidian
+      
       spotify
+      spotify-tui
+
       whatsapp-for-linux
       transmission-gtk # torrent client
 
