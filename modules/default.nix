@@ -1,11 +1,7 @@
 { pkgs, user, ... }:
 
 {
-  imports = [
-    ./desktop
-    ./programs
-    ./shell
-  ];
+  imports = [ ./desktop ./programs ./shell ];
 
   programs.home-manager.enable = true;
 
@@ -65,7 +61,6 @@
         "x-scheme-handler/https" = "firefox.desktop";
         "x-scheme-handler/about" = "firefox.desktop";
         "x-scheme-handler/unknown" = "firefox.desktop";
-        "application/pdf" = "org.pwmt.zathura.desktop";
 
         "x-scheme-handler/chrome" = "firefox.desktop";
         "application/x-extension-htm" = "firefox.desktop";
@@ -77,7 +72,4 @@
       };
     };
   };
-
-  programs = { exa.enable = true; };
-
 }

@@ -54,10 +54,10 @@
   services = {
     xserver = {
       enable = true;
-      displayManager.gdm.wayland = true;
+      # displayManager.gdm.wayland = true;
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
-      # displayManager.job.preStart = "sleep 5";
+      displayManager.job.preStart = "sleep 5";
     };
   };
 
