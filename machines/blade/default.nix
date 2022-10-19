@@ -4,13 +4,17 @@
 
 { config, pkgs, user, ... }:
 
-{
+let
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec -a "$0" "$@"
+  '';
+in {
   imports = [ ./hardware-configuration.nix ];
 
-  # Bootloader.
-  # boot.loader.grub.enable = true;
-  # boot.loader.grub.device = "/dev/nvme1n1";
-  # boot.loader.grub.useOSProber = true;
   boot = {
     loader = {
       efi = {
@@ -51,13 +55,39 @@
     LC_TIME = "it_IT.utf8";
   };
 
+  ############
+  # Graphics #
+  ############
+
   services = {
     xserver = {
       enable = true;
       # displayManager.gdm.wayland = true;
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
-      displayManager.job.preStart = "sleep 5";
+    };
+  };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.screenSection = ''
+    Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+    Option         "AllowIndirectGLXProtocol" "off"
+    Option         "TripleBuffer" "on"
+  '';
+
+  hardware.nvidia = {
+    nvidiaSettings = true;
+    modesetting.enable = true;
+    powerManagement.enable = true;
+    powerManagement.finegrained = true;
+    prime = {
+      offload.enable = true;
+
+      # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+      intelBusId = "PCI:0:2:0";
+
+      # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+      nvidiaBusId = "PCI:1:0:0";
     };
   };
 
@@ -73,6 +103,10 @@
     pkgs.gnome3.gnome-tweaks
     gparted
     baobab
+
+    nvidia-offload
+    nvtop
+    glmark2
   ]);
 
   # services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
@@ -93,6 +127,9 @@
     xkbVariant = "alt-intl";
   };
 
+
+  #############################################################S
+
   # Configure console keymap
   console.keyMap = "us";
 
@@ -101,6 +138,10 @@
 
   hardware.openrazer.enable = true;
   hardware.openrazer.users = [ "${user}" ];
+
+  #########
+  # Sound #
+  #########
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -119,6 +160,11 @@
     #media-session.enable = true;
   };
 
+
+  ########
+  # User #
+  ########
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.file0 = {
     isNormalUser = true;
@@ -128,6 +174,8 @@
     packages = with pkgs; [ firefox ];
     # passwordFile = config.sops.secrets.my-password.path;
   };
+
+  programs.steam.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
