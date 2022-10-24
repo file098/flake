@@ -24,6 +24,7 @@
       gimp
       tdesktop
       vscode
+      firefox-wayland
 
       bitwarden # password manager
       discord

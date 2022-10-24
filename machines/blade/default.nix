@@ -75,6 +75,7 @@ in {
     Option         "TripleBuffer" "on"
   '';
 
+  hardware.opengl.enable = true;
   hardware.nvidia = {
     nvidiaSettings = true;
     modesetting.enable = true;
@@ -101,12 +102,16 @@ in {
   ]) ++ (with pkgs; [
     #Gnome packages
     pkgs.gnome3.gnome-tweaks
+    gnome.gnome-power-manager
     gparted
     baobab
 
     nvidia-offload
     nvtop
     glmark2
+    mesa
+    glxinfo
+    intel-media-driver
   ]);
 
   # services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
@@ -126,7 +131,6 @@ in {
     layout = "us";
     xkbVariant = "alt-intl";
   };
-
 
   #############################################################S
 
@@ -159,7 +163,6 @@ in {
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-
 
   ########
   # User #
