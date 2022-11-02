@@ -2,18 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, user, ... }:
+{ config, pkgs, lib, user, nixos-hardware, ... }:
 
-let
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec -a "$0" "$@"
-  '';
-in {
-  imports = [ ./hardware-configuration.nix ];
+{
+  imports = [
+    ./hardware-configuration.nix
+    nixos-hardware.nixosModules.common-gpu-intel
+  ];
 
   boot = {
     loader = {
@@ -68,27 +63,20 @@ in {
     };
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
-  services.xserver.screenSection = ''
-    Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
-    Option         "AllowIndirectGLXProtocol" "off"
-    Option         "TripleBuffer" "on"
-  '';
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "alt-intl";
+  };
 
-  hardware.opengl.enable = true;
-  hardware.nvidia = {
-    nvidiaSettings = true;
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    powerManagement.finegrained = true;
-    prime = {
-      offload.enable = true;
-
-      # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
-      intelBusId = "PCI:0:2:0";
-
-      # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-      nvidiaBusId = "PCI:1:0:0";
+  specialisation = {
+    nvidia-gpu.configuration = {
+      system.nixos.tags = [ "nvidia-gpu" ];
+      # imports = [ nixos-hardware.nixosModules.common-gpu-nvidia ];
+      hardware.nvidia.package =
+        config.boot.kernelPackages.nvidiaPackages.stable;
+      services.xserver.videoDrivers = [ "nvidia" ];
+      environment.systemPackages = with pkgs; [ nvtop glmark2 ];
     };
   };
 
@@ -106,12 +94,13 @@ in {
     gparted
     baobab
 
-    nvidia-offload
-    nvtop
-    glmark2
-    mesa
     glxinfo
+    intel-gpu-tools
     intel-media-driver
+
+    libimobiledevice
+    ifuse # optional, to mount using 'ifuse'
+    shotwell
   ]);
 
   # services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
@@ -119,18 +108,6 @@ in {
   # Excluded Gnome Bloat
   environment.gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
     ++ (with pkgs.gnome; [ cheese gnome-music epiphany gnome-weather ]);
-
-  # services.gnome = { 
-  #  core-utilities.enable = false;
-  #  tracker-miners.enable = false;
-  #  tracker.enable = false;
-  # };
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "alt-intl";
-  };
 
   #############################################################S
 
@@ -163,6 +140,8 @@ in {
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+
+  services.usbmuxd.enable = true;
 
   ########
   # User #

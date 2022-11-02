@@ -14,11 +14,14 @@
       url = "path:./overlays/vim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
   };
 
   # Function that tells my flake which to use and what do what to do with the dependencies.
-  outputs = inputs@{ self, nixpkgs, unstable, home-manager, customPkgs, ... }:
+  outputs = inputs@{ self, nixpkgs, unstable, home-manager, customPkgs
+    , nixos-hardware, ... }:
 
     let
       user = "file0";
@@ -52,7 +55,7 @@
               home-manager.users."${user}" = import "${self}/modules";
             }
           ];
-          specialArgs = { inherit inputs user; };
+          specialArgs = { inherit inputs user nixos-hardware; };
         };
       };
     };

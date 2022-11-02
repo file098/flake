@@ -17,13 +17,19 @@
       nodejs
       nixfmt
       sass
+      python3
+      python310Packages.pip
+      python310Packages.tqdm
+      python310Packages.pandas
+      gcc
       # Video/Audio
       vlc # Media Player
 
       # Apps
-      gimp
+      # gimp
+      # mypaint
+      dia
       tdesktop
-      vscode
       firefox-wayland
 
       bitwarden # password manager
@@ -47,6 +53,7 @@
       fstl # 3D file view
 
       # unstable packages
+      unstable.vscode
       unstable.polychromatic
     ];
 
