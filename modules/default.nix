@@ -18,17 +18,12 @@
       nixfmt
       sass
       python3
-      python310Packages.pip
-      python310Packages.tqdm
-      python310Packages.pandas
       gcc
+      wally-cli
       # Video/Audio
       vlc # Media Player
 
       # Apps
-      # gimp
-      # mypaint
-      dia
       tdesktop
       firefox-wayland
 
@@ -55,6 +50,7 @@
       # unstable packages
       unstable.vscode
       unstable.polychromatic
+      unstable.timeshift
     ];
 
     stateVersion = "22.05";

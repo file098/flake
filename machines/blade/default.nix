@@ -60,8 +60,10 @@
       # displayManager.gdm.wayland = true;
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
+      
     };
   };
+  # services.gnome.sushi.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -87,6 +89,7 @@
     tray-icons-reloaded
     sound-output-device-chooser
     pop-shell
+    color-picker
   ]) ++ (with pkgs; [
     #Gnome packages
     pkgs.gnome3.gnome-tweaks
@@ -119,6 +122,8 @@
 
   hardware.openrazer.enable = true;
   hardware.openrazer.users = [ "${user}" ];
+
+  hardware.keyboard.zsa.enable = true;
 
   #########
   # Sound #
