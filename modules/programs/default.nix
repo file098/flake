@@ -1,1 +1,1 @@
-{ ... }: { imports = [ ./alacritty.nix ]; }
+{ ... }: { imports = [ ./alacritty.nix ./caffeine.nix ]; }
