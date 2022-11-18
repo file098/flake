@@ -1,1 +1,1 @@
-{ ... }: { service.caffeine.enable = true; }
+{ ... }: { services.caffeine.enable = true; }
