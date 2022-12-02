@@ -50,8 +50,8 @@
       fstl # 3D file view
 
       # unstable packages
-      unstable.vscode
-      unstable.polychromatic
+      vscode
+      polychromatic
     ];
 
     stateVersion = "22.05";

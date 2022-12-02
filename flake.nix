@@ -3,9 +3,9 @@
   description = "My Personal NixOS Flake Configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     home-manager = {
-      url = "github:nix-community/home-manager/release-22.05";
+      url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -15,13 +15,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    # nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
   };
 
   # Function that tells my flake which to use and what do what to do with the dependencies.
   outputs = inputs@{ self, nixpkgs, unstable, home-manager, customPkgs
-    , nixos-hardware, ... }:
+    , ... }:
 
     let
       user = "file0";
@@ -55,7 +55,7 @@
               home-manager.users."${user}" = import "${self}/modules";
             }
           ];
-          specialArgs = { inherit inputs user nixos-hardware; };
+          specialArgs = { inherit inputs user; };
         };
       };
     };
