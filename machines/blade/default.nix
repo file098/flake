@@ -5,9 +5,7 @@
 { config, pkgs, lib, user, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   boot = {
     loader = {
@@ -59,7 +57,7 @@
       # displayManager.gdm.wayland = true;
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
-      
+
     };
   };
   # services.gnome.sushi.enable = true;
@@ -89,6 +87,7 @@
     sound-output-device-chooser
     pop-shell
     color-picker
+    caffeine
   ]) ++ (with pkgs; [
     #Gnome packages
     pkgs.gnome3.gnome-tweaks
@@ -147,6 +146,18 @@
 
   services.usbmuxd.enable = true;
 
+  services.openssh = {
+    enable = true;
+    # require public key authentication for better security
+    passwordAuthentication = false;
+    kbdInteractiveAuthentication = false;
+    #permitRootLogin = "yes";
+  };
+
+  services.cron.systemCronJobs = [
+    "* * * * 0,6 rsync -ar --delete --exclude '.*' /home/file0/* wdmycloud:/nfs/faylo98/Backups/PC/. >/dev/null 2>&1"
+  ];
+
   ########
   # User #
   ########
@@ -159,6 +170,11 @@
     shell = pkgs.zsh;
     packages = with pkgs; [ firefox ];
     # passwordFile = config.sops.secrets.my-password.path;
+    openssh = {
+      authorizedKeys.keys = [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDFDnMPTJN2fM5l9vef60ILDN2FAc68oSmV3wwZBNLrbFLpRWvw/1GadxSk2hV4jUunAhKoNfxVPZb3G59eLiRUAM3GJvZXb4pDaxisU2T04iOxMv1lml39VDFzoTNcn+tbUgB5NAHGmQJ8/RmkVvnwrS+QG/QQEOww7x2aL1mWB2E4lCGEheZ0jgFV9ra2wFulPiJGYAzwumWnjP4fHv6cTAYiH7UaJWxaRKAV6t/1qybz0Oi9h7CWfNZcNmcgWqNLDAEbxB4ovgJghTrtFkTrLSe+RtrDymJdRjptrWLD+Vfvh/ctoHGG7IBS2co26MRh9IHi9dhk921b5fmykA1vHAY/IkGuWahXkcV/AUq2J/5VVZoKAiowdCb17zDDbmfDh10xDAHUw0L4UpnGlvFCb4xBKPVZb1Y9FFuHNE7/U5Bm65kccNnlNxSxsQ0y4lytxMKdLYIBoTrq/gvJJe8shLRcpNmBfrT7tS8ilrD8v+s1IOEFyIWip7v6SD07BjGyFwkzyNzScmnYqlzgF8/uQVYUqHxxNQzprN4zjDGP/7vd8w6OZSalzKvrvZawT6ppJmYpVzYagMER4X+CiyC5UoXpgOlPg7Kl+IWcVRKCH4wEOKXr9BwrdsC4Bakzp5p7WXsVkF2cwgoLM5nd7YL9SlfVl4QUeFqAcnU0xHYxrQ== file0@blade"
+      ];
+    };
   };
 
   programs.steam.enable = true;

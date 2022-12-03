@@ -5,6 +5,8 @@
 
   programs.home-manager.enable = true;
 
+  services.caffeine.enable = true;
+
   home = {
     username = "${user}";
     homeDirectory = "/home/${user}";
@@ -27,6 +29,7 @@
       # Apps
       tdesktop
       firefox-wayland
+      timeshift
 
       bitwarden # password manager
       discord
@@ -49,7 +52,6 @@
       unrar # Rar files
       fstl # 3D file view
 
-      # unstable packages
       vscode
       polychromatic
     ];

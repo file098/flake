@@ -37,6 +37,7 @@ in {
       vimPlugins.cmp-buffer
       vimPlugins.cmp-nvim-lsp
       vimPlugins.lspkind-nvim
+      vimPlugins.vim-markdown
       #   {
       #     plugin = pkgs.vimPlugins.lspsaga-nvim;
       #     config = builtins.readFile ./config/lspsaga.vim;
