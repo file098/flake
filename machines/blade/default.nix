@@ -4,9 +4,18 @@
 
 { config, pkgs, lib, user, ... }:
 
-{
+let
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec "$@"
+  '';
+in {
   imports = [ ./hardware-configuration.nix ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot = {
     loader = {
       efi = {
@@ -53,30 +62,29 @@
 
   services = {
     xserver = {
+      videoDrivers = [ "nvidia" ];
       enable = true;
-      # displayManager.gdm.wayland = true;
+      displayManager.gdm.wayland = true;
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
-
     };
   };
-  # services.gnome.sushi.enable = true;
+
+  hardware.nvidia.powerManagement.enable = true;
+  hardware.nvidia.prime = {
+    offload.enable = true;
+
+    # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+    intelBusId = "PCI:0:2:0";
+
+    # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+    nvidiaBusId = "PCI:1:0:0";
+  };
 
   # Configure keymap in X11
   services.xserver = {
     layout = "us";
     xkbVariant = "alt-intl";
-  };
-
-  specialisation = {
-    nvidia-gpu.configuration = {
-      system.nixos.tags = [ "nvidia-gpu" ];
-      # imports = [ nixos-hardware.nixosModules.common-gpu-nvidia ];
-      hardware.nvidia.package =
-        config.boot.kernelPackages.nvidiaPackages.stable;
-      services.xserver.videoDrivers = [ "nvidia" ];
-      environment.systemPackages = with pkgs; [ nvtop glmark2 ];
-    };
   };
 
   environment.systemPackages = (with pkgs.gnomeExtensions; [
@@ -98,6 +106,8 @@
     glxinfo
     intel-gpu-tools
     intel-media-driver
+    nvidia-offload
+    nvtop
 
     libimobiledevice
     ifuse # optional, to mount using 'ifuse'

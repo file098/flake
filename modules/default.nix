@@ -1,4 +1,4 @@
-{ pkgs, user, ... }:
+{ pkgs, user, unstable, ... }:
 
 {
   imports = [ ./desktop ./programs ./shell ];
@@ -21,25 +21,35 @@
       sass
       python3
       gcc
+      cordless
       wally-cli
+      caffeine-ng
 
       # Video/Audio
       vlc # Media Player
+      shotcut
+      spotify
 
       # Apps
       tdesktop
       firefox-wayland
       timeshift
 
+      wine
+      # winetricks (all versions)
+      winetricks
+      # native wayland support (unstable)
+      #wineWowPackages.waylandFull
+
       bitwarden # password manager
-      discord
       lollypop # music player
       nicotine-plus # file sharing
       obsidian
-      wine
+      discord
 
-      spotify
       spotify-tui
+
+      razergenie
 
       whatsapp-for-linux
       transmission-gtk # torrent client
@@ -52,7 +62,7 @@
       unrar # Rar files
       fstl # 3D file view
 
-      vscode
+      unstable.vscode
       polychromatic
     ];
 
