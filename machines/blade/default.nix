@@ -4,32 +4,22 @@
 
 { config, pkgs, lib, user, ... }:
 
-let
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec "$@"
-  '';
-in {
+{
   imports = [ ./hardware-configuration.nix ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # Bootloader.
+  # boot.loader.grub.enable = true;
+  # boot.loader.grub.device = "/dev/nvme0n1";
+  # boot.loader.grub.useOSProber = true;
   boot = {
-    loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
-      grub = {
-        enable = true;
-        version = 2;
-        device = "nodev";
-        useOSProber = true; # use OSProber for separate drive dual booting
-        gfxmodeEfi = "1920x1080";
-        efiSupport = true;
-      };
+    loader.grub = {
+      enable = true;
+      version = 2;
+      device = "/dev/nvme0n1";
+      useOSProber = true; # use OSProber for separate drive dual booting
+      gfxmodeEfi = "1920x1080";
     };
   };
 
@@ -60,9 +50,15 @@ in {
   # Graphics #
   ############
 
+  #  If you experience screen tearing no matter what, this configuration was reported to resolve the issue: 
+  # services.xserver.videoDrivers = [ "intel" ];
+  # services.xserver.deviceSection = ''
+  #   Option "DRI" "2"
+  #   Option "TearFree" "true"
+  # '';
   services = {
     xserver = {
-      videoDrivers = [ "nvidia" ];
+      videoDrivers = [ "modesetting" ];
       enable = true;
       displayManager.gdm.wayland = true;
       displayManager.gdm.enable = true;
@@ -70,22 +66,22 @@ in {
     };
   };
 
-  hardware.nvidia.powerManagement.enable = true;
-  hardware.nvidia.prime = {
-    offload.enable = true;
-
-    # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
-    intelBusId = "PCI:0:2:0";
-
-    # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-    nvidiaBusId = "PCI:1:0:0";
-  };
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "alt-intl";
-  };
+  #  hardware.nvidia.powerManagement.enable = true;
+  # hardware.nvidia.prime = {
+  #  offload.enable = true;
+  #
+  #   # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+  #  intelBusId = "PCI:0:2:0";
+  #
+  #   # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+  #  nvidiaBusId = "PCI:1:0:0";
+  #};
+  #
+  # # Configure keymap in X11
+  #services.xserver = {
+  #  layout = "us";
+  #  xkbVariant = "alt-intl";
+  #};
 
   environment.systemPackages = (with pkgs.gnomeExtensions; [
     # Extentions 
@@ -106,7 +102,7 @@ in {
     glxinfo
     intel-gpu-tools
     intel-media-driver
-    nvidia-offload
+    # nvidia-offload
     nvtop
 
     libimobiledevice
@@ -115,12 +111,13 @@ in {
   ]);
 
   # services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+  services.mongodb.enable = true;
 
   # Excluded Gnome Bloat
   environment.gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
     ++ (with pkgs.gnome; [ cheese gnome-music epiphany gnome-weather ]);
 
-  #############################################################S
+  #############################################################
 
   # Configure console keymap
   console.keyMap = "us";
@@ -179,15 +176,12 @@ in {
     extraGroups = [ "networkmanager" "wheel" config.users.groups.keys.name ];
     shell = pkgs.zsh;
     packages = with pkgs; [ firefox ];
-    # passwordFile = config.sops.secrets.my-password.path;
     openssh = {
       authorizedKeys.keys = [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDFDnMPTJN2fM5l9vef60ILDN2FAc68oSmV3wwZBNLrbFLpRWvw/1GadxSk2hV4jUunAhKoNfxVPZb3G59eLiRUAM3GJvZXb4pDaxisU2T04iOxMv1lml39VDFzoTNcn+tbUgB5NAHGmQJ8/RmkVvnwrS+QG/QQEOww7x2aL1mWB2E4lCGEheZ0jgFV9ra2wFulPiJGYAzwumWnjP4fHv6cTAYiH7UaJWxaRKAV6t/1qybz0Oi9h7CWfNZcNmcgWqNLDAEbxB4ovgJghTrtFkTrLSe+RtrDymJdRjptrWLD+Vfvh/ctoHGG7IBS2co26MRh9IHi9dhk921b5fmykA1vHAY/IkGuWahXkcV/AUq2J/5VVZoKAiowdCb17zDDbmfDh10xDAHUw0L4UpnGlvFCb4xBKPVZb1Y9FFuHNE7/U5Bm65kccNnlNxSxsQ0y4lytxMKdLYIBoTrq/gvJJe8shLRcpNmBfrT7tS8ilrD8v+s1IOEFyIWip7v6SD07BjGyFwkzyNzScmnYqlzgF8/uQVYUqHxxNQzprN4zjDGP/7vd8w6OZSalzKvrvZawT6ppJmYpVzYagMER4X+CiyC5UoXpgOlPg7Kl+IWcVRKCH4wEOKXr9BwrdsC4Bakzp5p7WXsVkF2cwgoLM5nd7YL9SlfVl4QUeFqAcnU0xHYxrQ== file0@blade"
       ];
     };
   };
-
-  programs.steam.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

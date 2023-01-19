@@ -1,7 +1,7 @@
 { pkgs, user, unstable, ... }:
 
 {
-  imports = [ ./desktop ./programs ./shell ];
+  imports = [ ./programs ./shell ];
 
   programs.home-manager.enable = true;
 
@@ -62,8 +62,10 @@
       unrar # Rar files
       fstl # 3D file view
 
-      unstable.vscode
+      vscode
       polychromatic
+      mongodb-compass
+      mongosh
     ];
 
     stateVersion = "22.05";
