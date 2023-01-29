@@ -62,10 +62,13 @@
       unrar # Rar files
       fstl # 3D file view
 
-      vscode
       polychromatic
+      # Development
+      vscode
       mongodb-compass
       mongosh
+      postman
+      node2nix
     ];
 
     stateVersion = "22.05";

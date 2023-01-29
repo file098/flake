@@ -9,10 +9,6 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Bootloader.
-  # boot.loader.grub.enable = true;
-  # boot.loader.grub.device = "/dev/nvme0n1";
-  # boot.loader.grub.useOSProber = true;
   boot = {
     loader.grub = {
       enable = true;
@@ -21,12 +17,27 @@
       useOSProber = true; # use OSProber for separate drive dual booting
       gfxmodeEfi = "1920x1080";
     };
+    plymouth.enable = true;
   };
 
   networking.hostName = "blade"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 80 443 8080 2234  ];
+    allowedUDPPortRanges = [
+      {
+        from = 4000;
+        to = 4007;
+      }
+      {
+        from = 8000;
+        to = 8010;
+      }
+    ];
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
@@ -50,12 +61,6 @@
   # Graphics #
   ############
 
-  #  If you experience screen tearing no matter what, this configuration was reported to resolve the issue: 
-  # services.xserver.videoDrivers = [ "intel" ];
-  # services.xserver.deviceSection = ''
-  #   Option "DRI" "2"
-  #   Option "TearFree" "true"
-  # '';
   services = {
     xserver = {
       videoDrivers = [ "modesetting" ];
@@ -66,29 +71,15 @@
     };
   };
 
-  #  hardware.nvidia.powerManagement.enable = true;
-  # hardware.nvidia.prime = {
-  #  offload.enable = true;
-  #
-  #   # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
-  #  intelBusId = "PCI:0:2:0";
-  #
-  #   # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-  #  nvidiaBusId = "PCI:1:0:0";
-  #};
-  #
-  # # Configure keymap in X11
-  #services.xserver = {
-  #  layout = "us";
-  #  xkbVariant = "alt-intl";
-  #};
+  ###################
+  # System Packages #
+  ###################
 
   environment.systemPackages = (with pkgs.gnomeExtensions; [
     # Extentions 
     appindicator
     dash-to-dock
     tray-icons-reloaded
-    sound-output-device-chooser
     pop-shell
     color-picker
     caffeine
@@ -102,7 +93,6 @@
     glxinfo
     intel-gpu-tools
     intel-media-driver
-    # nvidia-offload
     nvtop
 
     libimobiledevice
@@ -164,6 +154,28 @@
   services.cron.systemCronJobs = [
     "* * * * 0,6 rsync -ar --delete --exclude '.*' /home/file0/* wdmycloud:/nfs/faylo98/Backups/PC/. >/dev/null 2>&1"
   ];
+
+  services.mysql = {
+    enable = true;
+    package = pkgs.mariadb;
+  };
+
+  ##################
+  # Virtualization #
+  ##################
+
+  virtualisation.virtualbox.host = { 
+    enable = true;
+    enableExtensionPack = true;
+  };
+  users.extraGroups.vboxusers.members = [ "file0" ];
+
+  ################
+  # Battery life #
+  ################
+
+  services.thermald.enable = true;
+  services.auto-cpufreq.enable = true;
 
   ########
   # User #
