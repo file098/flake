@@ -33,6 +33,7 @@
           inherit system;
           modules = [
             ./nix.nix
+            ./machines
             ./machines/blade
             
         nixos-hardware.nixosModules.common-pc-laptop-ssd
