@@ -5,32 +5,27 @@
 { config, pkgs, lib, user, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ ./hardware-configuration.nix ./nvidia-specialisation];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/nvme0n1";
-    useOSProber = true;
+  boot = {
+    loader = {
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
+      grub = {
+        enable = true;
+        version = 2;
+        device = "nodev";
+        # useOSProber = true; # use OSProber for separate drive dual booting
+        gfxmodeEfi = "1920x1080";
+        # efiSupport = true;
+      };
+    };
+    plymouth.enable = true;
   };
-  # boot = {
-  #   loader = {
-  #     efi = {
-  #       canTouchEfiVariables = true;
-  #       efiSysMountPoint = "/boot";
-  #     };
-  #     grub = {
-  #       enable = true;
-  #       version = 2;
-  #       device = "nodev";
-  #       useOSProber = true; # use OSProber for separate drive dual booting
-  #       gfxmodeEfi = "1920x1080";
-  #       # efiSupport = true;
-  #     };
-  #   };
-  #   plymouth.enable = true;
-  # };
 
   networking = {
     hostName = "blade"; # Define your hostname.
