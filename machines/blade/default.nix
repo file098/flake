@@ -5,7 +5,7 @@
 { config, pkgs, lib, user, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./nvidia-specialisation];
+  imports = [ ./hardware-configuration.nix ./nvidia-specialisation.nix ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
