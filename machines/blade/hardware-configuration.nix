@@ -10,7 +10,7 @@
     [ "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.kernelParams = [ "quiet" "splash" ];
+  boot.kernelParams = [ "quiet" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {

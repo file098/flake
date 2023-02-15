@@ -29,6 +29,7 @@
         "update" = "nix flake update";
         "tidal" = "nix run github:jordanisaacs/neovim-flake#tidal file.tidal";
         "ng" = "npx -p @angular/cli ng";
+        "sudo" = "doas";
       };
     };
   };

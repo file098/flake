@@ -10,11 +10,6 @@
       inputs.nixpkgs.follows = "unstable";
     };
 
-    # customPkgs = {
-    #   url = "path:./overlays/vim";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
   };

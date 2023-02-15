@@ -14,21 +14,77 @@
         #Home manager
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit user; };
-          home-manager.users."${user}" = import "${self}/modules";
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = { inherit user; };
+            users."${user}" = import "${self}/modules";
+          };
         }
 
+        # Common shared config
         {
-          networking.hostName = "${hostName}";
+          # Set your time zone.
+          time.timeZone = "Europe/Rome";
 
-          users.users.file0 = {
-            isNormalUser = true;
-            description = "Filippo";
-            extraGroups = [ "networkmanager" "wheel" ];
-            # packages = with pkgs; [ ];
+          # Select internationalisation properties.
+          i18n.defaultLocale = "en_US.utf8";
+
+          i18n.extraLocaleSettings = {
+            LC_ADDRESS = "it_IT.utf8";
+            LC_IDENTIFICATION = "it_IT.utf8";
+            LC_MEASUREMENT = "it_IT.utf8";
+            LC_MONETARY = "it_IT.utf8";
+            LC_NAME = "it_IT.utf8";
+            LC_NUMERIC = "it_IT.utf8";
+            LC_PAPER = "it_IT.utf8";
+            LC_TELEPHONE = "it_IT.utf8";
+            LC_TIME = "it_IT.utf8";
           };
+
+          # Configure console keymap
+          console.keyMap = "us";
+
+          #########
+          # Sound #
+          #########
+
+          # Enable sound with pipewire.
+          sound.enable = true;
+          hardware.pulseaudio.enable = false;
+          security.rtkit.enable = true;
+          services.pipewire = {
+            enable = true;
+            alsa.enable = true;
+            alsa.support32Bit = true;
+            pulse.enable = true;
+            # If you want to use JACK applications, uncomment this
+            jack.enable = true;
+          };
+
+          ############
+          # Services #
+          ############
+
+          services = {
+            usbmuxd.enable = true;
+
+            openssh = {
+              enable = true;
+              # require public key authentication for better security
+              passwordAuthentication = false;
+              kbdInteractiveAuthentication = false;
+              #permitRootLogin = "yes";
+            };
+
+            printing.enable = true;
+            avahi = {
+              enable = true;
+              openFirewall = true;
+            };
+          };
+
+          hardware.keyboard.zsa.enable = true;
 
           system.stateVersion = "22.05";
         }

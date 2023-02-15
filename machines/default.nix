@@ -22,6 +22,12 @@
   # Configure console keymap
   console.keyMap = "us";
 
+  security.doas = { 
+    enable = true;
+    extraConfig = "permit persist :wheel";
+  };
+
+
   ############
   # Graphics #
   ############
@@ -35,11 +41,6 @@
       desktopManager.gnome.enable = true;
     };
   };
-
-  # Excluded Gnome Bloat
-  environment.gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
-    ++ (with pkgs.gnome; [ cheese gnome-music epiphany gnome-weather ]);
-  # services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 
   #########
   # Sound #
@@ -96,7 +97,6 @@
     description = "Filippo";
     extraGroups = [ "networkmanager" "wheel" config.users.groups.keys.name ];
     shell = pkgs.zsh;
-    packages = with pkgs; [ firefox ];
     openssh = {
       authorizedKeys.keys = [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDFDnMPTJN2fM5l9vef60ILDN2FAc68oSmV3wwZBNLrbFLpRWvw/1GadxSk2hV4jUunAhKoNfxVPZb3G59eLiRUAM3GJvZXb4pDaxisU2T04iOxMv1lml39VDFzoTNcn+tbUgB5NAHGmQJ8/RmkVvnwrS+QG/QQEOww7x2aL1mWB2E4lCGEheZ0jgFV9ra2wFulPiJGYAzwumWnjP4fHv6cTAYiH7UaJWxaRKAV6t/1qybz0Oi9h7CWfNZcNmcgWqNLDAEbxB4ovgJghTrtFkTrLSe+RtrDymJdRjptrWLD+Vfvh/ctoHGG7IBS2co26MRh9IHi9dhk921b5fmykA1vHAY/IkGuWahXkcV/AUq2J/5VVZoKAiowdCb17zDDbmfDh10xDAHUw0L4UpnGlvFCb4xBKPVZb1Y9FFuHNE7/U5Bm65kccNnlNxSxsQ0y4lytxMKdLYIBoTrq/gvJJe8shLRcpNmBfrT7tS8ilrD8v+s1IOEFyIWip7v6SD07BjGyFwkzyNzScmnYqlzgF8/uQVYUqHxxNQzprN4zjDGP/7vd8w6OZSalzKvrvZawT6ppJmYpVzYagMER4X+CiyC5UoXpgOlPg7Kl+IWcVRKCH4wEOKXr9BwrdsC4Bakzp5p7WXsVkF2cwgoLM5nd7YL9SlfVl4QUeFqAcnU0xHYxrQ== file0@blade"

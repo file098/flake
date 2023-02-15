@@ -27,8 +27,8 @@
 
       # Video/Audio
       vlc # Media Player
-      shotcut
       spotify
+      kdenlive
 
       # Apps
       tdesktop
@@ -63,6 +63,7 @@
       fstl # 3D file view
 
       polychromatic
+
       # Development
       vscode
       mongodb-compass
