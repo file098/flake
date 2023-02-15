@@ -18,9 +18,9 @@
       };
       shellAliases = {
         ".." = "cd ..";
-        "ls" = "exa --icons";
-        "ll" = "exa -l";
-        "l" = "exa -la";
+        # "ls" = "exa --icons";
+        # "ll" = "exa -l";
+        # "l" = "exa -la";
         "build" =
           "sudo nixos-rebuild build --flake '/home/${user}/nixos-config#'";
         "switch" =
