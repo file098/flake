@@ -51,8 +51,13 @@
   # System Packages #
   ###################
 
+  # Excluded Gnome Bloat
+  environment.gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
+    ++ (with pkgs.gnome; [ cheese gnome-music epiphany gnome-weather ]);
+  # services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+
   environment.systemPackages = (with pkgs.gnomeExtensions; [
-    # Extentions 
+    # Gnome Extentions 
     appindicator
     dash-to-dock
     tray-icons-reloaded
@@ -92,16 +97,6 @@
   };
 
   programs.steam.enable = true;
-
-  ##################
-  # Virtualization #
-  ##################
-
-  virtualisation.virtualbox.host = {
-    enable = true;
-    enableExtensionPack = true;
-  };
-  users.extraGroups.vboxusers.members = [ "file0" ];
 
   ################
   # Battery life #
