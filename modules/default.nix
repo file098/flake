@@ -1,15 +1,14 @@
-{ pkgs, user, unstable, ... }:
-
+{ pkgs, ... }:
 {
-  imports = [ ./programs ./shell ];
+  imports = [ ./programs ./shell ./coding ];
 
   programs.home-manager.enable = true;
 
   services.caffeine.enable = true;
 
   home = {
-    username = "${user}";
-    homeDirectory = "/home/${user}";
+    username = "file0";
+    homeDirectory = "/home/file0";
 
     packages = with pkgs; [
       pfetch # Minimal fetch
@@ -23,7 +22,8 @@
       gcc
       cordless
       wally-cli
-      caffeine-ng
+      nordic
+      zathura
 
       # Video/Audio
       vlc # Media Player
@@ -35,19 +35,12 @@
       firefox-wayland
       timeshift
 
-      wine
-      # winetricks (all versions)
-      winetricks
-      # native wayland support (unstable)
-      #wineWowPackages.waylandFull
-
       bitwarden # password manager
       lollypop # music player
       nicotine-plus # file sharing
       obsidian
       discord
-
-      spotify-tui
+      protonvpn-gui
 
       razergenie
 
@@ -66,13 +59,13 @@
 
       # Development
       vscode
-      mongodb-compass
-      mongosh
+      # mongodb-compass
+      # mongosh
       postman
       node2nix
     ];
 
-    stateVersion = "22.05";
+    stateVersion = "22.11";
   };
 
 }

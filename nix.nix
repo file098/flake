@@ -1,9 +1,6 @@
 # Nix Package Manager settings
 { pkgs, ... }: {
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   nix = {
     # Enable nixFlakes on system
     package = pkgs.nixVersions.stable;
