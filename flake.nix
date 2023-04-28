@@ -39,5 +39,16 @@
           };
         };
       };
+      nixosConfiguration = {
+        boxy = host.mkMachine {
+          hostName = "boxy";
+          user = user.mkSystemUser {
+            name = "file0";
+            groups = ["wheel" "networkmanager" "audio" "video" ];
+            uid = 1000;
+            shell = pkgs.zsh;
+          };
+        };
+      };
     };
 }
