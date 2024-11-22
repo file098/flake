@@ -38,13 +38,23 @@
     # TODO Feel free to add your favorite apps here.
     brews = [
       # "aria2"  # download tool
+      "vite"
+      "node"
+      "docker"
     ];
 
     # `brew install --cask`
     # TODO Feel free to add your favorite apps here.
     casks = [
       "visual-studio-code"
-      # "google-chrome"
+      "telegram"
+      "logi-options+"
+      "figma"
+      "mongodb-compass"
+      "postman"
+      "transmission"
+      "soulseek"
+      "spotify"
     ];
   };
 }
